@@ -1,0 +1,19 @@
+# App Gestão Financeira - Open Finance
+
+App de gestão financeira pessoal com integração à API Open Finance Brasil. Automatiza importação de transações bancárias, organiza finanças pessoais e permite divisão inteligente de despesas com foco em privacidade.
+
+## Tecnologias
+- React Native + Expo
+- Node.js + Express.js
+- Firebase
+- API Open Finance Brasil
+
+## Rodando o projeto
+
+### Instalar dependências
+```bash
+cd app
+npm install
+
+cd ../backend
+npm install
