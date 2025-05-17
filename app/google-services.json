@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "104043920090",
+    "project_id": "monkey-f805b",
+    "storage_bucket": "monkey-f805b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104043920090:android:d6c1b60a6232d84765c3e3",
+        "android_client_info": {
+          "package_name": "monkey.app.financeiro.open.finance.TCC"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC81YNWKiJePrR12KOYk7dFGc7sZkaiJaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
