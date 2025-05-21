@@ -1,15 +1,8 @@
-module.exports = function (api) {
-    api.cache(true);
-    return {
-        presets: ['babel-preset-expo'],
-        plugins: [
-            // Para que o dotenv funcione com app.config.js
-            ['module:react-native-dotenv', {
-                moduleName: '@env',
-                path: '.env',
-                safe: false,
-                allowUndefined: true,
-            }],
-        ],
-    };
+import {
+    FIREBASE_API_KEY,
+    FIREBASE_AUTH_DOMAIN
+} from "@env";
+
+const firebaseConfig = {
+    apiKey: FIREBASE_API_KEY
 };
