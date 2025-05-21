@@ -8,6 +8,7 @@ APP-GESTAO-FINANCEIRA/
 │   ├── .gitignore 
 │   ├── APP-Gestao-financeira.iml
 │   ├── git_toolbox_blame.xml
+│   ├── Kotlinc.xml
 │   ├── misc.xml
 │   ├── modules.xml
 │   ├── vcs.xml
@@ -28,9 +29,9 @@ APP-GESTAO-FINANCEIRA/
 │   │         │    ├── round-icons-nBs_Fxr4dwk-unsplash.png
 │   │         │    └── round-icons-UHpQvEG56XY-unsplash.png
 │   │         ├── Logo/
-│   │         │    ├── nome,logo-400dpi 1024x500.png
-│   │         │    ├── Sagui,cabeça-400dpi 192x192.png
-│   │         │    └── Sagui,logo-400dpi 512x512.png
+│   │         │    ├── nome-logo-400dpi 1024x500.png
+│   │         │    ├── Sagui-cabeça-400dpi 192x192.png
+│   │         │    └── Sagui-logo-400dpi 512x512.png
 │   │         ├── adaptive-icon.png
 │   │         ├── favicon.png
 │   │         ├── icon.png
@@ -62,34 +63,41 @@ APP-GESTAO-FINANCEIRA/
 │   │   └── useThemeColor.ts 
 │   ├── navigation/ 
 │   │   └── index.tsx
-│   ├── node_modules/
-│   ├── screens/ (vazio)
+│   ├── screens/ 
+│   │   └── InitialFlowScreen.tsx
 │   ├── scripts/
 │   │   └── reset-project.js
 │   ├── services/
 │   │   └── firebaseConfig.ts
 │   ├── Styles/
-│   │   └── InitialFlow.StyleSheet.create
+│   │   └── InitialFlow.styles.ts
 │   ├── _layout.tsx
-│   ├── .env
-│   ├── .env.example
 │   ├── .gitignore
 │   ├── app.config.js
 │   ├── app.json
 │   ├── babel.config.js
 │   ├── eslint.config.js
-│   ├── package-lock.json
-│   ├── package.json
-│   └── tsconfig.json
+│   └── README.md
 ├── backend/
+│    ├── config/
+│    ├── controllers/
+│    ├── middlewares/
+│    ├── routes/
+│    ├── services/
+│    ├── utils/
 │    ├── package.json
 │    └── server.js
 ├── design/ 
 ├── docs/
+│    ├── Estrutura - Monkey.txt
 │    └── requisitos.md
+├── node_modules
+├── .env
+├── .env.example
 ├── .gitignore
 ├── google-services.json
 ├── LICENSE
 ├── package-lock.json
 ├── package.json
-└── README.md
+├── README.md
+└── tsconfig.json
