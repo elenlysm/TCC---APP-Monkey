@@ -68,11 +68,13 @@ APP-GESTAO-FINANCEIRA/
 │   │   └── reset-project.js
 │   ├── services/
 │   │   └── firebaseConfig.ts
+│   ├── Styles/
+│   │   └── InitialFlow.StyleSheet.create
+│   ├── _layout.tsx
 │   ├── .env
 │   ├── .env.example
 │   ├── .gitignore
 │   ├── app.config.js
-│   ├── App.js
 │   ├── app.json
 │   ├── babel.config.js
 │   ├── eslint.config.js
