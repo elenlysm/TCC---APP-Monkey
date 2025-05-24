@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import {
-    SafeAreaView,
-    View,
-    ScrollView,
-    Text,
+    Dimensions,
     Image,
     ImageBackground,
+    SafeAreaView,
+    ScrollView,
+    Text,
     TouchableOpacity,
-    TextInput,
-    StyleSheet,
-    Dimensions,
+    View
 } from "react-native";
+import { styles } from "../styles/InitialFlow.styles";
 
 const { height } = Dimensions.get("window");
 
@@ -28,12 +27,12 @@ export default function WelcomeFlowScreen() {
                 {/* Boas-vindas */}
                 <View style={styles.page}>
                     <ImageBackground
-                        source={require("../assets/layout/bg-boasvindas.png")}
+                        source={require("../assets/Layout/deep-unsplash.png")}
                         style={styles.fullScreen}
                         resizeMode="cover"
                     >
                         <Image
-                            source={require("../assets/layout/logo.png")}
+                            source={require("../assets/Logo/nome-logo-400dpi 1024x500.png")}
                             style={styles.logo}
                             resizeMode="contain"
                         />
@@ -83,28 +82,6 @@ export default function WelcomeFlowScreen() {
                         </TouchableOpacity>
                     </ImageBackground>
                 </View>
-
-                {/* Tela de Cadastro */}
-                <View style={styles.page}>
-                    <ImageBackground
-                        source={require("../assets/layout/cadastro-bg.png")}
-                        style={styles.fullScreen}
-                        resizeMode="cover"
-                    >
-                        <Text style={styles.label}>Nome Completo:</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Digite seu nome"
-                            value={name}
-                            onChangeText={setName}
-                            placeholderTextColor="#999"
-                        />
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Enviar</Text>
-                        </TouchableOpacity>
-                    </ImageBackground>
-                </View>
-
             </ScrollView>
         </SafeAreaView>
     );

@@ -1,13 +1,22 @@
-const styles = StyleSheet.create({
+import { StyleSheet } from 'react-native';
+export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#FFFFC6",
+    },
+    ImageBackground: {
+        width: 917,
+        height: 917,
+        marginTop: -37,
+        marginBottom: 37,
+        marginLeft: -253,
+        marginRight: -252,
     },
     scrollView: {
         flex: 1,
     },
     page: {
-        height: height,
+        height: "100%",
         alignItems: "center",
         justifyContent: "center",
     },
