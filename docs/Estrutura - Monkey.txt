@@ -2,6 +2,9 @@ Estrutura - Monkey
 
 
 APP-GESTAO-FINANCEIRA/ 
+├── .expo/
+│   ├── devices.json
+│   └── README.md
 ├── .idea/ 
 │   ├── caches/
 │   │   └── deviceStreaming.xml
@@ -16,9 +19,6 @@ APP-GESTAO-FINANCEIRA/
 ├── .vscode/
 │       └── settings.json
 ├── app/
-│   └── .expo/
-│   │   ├── devices.json
-│   │   └── README.md
 │   ├── assets/
 │   │   ├── fonts/
 │   │   │   └── SpaceMono-Regular.ttf
@@ -65,8 +65,6 @@ APP-GESTAO-FINANCEIRA/
 │   │   └── index.tsx
 │   ├── screens/ 
 │   │   └── InitialFlowScreen.tsx
-│   ├── scripts/
-│   │   └── reset-project.js
 │   ├── services/
 │   │   └── firebaseConfig.ts
 │   ├── Styles/
@@ -75,7 +73,6 @@ APP-GESTAO-FINANCEIRA/
 │   ├── .gitignore
 │   ├── app.config.js
 │   ├── app.json
-│   ├── babel.config.js
 │   ├── eslint.config.js
 │   └── README.md
 ├── backend/
@@ -92,9 +89,12 @@ APP-GESTAO-FINANCEIRA/
 │    ├── Estrutura - Monkey.txt
 │    └── requisitos.md
 ├── node_modules
+├── scripts/
+│   └── reset-project.js
 ├── .env
 ├── .env.example
 ├── .gitignore
+├── babel.config.js
 ├── google-services.json
 ├── LICENSE
 ├── package-lock.json
