@@ -1,18 +1,15 @@
 // app/firebaseConfig.ts
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import Constants from 'expo-constants';
-
-const {
+import {
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
   FIREBASE_PROJECT_ID,
   FIREBASE_STORAGE_BUCKET,
   FIREBASE_MESSAGING_SENDER_ID,
   FIREBASE_APP_ID,
-} = Constants.expoConfig?.extra || {};
+} from '@env';
 
-// Verifica se todas as variáveis estão presentes
 if (
   !FIREBASE_API_KEY ||
   !FIREBASE_AUTH_DOMAIN ||
@@ -33,7 +30,6 @@ const firebaseConfig = {
   appId: FIREBASE_APP_ID,
 };
 
-// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
