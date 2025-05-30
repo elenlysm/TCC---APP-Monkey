@@ -24,7 +24,7 @@ APP-GESTAO-FINANCEIRA/
 │   │   │   └── SpaceMono-Regular.ttf
 │   │   └── images/
 │   │         ├── Layout/
-│   │         │    ├── deep-0ECAhyBYxhE-unsplash(1).png
+│   │         │    ├── deep-unsplash.png
 │   │         │    ├── public-domain-vectors--8j0sQmeNls-unsplash.png
 │   │         │    ├── round-icons-nBs_Fxr4dwk-unsplash.png
 │   │         │    └── round-icons-UHpQvEG56XY-unsplash.png
@@ -64,11 +64,16 @@ APP-GESTAO-FINANCEIRA/
 │   ├── navigation/ 
 │   │   └── index.tsx
 │   ├── screens/ 
-│   │   └── InitialFlowScreen.tsx
+│   │   ├── coabitacao.tsx
+│   │   ├── configuracoes.tsx
+│   │   ├── home.tsx
+│   │   ├── modal.tsx
+│   │   ├── orcamentos-e-metas.tsx
+│   │   ├── relatorios-e-analises.tsx
+│   │   ├── tela-inicial.tsx
+│   │   └── transacoes.tsx
 │   ├── services/
 │   │   └── firebaseConfig.ts
-│   ├── Styles/
-│   │   └── InitialFlow.styles.ts
 │   ├── _layout.tsx
 │   ├── .gitignore
 │   ├── app.config.js

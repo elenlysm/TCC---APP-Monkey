@@ -8,6 +8,7 @@
     "paths": {
       "@/*": ["app/*"] }
 },
-  "include": ["app", "assets", "babel.config.js", "metro.config.js", "scripts"],
+
+  "include": ["app", "assets", "babel.config.js", "env.d.ts", "metro.config.js", "scripts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
