@@ -1,4 +1,11 @@
-//dashboard do aplicativo   
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text } from 'react-native';
+
+export default function DashboardScreen() {
+    return (
+        <View>
+            <Text>Saldo: R$ 0,00</Text>
+            <Text>Transações recentes</Text>
+            {/* Aqui depois colocamos a lista de transações */}
+        </View>
+    );
+}

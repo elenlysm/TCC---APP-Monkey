@@ -64,6 +64,26 @@ coverage/
 # Binary addons
 build/Release
 
+# Expo updates cache
+expo-updates/
+
+# React Native Packager cache
+*.metro-cache/
+
+#Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Android
+*.keystore
+
+# Xcode
+xcuserdata/
+*.xcuserstate
+
 # Misc
 .DS_Store
 Thumbs.db
+.log
