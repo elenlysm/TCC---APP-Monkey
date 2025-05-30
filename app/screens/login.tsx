@@ -1,72 +1,71 @@
-import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import Container from '../components/Container';
+import Button from '../components/Button';
+import { colors, fonts, fontSizes } from '../theme';
 
-interface InputFieldProps {
-    label: string;
-    placeholder?: string;
-    secureTextEntry?: boolean;
-}
+export default function LoginScreen({ navigation }: any) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-function InputField({ label, placeholder, secureTextEntry }: InputFieldProps) {
     return (
-        <View style={styles.inputField}>
-            <Text style={styles.label}>{label}</Text>
+        <Container>
+            <Text style={styles.label}>E-mail:</Text>
             <TextInput
                 style={styles.input}
-                placeholder={placeholder}
-                placeholderTextColor="#B3B3B3"
-                secureTextEntry={secureTextEntry}
+                placeholder="Digite seu e-mail"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
             />
-        </View>
-    );
-}
 
-export default function FormLogin() {
-    return (
-        <View style={styles.container}>
-            <InputField label="E-mail :" placeholder="@email.com" />
-            <InputField label="Senha :" secureTextEntry />
+            <Text style={styles.label}>Senha:</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Digite sua senha"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+            />
 
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Entrar</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
+                <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
             </TouchableOpacity>
-        </View>
+
+            <View style={styles.buttonGroup}>
+                <Button title="Entrar" onPress={() => console.log('Entrar')} />
+            </View>
+        </Container>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 15,
-        gap: 10,
-    },
-    inputField: {
-        gap: 5,
-    },
     label: {
-        fontSize: 16,
-        fontFamily: 'Anonymous Pro',
-        color: '#1E1E1E',
+        fontFamily: fonts.main,
+        fontSize: fontSizes.label,
+        color: colors.textPrimary,
+        marginBottom: 8,
     },
     input: {
-        backgroundColor: '#FFF',
-        borderColor: '#D9D9D9',
         borderWidth: 1,
+        borderColor: colors.border,
         borderRadius: 8,
-        paddingHorizontal: 16,
         paddingVertical: 12,
-        fontSize: 16,
-        fontFamily: 'Anonymous Pro',
+        paddingHorizontal: 16,
+        fontSize: fontSizes.regular,
+        fontFamily: fonts.secondary,
+        color: colors.textPrimary,
+        marginBottom: 16,
     },
-    button: {
-        marginTop: 20,
-        backgroundColor: '#2C2C2C',
-        padding: 12,
-        borderRadius: 8,
-        alignItems: 'center',
+    forgotPassword: {
+        color: colors.primary,
+        textAlign: 'right',
+        marginBottom: 24,
+        fontFamily: fonts.main,
     },
-    buttonText: {
-        color: '#F5F5F5',
-        fontSize: 16,
-        fontFamily: 'Anonymous Pro',
+    buttonGroup: {
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
 });
