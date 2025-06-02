@@ -4,6 +4,7 @@ module.exports = function (api) {
     return {
         // Preset padrão do Expo para React Native
         presets: ['babel-preset-expo'],
+        plugins: ['react-native-reanimated/plugin'],
         plugins: [
             ['module:react-native-dotenv', {
                 // Nome do módulo que você usa para importar variáveis de ambiente

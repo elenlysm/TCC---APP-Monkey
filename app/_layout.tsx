@@ -1,45 +1,29 @@
-import { View, StyleSheet } from "react-native";
-import { useState } from 'react';
-import NavigationDrawer from "./components/NavigationDrawer";
-import Home from "./screens/home";
-import Transacoes from "./screens/transacoes";
-import OrcamentosEMetas from "./screens/orcamentos-e-metas";
+import React, { useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { Slot } from 'expo-router';
+import NavigationDrawer from './components/NavigationDrawer';
 
 export default function Layout() {
-    const [activeScreen, setActiveScreen] = useState('Dashboard');
-
-    const renderScreen = () => {
-        switch (activeScreen) {
-            case 'Dashboard':
-                return <Home />;
-            case 'Transactions':
-                return <Transacoes />;
-            case 'Budget':
-                return <OrcamentosEMetas />;
-            default:
-                return <Home />;
-        }
-    };
-
-    const handleLogout = () => {
-        console.log('Logout...');
-    };
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
 
     return (
         <View style={styles.container}>
-            <NavigationDrawer
-                activeItem={activeScreen}
-                onNavigate={setActiveScreen}
-                onLogout={handleLogout}
-            />
+            {isDrawerOpen && <NavigationDrawer closeDrawer={() => setDrawerOpen(false)} />}
             <View style={styles.content}>
-                {renderScreen()}
+                <TouchableOpacity onPress={() => setDrawerOpen(true)} style={styles.menuButton}>
+                    <Text>☰</Text>
+                </TouchableOpacity>
+                <Slot />
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flexDirection: 'row', flex: 1 },
-    content: { flex: 1, backgroundColor: '#fff' },
+    container: { flex: 1, flexDirection: 'row' },
+    content: { flex: 1 },
+    menuButton: {
+        padding: 10,
+        backgroundColor: '#eee',
+    },
 });

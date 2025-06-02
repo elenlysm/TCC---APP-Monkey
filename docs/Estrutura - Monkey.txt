@@ -71,17 +71,19 @@ APP-GESTAO-FINANCEIRA/
 │   ├── navigation/ 
 │   │   └── index.tsx
 │   ├── screens/ 
-│   │   ├── cadastro.tsx
+│   │   ├── auth/
+│   │   │   ├── cadastro.tsx
+│   │   │   ├── esqueceu-a-senha.tsx
+│   │   │   └── login.tsx
+│   │   ├── financeiro/
+│   │   │   ├── orcamentos-e-metas.tsx
+│   │   │   ├── relatorios-e-analises.tsx
+│   │   │   └── transacoes.tsx
 │   │   ├── coabitacao.tsx
 │   │   ├── configuracoes.tsx
-│   │   ├── esqueceu-a-senha.tsx
 │   │   ├── home.tsx
-│   │   ├── login.tsx
 │   │   ├── modal.tsx
-│   │   ├── orcamentos-e-metas.tsx
-│   │   ├── relatorios-e-analises.tsx
-│   │   ├── tela-inicial.tsx
-│   │   └── transacoes.tsx
+│   │   └── tela-inicial.tsx
 │   ├── services/
 │   │   └── firebaseConfig.ts
 │   ├── styles/
