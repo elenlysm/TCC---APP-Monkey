@@ -42,14 +42,21 @@ APP-GESTAO-FINANCEIRA/
 │   │         └── splash-icon.png
 │   ├── components/
 │   │       ├── ui/
+│   │       │   ├── AuthBackground.tsx
 │   │       │   ├── IconSymbol.ios.tsx
 │   │       │   ├── IconSymbol.tsx
 │   │       │   ├── TabBarBackground.ios.tsx
 │   │       │   └── TabBarBackground.tsx 
+│   │       ├── AuthLayout.tsx
+│   │       ├── Button.tsx
 │   │       ├── Collapsible.tsx
+│   │       ├── container.tsx
 │   │       ├── ExternalLink.tsx
 │   │       ├── HapticTab.tsx
+│   │       ├── Header.tsx
 │   │       ├── HelloWave.tsx
+│   │       ├── MenuFechado.tsx
+│   │       ├── NavigationDrawer.tsx
 │   │       ├── ParallexScrollView.tsx
 │   │       ├── ThemedText.tsx
 │   │       └── ThemedView.tsx
@@ -77,10 +84,12 @@ APP-GESTAO-FINANCEIRA/
 │   │   └── transacoes.tsx
 │   ├── services/
 │   │   └── firebaseConfig.ts
+│   ├── styles/
+│   │   └── colors.ts
 │   ├── utils/
 │   │   └── security.ts
 │   ├── _layout.tsx
-│   ├── .gitignore
+│   ├── .prettierrc.js
 │   ├── app.config.js
 │   ├── app.json
 │   ├── eslint.config.js
