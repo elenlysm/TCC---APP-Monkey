@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import Container from '../components/Container';
-import Button from '../components/Button';
-import { colors, fonts, fontSizes } from '../theme';
+import Container from '../../components/Container';
+import Button from '../../components/Button';
+import { colors, fonts, fontSizes } from '../../theme';
 
 export default function LoginScreen({ navigation }: any) {
     const [email, setEmail] = useState('');
