@@ -32,6 +32,18 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-export const db = getFirestore(app);
+
 export { app, auth };
+const firebase = require('firebase/app');
+require('firebase/auth');
+require('firebase/firestore');
+
+firebase.initializeApp({
+  apiKey: "<API_KEY>",
+  authDomain: "<PROJECT_ID>.firebaseapp.com",
+  projectId: "<PROJECT_ID>",
+  // outros dados do config
+});
+
+const db = firebase.firestore();
+const auth = firebase.auth();

@@ -2,8 +2,12 @@
 
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config();
+
+const authRoutes = require('./authRoutes');
+const authMiddleware = require('./authMiddleware');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -12,6 +16,16 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+
+app.use('/auth', authRoutes);
+
+app.get('/private', authMiddleware, (req, res) => {
+    res.json({ message: `Olá, ${req.user.email}. Você está autenticado!` });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 
 // Rotas de exemplo
 app.get('/', (req, res) => {

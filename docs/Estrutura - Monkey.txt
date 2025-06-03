@@ -97,12 +97,20 @@ APP-GESTAO-FINANCEIRA/
 │   ├── README.md
 │   └── theme.ts
 ├── backend/
+│    ├── .expo/
+│    │   ├── devices.json
+│    │   └── README.md
 │    ├── config/
 │    ├── controllers/
 │    ├── middlewares/
+│    ├── node_modules/
 │    ├── routes/
+│    │   └──api.js
 │    ├── services/
 │    ├── utils/
+│    ├── .env
+│    ├── index.js
+│    ├── package-lock.json
 │    ├── package.json
 │    └── server.js
 ├── design/ 
