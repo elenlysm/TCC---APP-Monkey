@@ -86,16 +86,16 @@ APP-GESTAO-FINANCEIRA/
 │   │   └── tela-inicial.tsx
 │   ├── services/
 │   │   └── firebaseConfig.ts
-│   ├── styles/
-│   │   └── colors.ts
 │   ├── utils/
 │   │   └── security.ts
 │   ├── _layout.tsx
 │   ├── .prettierrc.js
 │   ├── app.config.js
 │   ├── app.json
+│   ├── declarations.d.ts
 │   ├── eslint.config.js
-│   └── README.md
+│   ├── README.md
+│   └── theme.ts
 ├── backend/
 │    ├── config/
 │    ├── controllers/
