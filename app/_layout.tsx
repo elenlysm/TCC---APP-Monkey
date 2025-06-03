@@ -8,11 +8,13 @@ export default function Layout() {
 
     return (
         <View style={styles.container}>
-            {isDrawerOpen && <NavigationDrawer closeDrawer={() => setDrawerOpen(false)} />}
+            <NavigationDrawer isOpen={isDrawerOpen} closeDrawer={() => setDrawerOpen(false)} />
+
             <View style={styles.content}>
-                <TouchableOpacity onPress={() => setDrawerOpen(true)} style={styles.menuButton}>
+                <TouchableOpacity onPress={() => setDrawerOpen(prev => !prev)} style={styles.menuButton}>
                     <Text>☰</Text>
                 </TouchableOpacity>
+
                 <Slot />
             </View>
         </View>
@@ -20,7 +22,7 @@ export default function Layout() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, flexDirection: 'row' },
+    container: { flex: 1 },
     content: { flex: 1 },
     menuButton: {
         padding: 10,

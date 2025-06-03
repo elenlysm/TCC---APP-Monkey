@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, TextInput, Button, FlatList, Text } from 'react-native';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
-import { db } from '../services/firebaseConfig';
+import { db } from '../../services/firebaseConfig';
 
 export default function TransacoesScreen() {
     const [descricao, setDescricao] = useState('');
