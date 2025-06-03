@@ -1,4 +1,5 @@
 const openFinanceService = require('../services/openFinanceService');
+const tokenService = require('../services/tokenService');
 
 const handleAuthorization = async (req, res) => {
     const { code, userId } = req.body;
@@ -10,21 +11,6 @@ const handleAuthorization = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-
-const collectStatements = async (req, res) => {
-    const { accessToken, userId } = req.body;
-    try {
-        const statements = await openFinanceService.fetchBankStatements(accessToken);
-        await openFinanceService.updateTransactions(userId, statements);
-        res.status(200).json({ message: 'Transações atualizadas com sucesso' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
-module.exports = { handleAuthorization, collectStatements };
-const openFinanceService = require('../services/openFinanceService');
-const tokenService = require('../services/tokenService');
 
 const collectStatements = async (req, res) => {
     const { userId } = req.body;
@@ -60,4 +46,4 @@ const collectStatements = async (req, res) => {
     }
 };
 
-module.exports = { collectStatements };
+module.exports = { handleAuthorization, collectStatements };

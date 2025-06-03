@@ -38,42 +38,39 @@ Passos para instalação
 1. Clonar o repositório
 2. Instalar dependências do frontend
 
-bash
 cd app
 npm install
 
 3. Instalar dependências do backend
 
-bash
 cd ../backend
 npm install
 
 4. Configurar variáveis de ambiente (criar arquivo .env na raiz do frontend e backend conforme documentação)
 5. Rodar o backend
 
-bash
 cd backend
 npm start
 
 6. Rodar o frontend
 
-bash
 cd ../app
 npm start
 
 ## Estrutura do projeto
-bash
+
 /app      -> Código do frontend React Native + Expo
 /backend  -> API Node.js + Express.js
 /firebase -> Configurações Firebase (separado)
 /design   -> Arquivos de design (Figma, protótipos)
 /scripts  -> Scripts auxiliares (ex: reset-project.js)
 
-# Contato
+### Contato
 
 Para dúvidas ou sugestões, entre em contato com o responsável pelo projeto.
-@biamelhado
+
+@biamelhado 
 beatriz.melhado@gmail.com
 
-@elenlysm
+@elenlysm 
 elenfreire63@gmail.com
