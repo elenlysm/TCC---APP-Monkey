@@ -32,3 +32,7 @@ app.use('/openfinance', openFinanceRoutes);
 const notificationRoutes = require('./routes/notificationRoutes');
 
 app.use('/notifications', notificationRoutes);
+const errorHandler = require('./middlewares/errorHandler');
+app.use(errorHandler);
+const apiRoutes = require('./routes/api');
+app.use('/api', apiRoutes);

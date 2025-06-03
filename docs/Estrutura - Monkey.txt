@@ -50,7 +50,7 @@ APP-GESTAO-FINANCEIRA/
 │   │       ├── AuthLayout.tsx
 │   │       ├── Button.tsx
 │   │       ├── Collapsible.tsx
-│   │       ├── container.tsx
+│   │       ├── Container.tsx
 │   │       ├── ExternalLink.tsx
 │   │       ├── HapticTab.tsx
 │   │       ├── Header.tsx
@@ -68,8 +68,6 @@ APP-GESTAO-FINANCEIRA/
 │   │   ├── useColorScheme.ts
 │   │   ├── useColorScheme.web.ts
 │   │   └── useThemeColor.ts 
-│   ├── navigation/ 
-│   │   └── index.tsx
 │   ├── screens/ 
 │   │   ├── auth/
 │   │   │   ├── cadastro.tsx
@@ -102,13 +100,36 @@ APP-GESTAO-FINANCEIRA/
 │    │   └── README.md
 │    ├── config/
 │    ├── controllers/
+│    │   ├── budgetsController.js
+│    │   ├── cohabitationController.js
+│    │   ├── openFinanceController.js
+│    │   ├── reportsController.js
+│    │   ├── transactionsController.js
+│    │   └── usersController.js
 │    ├── middlewares/
+│    │   ├── authMiddleware.js
+│    │   └── validate.js
 │    ├── node_modules/
 │    ├── routes/
-│    │   └──api.js
+│    │   ├── api.js
+│    │   ├── authRoutes.js
+│    │   ├── budgetsRoutes.js
+│    │   ├── cohabitationRoutes.js
+│    │   ├── notificationRoutes.js
+│    │   ├── openFinanceRoutes.js
+│    │   ├── reportsRoutes.js
+│    │   ├── transactionsRoutes.js
+│    │   └── usersRoutes.js
 │    ├── services/
+│    │   ├── firestoreService.js
+│    │   ├── notificationService.js
+│    │   ├── openFinanceService.js
+│    │   └── tokenService.js
 │    ├── utils/
+│    ├── validators/
+│    │   └── openFinanceValidator.js
 │    ├── .env
+│    ├── .env.example
 │    ├── index.js
 │    ├── package-lock.json
 │    ├── package.json
@@ -117,14 +138,23 @@ APP-GESTAO-FINANCEIRA/
 ├── docs/
 │    ├── Estrutura - Monkey.txt
 │    └── requisitos.md
+├── functions/
+│    ├── node_modules
+│    ├── .eslintrc.js
+│    ├── .gitignore
+│    ├── index.js
+│    ├── package-lock.json
+│    └── package.json
 ├── node_modules
 ├── scripts/
 │   └── reset-project.js
 ├── .env
 ├── .env.example
+├── .firebaserc
 ├── .gitignore
 ├── babel.config.js
 ├── env.d.ts
+├── firebase.json
 ├── google-services.json
 ├── LICENSE
 ├── package-lock.json
