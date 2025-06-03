@@ -1,17 +1,21 @@
-const { defineConfig } = require('eslint/config');
-const expoConfig = require('eslint-config-expo/flat');
+const { defineConfig } = require('eslint/config'); // Função moderna para configs
+const expoConfig = require('eslint-config-expo/flat'); // Configuração padrão do Expo
 
 module.exports = defineConfig([
   expoConfig,
   {
+    // Ignora diretórios de build
     ignores: [
       'dist/*',
       'build/*',
       'web-build/*',
       '.expo/*'
     ],
-    files: ['**/*.{ts,tsx}'],
 
+    // Arquivos a serem analisados
+    files: ['**/*.{ts,tsx}'], // Se quiser incluir JS, adicione: '{js,jsx,ts,tsx}'
+
+    // Configuração de parser para TypeScript
     languageOptions: {
       parser: '@typescript-eslint/parser',
       parserOptions: {
@@ -20,33 +24,45 @@ module.exports = defineConfig([
       },
     },
 
+    // Plugins adicionais
     plugins: [
-      '@typescript-eslint',
-      'security', // Plugin de segurança
-      'prettier',
+      '@typescript-eslint', // Para regras específicas do TS
+      'security',           // Para evitar vulnerabilidades comuns
+      'prettier',           // Integração de formatação
     ],
 
+    // Extensões recomendadas
     extends: [
-      'plugin:security/recommended', // Regras de segurança padrão
-      'plugin:prettier/recommended', // Integração com Prettier
+      'plugin:security/recommended',
+      'plugin:prettier/recommended',
     ],
 
+    // Regras personalizadas
     rules: {
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-explicit-any': 'error', // Evita uso de any: melhor segurança e tipagem
+      '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/explicit-module-boundary-types': 'warn',
-      '@typescript-eslint/no-misused-promises': 'error', // Evita erros com async/await
+      '@typescript-eslint/no-misused-promises': 'error',
 
-      'no-eval': 'error',             // Proíbe eval — risco de segurança
-      'no-implied-eval': 'error',     // Proíbe execuções implícitas de código
-      'no-new-func': 'error',         // Proíbe Function constructor
+      'no-eval': 'error',
+      'no-implied-eval': 'error',
+      'no-new-func': 'error',
 
-      'security/detect-object-injection': 'warn', // Detecta possíveis injeções
+      'security/detect-object-injection': 'warn',
       'security/detect-non-literal-fs-filename': 'warn',
 
-      'no-console': 'warn',           // Evita vazamento de informações sensíveis via logs
-      'no-alert': 'error',            // Proíbe alert/confirm/prompt
-      'prettier/prettier': 'warn', // Integração com Prettier para formatação consistente
+      'no-console': 'warn',
+      'no-alert': 'error',
+      'prettier/prettier': 'warn',
     },
   },
 ]);
+// Este arquivo configura o ESLint para o projeto, incluindo regras específicas para TypeScript,
+// plugins de segurança e formatação, além de ignorar diretórios de build.
+// Ele também define regras personalizadas para melhorar a qualidade do código e evitar vulnerabilidades comuns.
+// A configuração é baseada na configuração padrão do Expo, mas adaptada para incluir TypeScript e plugins adicionais.
+// A função `defineConfig` é usada para criar uma configuração moderna e fácil de ler.
+// A configuração inclui plugins para segurança e formatação, além de regras personalizadas para melhorar a qualidade do código.
+// A configuração do parser é ajustada para TypeScript, permitindo o uso de recursos avançados da linguagem.
+// A configuração também ignora diretórios de build comuns, como `dist`, `build`, `web-build` e `.expo`, para evitar erros ao analisar arquivos que não são relevantes para o linting.
+// A configuração é exportada como um módulo, permitindo que o ESLint a utilize ao analisar o código do projeto.
