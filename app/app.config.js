@@ -1,12 +1,14 @@
-import 'dotenv/config';
+import 'dotenv/config'; // Carrega as variáveis de ambiente do .env
 
 export default {
     expo: {
-        name: 'SeuApp',
-        slug: 'seuapp',
-        version: '1.0.0',
-        orientation: 'portrait',
-        sdkVersion: '49.0.0', // ou a sua versão do Expo
+        name: 'Monkey',          // Nome exibido para o usuário
+        slug: 'Monkey',          // Slug usado no build e deploy do Expo
+        version: '1.0.0',        // Versão do app
+        orientation: 'portrait', // Orientação fixa em modo retrato
+        sdkVersion: '53.0.0',    // SDK do Expo
+
+        // Extra é usado para passar configs de ambiente para o app
         extra: {
             FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
             FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
@@ -17,3 +19,5 @@ export default {
         },
     },
 };
+// Este arquivo configura o Expo para o seu aplicativo React Native, definindo
+// nome, slug, versão e orientações, além de carregar variáveis de ambiente do arquivo .env

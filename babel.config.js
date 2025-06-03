@@ -1,31 +1,34 @@
 module.exports = function (api) {
     // Cache do Babel para melhorar performance no build
     api.cache(true);
+
     return {
         // Preset padrão do Expo para React Native
         presets: ['babel-preset-expo'],
-        plugins: ['react-native-reanimated/plugin'],
+
         plugins: [
+            // Plugin react-native-dotenv para importar variáveis de ambiente do .env
             ['module:react-native-dotenv', {
-                // Nome do módulo que você usa para importar variáveis de ambiente
-                moduleName: '@env',
-                // Caminho do arquivo .env na raiz do projeto  
-                path: '.env',
+                moduleName: '@env',           // Importação via: import { VAR } from '@env'
+                path: '.env',                 // Arquivo de variáveis de ambiente
                 blocklist: null,
                 allowlist: null,
-                // exige que todas as variáveis do .env estejam definidas
-                safe: true,
-                // Não permite variáveis indefinidas    
-                allowUndefined: false,
+                safe: true,                   // Exige que todas as variáveis no .env estejam definidas
+                allowUndefined: false         // Não permite variáveis indefinidas
             }],
+
+            // Plugin module-resolver para criar aliases de importação
             ['module-resolver', {
-                // Define a raiz para resolver imports, facilita '@' como alias
-                root: ['./app'],
+                root: ['./app'],               // Define a raiz dos imports relativos
                 alias: {
-                    // Alias '@' mapeado para './app', simplificando imports no projeto
-                    '@': './app',
-                },
+                    '@': './app',              // Agora você pode importar com "@/algumModulo"
+                }
             }],
-        ],
+
+            // Plugin react-native-reanimated deve ser o último
+            'react-native-reanimated/plugin'
+        ]
     };
 };
+// Este arquivo configura o Babel para o projeto React Native, definindo presets e plugins
+// que permitem o uso de variáveis de ambiente, aliases de importação e otimizações específicas do React Native.
