@@ -1,17 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/openFinanceController');
-const authMiddleware = require('../authMiddleware');
-
-router.post('/authorize', authMiddleware, controller.handleAuthorization);
-router.post('/collect', authMiddleware, controller.collectStatements);
-
-module.exports = router;
-const express = require('express');
-const router = express.Router();
 
 const controller = require('../controllers/openFinanceController');
-const authMiddleware = require('../authMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const validate = require('../middlewares/validate');
 const schema = require('../validators/openFinanceValidator');

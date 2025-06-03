@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { sendNotification } = require('../services/notificationService');
-const authMiddleware = require('../authMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 router.post('/send', authMiddleware, async (req, res) => {
     const { token, title, body, data } = req.body;

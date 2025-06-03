@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/cohabitationController');
-const authMiddleware = require('../authMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 router.post('/', authMiddleware, controller.addCohabitation);
 router.get('/', authMiddleware, controller.getCohabitations);

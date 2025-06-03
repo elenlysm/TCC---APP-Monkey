@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { db } = require('../firebaseAdmin');
+const tokenService = require('./tokenService'); // lembre de importar, pois usa tokenService
 
 // Config base da API Open Finance
 const api = axios.create({
@@ -8,7 +9,19 @@ const api = axios.create({
     headers: { 'Content-Type': 'application/json' }
 });
 
-// Trocar o code pelo access_token
+// Função para trocar código (authorization code) por access token
+const exchangeCodeForToken = async (code) => {
+    const response = await api.post('/oauth/token', {
+        grant_type: 'authorization_code',
+        code: code,
+        client_id: process.env.OPEN_FINANCE_CLIENT_ID,
+        client_secret: process.env.OPEN_FINANCE_CLIENT_SECRET,
+        redirect_uri: process.env.OPEN_FINANCE_REDIRECT_URI
+    });
+    return response.data.access_token;
+};
+
+// Função para atualizar token usando refresh token
 const refreshAccessToken = async (userId) => {
     const tokens = await tokenService.getToken(userId);
     if (!tokens) throw new Error('Token não encontrado');
@@ -23,7 +36,6 @@ const refreshAccessToken = async (userId) => {
     return response.data.access_token;
 };
 
-module.exports = { refreshAccessToken };
 // Coletar extratos bancários
 const fetchBankStatements = async (accessToken) => {
     const response = await api.get('/bank/statements', {
@@ -44,6 +56,7 @@ const updateTransactions = async (userId, transactions) => {
 
 module.exports = {
     exchangeCodeForToken,
+    refreshAccessToken,
     fetchBankStatements,
     updateTransactions
 };

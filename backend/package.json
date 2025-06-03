@@ -2,8 +2,8 @@
   "name": "monkey-backend",
   "version": "1.0.0",
   "main": "src/index.ts",
-    "scripts": {
-    "start": "ts-node src/index.ts",
+  "scripts": {
+    "start": "node server.js",
     "dev": "nodemon src/index.ts",
     "lint": "eslint . --ext .ts",
     "build": "tsc"
@@ -19,9 +19,9 @@
     "@types/express": "^4.17.13",
     "@types/node": "^20.3.1",
     "eslint": "^9.27.0",
-    "typescript": "~5.8.3",
-    "nodemon": "^2.0.22",
-    "ts-node": "^10.9.1"
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.8.3"
   },
   "private": true
 }
