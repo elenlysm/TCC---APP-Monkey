@@ -95,20 +95,24 @@ APP-GESTAO-FINANCEIRA/
 │   ├── README.md
 │   └── theme.ts
 ├── backend/
-│    ├── .expo/
-│    │   ├── devices.json
-│    │   └── README.md
 │    ├── config/
 │    ├── controllers/
+│    │   ├── auditController.js
+│    │   ├── authController.js
 │    │   ├── budgetsController.js
 │    │   ├── cohabitationController.js
+│    │   ├── healthController.js
+│    │   ├── notificationController.js
 │    │   ├── openFinanceController.js
+│    │   ├── profileController.js
 │    │   ├── reportsController.js
 │    │   ├── transactionsController.js
 │    │   └── usersController.js
 │    ├── middlewares/
 │    │   ├── authMiddleware.js
+│    │   ├── errorHandler.js
 │    │   └── validate.js
+│    ├── models/
 │    ├── node_modules/
 │    ├── routes/
 │    │   ├── api.js
@@ -118,6 +122,7 @@ APP-GESTAO-FINANCEIRA/
 │    │   ├── notificationRoutes.js
 │    │   ├── openFinanceRoutes.js
 │    │   ├── reportsRoutes.js
+│    │   ├── settingsRoutes.js
 │    │   ├── transactionsRoutes.js
 │    │   └── usersRoutes.js
 │    ├── services/
@@ -126,10 +131,14 @@ APP-GESTAO-FINANCEIRA/
 │    │   ├── openFinanceService.js
 │    │   └── tokenService.js
 │    ├── utils/
+│    │   ├── errorHandler.js
+│    │   ├── log.js
+│    │   └── transactionUtils.js
 │    ├── validators/
 │    │   └── openFinanceValidator.js
 │    ├── .env
 │    ├── .env.example
+│    ├── firebaseAdmin.js
 │    ├── index.js
 │    ├── package-lock.json
 │    ├── package.json
@@ -145,8 +154,22 @@ APP-GESTAO-FINANCEIRA/
 │    ├── index.js
 │    ├── package-lock.json
 │    └── package.json
+├── mockOpenFinance/
+│    ├── backend/
+│    │   ├── controllers/
+│    │   │   └── mockOpenFinanceController.js
+│    │   ├── data/
+│    │   │   └── mockData.js
+│    │   ├── node_modules/
+│    │   ├── routes/
+│    │   │   └── mockOpenFinanceRoutes.js
+│    │   ├── package-lock.json
+│    │   ├── package.json
+│    │   └── server.js
+│    └── README.md
 ├── node_modules
 ├── scripts/
+│   ├── README.md
 │   └── reset-project.js
 ├── .env
 ├── .env.example
@@ -159,5 +182,6 @@ APP-GESTAO-FINANCEIRA/
 ├── LICENSE
 ├── package-lock.json
 ├── package.json
+├── react-native-vector-icons.d.ts
 ├── README.md
 └── tsconfig.json
