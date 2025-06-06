@@ -34,6 +34,7 @@
     "expo-system-ui": "~5.0.7",
     "expo-web-browser": "~14.1.6",
     "express": "^5.1.0",
+    "express-validator": "^7.2.1",
     "firebase": "^11.8.1",
     "firebase-admin": "^13.4.0",
     "joi": "^17.13.3",

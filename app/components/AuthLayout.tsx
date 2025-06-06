@@ -1,11 +1,17 @@
 import React, { ReactNode } from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import { View, StyleSheet, ImageBackground, KeyboardAvoidingView, Platform } from 'react-native';
 import MenuFechado from './MenuFechado'; // seu menu com header e SVG
 
 type AuthLayoutProps = {
     children: ReactNode;
 };
 
+/**
+ * AuthLayout
+ * Layout padrão para telas de autenticação.
+ * Inclui um background com imagem, o menu/header e um espaço para o conteúdo das telas.
+ * Usa KeyboardAvoidingView para melhor experiência com teclado em telas de formulário.
+ */
 export default function AuthLayout({ children }: AuthLayoutProps) {
     return (
         <View style={styles.container}>
@@ -15,13 +21,17 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 style={styles.background}
                 resizeMode="cover"
             >
-                {/* Aqui o menu + header */}
+                {/* Menu/Header fixo no topo */}
                 <MenuFechado />
 
-                {/* Conteúdo das telas vai aqui */}
-                <View style={styles.content}>
+                {/* Conteúdo centralizado e com padding, ajustando para teclado */}
+                <KeyboardAvoidingView
+                    style={styles.content}
+                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+                >
                     {children}
-                </View>
+                </KeyboardAvoidingView>
             </ImageBackground>
         </View>
     );
@@ -37,8 +47,9 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        marginTop: 175, // altura do background ou do menu pra não ficar por cima
+        marginTop: 175, // altura do header/menu
         padding: 16,
+        justifyContent: 'flex-start',
     },
 });
 

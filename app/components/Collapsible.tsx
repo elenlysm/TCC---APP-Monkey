@@ -1,22 +1,36 @@
 import { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
-import { Colors } from '@/constants/Colors';
+import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
-export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
+interface CollapsibleProps extends PropsWithChildren {
+  title: string;
+  style?: ViewStyle;
+}
+
+/**
+ * Collapsible
+ * Componente de seção expansível/retrátil.
+ * Mostra um título e um ícone de seta. Ao clicar, expande ou retrai o conteúdo.
+ * Usa tema claro/escuro e permite estilização externa via prop `style`.
+ */
+export function Collapsible({ children, title, style }: CollapsibleProps) {
   const [isOpen, setIsOpen] = useState(false);
   const theme = useColorScheme() ?? 'light';
 
   return (
-    <ThemedView>
+    <ThemedView style={style}>
       <TouchableOpacity
         style={styles.heading}
         onPress={() => setIsOpen((value) => !value)}
-        activeOpacity={0.8}>
+        activeOpacity={0.8}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: isOpen }}
+        accessibilityLabel={`Expandir ou retrair seção ${title}`}>
         <IconSymbol
           name="chevron.right"
           size={18}
@@ -37,6 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+    paddingVertical: 8, // Adiciona área de toque maior para acessibilidade
   },
   content: {
     marginTop: 6,
