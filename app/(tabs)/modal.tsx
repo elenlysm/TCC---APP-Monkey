@@ -2,7 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Svg, Mask, Path, G } from 'react-native-svg';
 
-export default function DialogBody({ onConnect, onCancel }) {
+type DialogBodyProps = {
+    onConnect: () => void;
+    onCancel: () => void;
+};
+
+export default function DialogBody({ onConnect, onCancel }: DialogBodyProps) {
     return (
         <View style={styles.dialogBodyContainer}>
             <View style={styles.svgContainer}>

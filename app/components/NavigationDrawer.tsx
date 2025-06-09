@@ -33,7 +33,7 @@ const NavigationDrawer = ({ isOpen, closeDrawer }: Props) => {
                     key={item.name}
                     style={styles.item}
                     onPress={() => {
-                        router.push(item.path);
+                        router.push(item.path as any);
                         closeDrawer();
                     }}
                 >

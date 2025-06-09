@@ -18,7 +18,7 @@ export default function OrcamentoEMetas() {
                     />
                 </G>
                 <Defs>
-                    <Filter id="filter0_d" x="-188.226" y="-388.658" width="711.345" height="593.965" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                    <Filter id="filter0_d" x="-188.226" y="-388.658" width="711.345" height="593.965" filterUnits="userSpaceOnUse">
                         <FeFlood floodOpacity="0" result="BackgroundImageFix" />
                         <FeColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                         <FeOffset dx="64" dy="11" />

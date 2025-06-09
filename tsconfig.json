@@ -1,21 +1,3 @@
-// Descrição: Configuração do TypeScript para um projeto Expo com React Native
-// Este arquivo define as opções do compilador TypeScript e os caminhos para os módulos do projeto.
-// Importante: Certifique-se de que o TypeScript e as dependências do Expo estão instalados corretamente
-// Instalação recomendada:
-// npm install --save-dev typescript @types/react @types/react-native @types/jest
-// Para iniciar o TypeScript no projeto, execute:
-// npx tsc --init
-// Nota: Este arquivo é usado para configurar o TypeScript em um projeto Expo com React Native.
-// Arquivo: tsconfig.json
-// Autor: [Elen Freire e Beatriz Melhado]
-// Data: [06/06/2025]
-// Licença: MIT
-// Versão: 1.0.0
-// Importante: Este arquivo deve estar na raiz do projeto para que o TypeScript possa encontrá-lo corretamente
-// Referência: https://docs.expo.dev/guides/typescript/
-  // Configurações globais do TypeScript para transpilar corretamente
-
-
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
@@ -23,10 +5,28 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "baseUrl": ".",
+    "module": "esnext",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
     "paths": {
-      "@/*": ["app/*"] }
-},
-
-  "include": ["app", "assets", "babel.config.js", "env.d.ts", "metro.config.js", "scripts"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "babel.config.js",
+    "env.d.ts",
+    "metro.config.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }

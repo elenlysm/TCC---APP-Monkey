@@ -14,7 +14,15 @@ export default function Configuracoes() {
                         <Path d="..." stroke="#893426" strokeWidth="11" />
                     </G>
                     <Defs>
-                        <Filter id="filter0_d" ... />
+                        {/* Define your filter here or remove this block if not needed */}
+                        {/* Example filter definition: */}
+                        {/* 
+                        <Filter id="filter0_d" x="0" y="0" width="200%" height="200%">
+                            <FeOffset result="offOut" in="SourceAlpha" dx="0" dy="4" />
+                            <FeGaussianBlur result="blurOut" in="offOut" stdDeviation="4" />
+                            <FeBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                        </Filter>
+                        */}
                     </Defs>
                 </Svg>
 
@@ -60,6 +68,51 @@ const styles = StyleSheet.create({
     vector: {
         position: 'absolute',
         top: 0,
+    },
+    buildingBlocksContent: {
+        marginTop: 40,
+        padding: 16,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 12,
+    },
+    content: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 16,
+    },
+    iconButton: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: '#e0e0e0',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 24,
+        marginTop: 16,
+    },
+    menu: {
+        width: 40,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    logo: {
+        width: 63,
+        height: 63,
+        borderRadius: 31.5,
+        overflow: 'hidden',
+    },
+    bell: {
+        width: 40,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     // ... outros estilos
 });

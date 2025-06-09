@@ -5,7 +5,8 @@ import { db } from '../services/firebaseConfig';
 
 export default function CoabitacaoScreen() {
     const [grupo, setGrupo] = useState('');
-    const [grupos, setGrupos] = useState([]);
+    type Grupo = { id: string; nome: string };
+    const [grupos, setGrupos] = useState<Grupo[]>([]);
 
     const criarGrupo = async () => {
         await addDoc(collection(db, 'grupos'), { nome: grupo });
@@ -14,7 +15,10 @@ export default function CoabitacaoScreen() {
 
     const carregarGrupos = async () => {
         const querySnapshot = await getDocs(collection(db, 'grupos'));
-        const lista = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const lista = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            nome: doc.data().nome as string
+        }));
         setGrupos(lista);
     };
 
