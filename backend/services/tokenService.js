@@ -3,14 +3,21 @@ const { db } = require('../firebaseAdmin');
 
 const algorithm = 'aes-256-cbc';
 const key = crypto.scryptSync(process.env.ENCRYPTION_SECRET, 'salt', 32);
-const iv = crypto.randomBytes(16);
 
+/**
+ * Gera um IV aleatório para cada criptografia.
+ * O IV é salvo junto com o token criptografado.
+ */
 const encrypt = (text) => {
+    const iv = crypto.randomBytes(16); // IV deve ser único para cada operação
     const cipher = crypto.createCipheriv(algorithm, key, iv);
     const encrypted = Buffer.concat([cipher.update(text, 'utf8'), cipher.final()]);
     return iv.toString('hex') + ':' + encrypted.toString('hex');
 };
 
+/**
+ * Descriptografa o token usando o IV salvo junto ao hash.
+ */
 const decrypt = (hash) => {
     const parts = hash.split(':');
     const iv = Buffer.from(parts.shift(), 'hex');
@@ -20,6 +27,9 @@ const decrypt = (hash) => {
     return decrypted.toString();
 };
 
+/**
+ * Salva tokens criptografados no Firestore.
+ */
 const saveToken = async (userId, tokenData) => {
     const encryptedToken = encrypt(tokenData.access_token);
     const refreshToken = encrypt(tokenData.refresh_token);
@@ -31,6 +41,9 @@ const saveToken = async (userId, tokenData) => {
     });
 };
 
+/**
+ * Recupera e descriptografa tokens do Firestore.
+ */
 const getToken = async (userId) => {
     const doc = await db.collection('openFinanceTokens').doc(userId).get();
     if (!doc.exists) return null;

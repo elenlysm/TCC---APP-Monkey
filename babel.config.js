@@ -1,3 +1,5 @@
+// Configuração para Babel (transformação de código JS/TS para compatibilidade com o React Native)
+
 module.exports = function (api) {
     // Cache do Babel para melhorar performance no build
     api.cache(true);
@@ -30,5 +32,4 @@ module.exports = function (api) {
         ]
     };
 };
-// Este arquivo configura o Babel para o projeto React Native, definindo presets e plugins
-// que permitem o uso de variáveis de ambiente, aliases de importação e otimizações específicas do React Native.
+// Este arquivo configura o Babel para o projeto React Native, definindo presets e plugins que permitem o uso de variáveis de ambiente, aliases de importação e otimizações específicas do React Native.
