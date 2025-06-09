@@ -1,31 +1,63 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { Slot } from 'expo-router';
-import NavigationDrawer from './components/NavigationDrawer';
+import { useFonts } from 'expo-font';
+import 'react-native-reanimated';
 
-export default function Layout() {
-    const [isDrawerOpen, setDrawerOpen] = useState(false);
 
-    return (
-        <View style={styles.container}>
-            <NavigationDrawer isOpen={isDrawerOpen} closeDrawer={() => setDrawerOpen(false)} />
+export function RootLayout() {
+  const colorScheme = useColorScheme();
+  const [loaded] = useFonts({
+    SpaceMono: require('../assets/fonts/AnonymousPro-Regular.ttf'),
+  });
 
-            <View style={styles.content}>
-                <TouchableOpacity onPress={() => setDrawerOpen(prev => !prev)} style={styles.menuButton}>
-                    <Text>☰</Text>
-                </TouchableOpacity>
+  if (!loaded) {
+    // Async font loading only occurs in development.
+    return null;
+  }
 
-                <Slot />
-            </View>
-        </View>
-    );
+  // You can add your layout JSX here or export this function to another file.
 }
 
-const styles = StyleSheet.create({
-    container: { flex: 1 },
-    content: { flex: 1 },
-    menuButton: {
-        padding: 10,
-        backgroundColor: '#eee',
-    },
-});
+import { Tabs } from 'expo-router';
+import React from 'react';
+import { Platform } from 'react-native';
+
+import { HapticTab } from '@/app/components/HapticTab';
+import { IconSymbol } from '@/app/components/ui/IconSymbol';
+import TabBarBackground from '@/app/components/ui/TabBarBackground';
+import { Colors } from '@/app/constants/Colors';
+import { useColorScheme } from '@/app/hooks/useColorScheme';
+
+export default function TabLayout() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        headerShown: false,
+        tabBarButton: HapticTab,
+        tabBarBackground: TabBarBackground,
+        tabBarStyle: Platform.select({
+          ios: {
+            // Use a transparent background on iOS to show the blur effect
+            position: 'absolute',
+          },
+          default: {},
+        }),
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: 'Explore',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+        }}
+      />
+    </Tabs>
+  );
+}
