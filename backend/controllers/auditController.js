@@ -1,5 +1,8 @@
 const auditService = require('../services/auditService');
 
+// Função utilitária para validar datas no formato YYYY-MM-DD
+const isValidDate = (dateStr) => /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
+
 /**
  * @desc    Lista todos os logs de auditoria
  * @route   GET /audit/logs
@@ -23,7 +26,7 @@ const getUserLogs = async (req, res) => {
         const logs = await auditService.getLogsByUser(req.params.userId);
         res.status(200).json(logs);
     } catch (error) {
-        console.error('Erro ao obter logs do usuário:', error);
+        console.error('Erro ao obter logs do usuário:', { userId: req.params.userId, error });
         res.status(500).json({ error: 'Falha ao obter logs do usuário.' });
     }
 };
@@ -37,27 +40,31 @@ const getLogsByActionType = async (req, res) => {
         const logs = await auditService.getLogsByActionType(req.params.actionType);
         res.status(200).json(logs);
     } catch (error) {
-        console.error('Erro ao obter logs por tipo de ação:', error);
+        console.error('Erro ao obter logs por tipo de ação:', { actionType: req.params.actionType, error });
         res.status(500).json({ error: 'Falha ao obter logs por tipo de ação.' });
     }
 };
 
 /**
- * @desc    Lista logs por data
- * @route   GET /audit/logs/date?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD
+ * @desc    Lista logs por data, com validação e paginação
+ * @route   GET /audit/logs/date?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD&page=1&limit=100
  */
 const getLogsByDate = async (req, res) => {
-    const { startDate, endDate } = req.query;
+    const { startDate, endDate, page = 1, limit = 100 } = req.query;
 
+    // Validação dos parâmetros obrigatórios e formato de data
     if (!startDate || !endDate) {
         return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
     }
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+        return res.status(400).json({ error: 'Datas devem estar no formato YYYY-MM-DD.' });
+    }
 
     try {
-        const logs = await auditService.getLogsByDate(startDate, endDate);
+        const logs = await auditService.getLogsByDate(startDate, endDate, Number(page), Number(limit));
         res.status(200).json(logs);
     } catch (error) {
-        console.error('Erro ao obter logs por data:', error);
+        console.error('Erro ao obter logs por data:', { startDate, endDate, error });
         res.status(500).json({ error: 'Falha ao obter logs por data.' });
     }
 };
@@ -71,7 +78,7 @@ const getLogsBySeverity = async (req, res) => {
         const logs = await auditService.getLogsBySeverity(req.params.severityLevel);
         res.status(200).json(logs);
     } catch (error) {
-        console.error('Erro ao obter logs por nível de severidade:', error);
+        console.error('Erro ao obter logs por nível de severidade:', { severityLevel: req.params.severityLevel, error });
         res.status(500).json({ error: 'Falha ao obter logs por nível de severidade.' });
     }
 };
@@ -85,27 +92,30 @@ const getUserLogsByActionType = async (req, res) => {
         const logs = await auditService.getUserLogsByActionType(req.params.userId, req.params.actionType);
         res.status(200).json(logs);
     } catch (error) {
-        console.error('Erro ao obter logs do usuário por tipo de ação:', error);
+        console.error('Erro ao obter logs do usuário por tipo de ação:', { userId: req.params.userId, actionType: req.params.actionType, error });
         res.status(500).json({ error: 'Falha ao obter logs do usuário por tipo de ação.' });
     }
 };
 
 /**
- * @desc    Lista logs por usuário e data
- * @route   GET /audit/logs/user/:userId/date?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD
+ * @desc    Lista logs por usuário e data, com validação e paginação
+ * @route   GET /audit/logs/user/:userId/date?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD&page=1&limit=100
  */
 const getUserLogsByDate = async (req, res) => {
-    const { startDate, endDate } = req.query;
+    const { startDate, endDate, page = 1, limit = 100 } = req.query;
 
     if (!startDate || !endDate) {
         return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
     }
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+        return res.status(400).json({ error: 'Datas devem estar no formato YYYY-MM-DD.' });
+    }
 
     try {
-        const logs = await auditService.getUserLogsByDate(req.params.userId, startDate, endDate);
+        const logs = await auditService.getUserLogsByDate(req.params.userId, startDate, endDate, Number(page), Number(limit));
         res.status(200).json(logs);
     } catch (error) {
-        console.error('Erro ao obter logs do usuário por data:', error);
+        console.error('Erro ao obter logs do usuário por data:', { userId: req.params.userId, startDate, endDate, error });
         res.status(500).json({ error: 'Falha ao obter logs do usuário por data.' });
     }
 };
@@ -119,13 +129,13 @@ const getUserLogsBySeverity = async (req, res) => {
         const logs = await auditService.getUserLogsBySeverity(req.params.userId, req.params.severityLevel);
         res.status(200).json(logs);
     } catch (error) {
-        console.error('Erro ao obter logs do usuário por nível de severidade:', error);
+        console.error('Erro ao obter logs do usuário por nível de severidade:', { userId: req.params.userId, severityLevel: req.params.severityLevel, error });
         res.status(500).json({ error: 'Falha ao obter logs do usuário por nível de severidade.' });
     }
 };
 
 /**
- * @desc    Exporta logs para um arquivo CSV
+ * @desc    Exporta logs para um arquivo CSV, com validação de datas
  * @route   GET /audit/logs/export?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD
  */
 const exportLogsToCSV = async (req, res) => {
@@ -134,6 +144,9 @@ const exportLogsToCSV = async (req, res) => {
     if (!startDate || !endDate) {
         return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
     }
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+        return res.status(400).json({ error: 'Datas devem estar no formato YYYY-MM-DD.' });
+    }
 
     try {
         const csvData = await auditService.exportLogsToCSV(startDate, endDate);
@@ -141,11 +154,12 @@ const exportLogsToCSV = async (req, res) => {
         res.setHeader('Content-Disposition', 'attachment; filename=logs.csv');
         res.status(200).send(csvData);
     } catch (error) {
-        console.error('Erro ao exportar logs para CSV:', error);
+        console.error('Erro ao exportar logs para CSV:', { startDate, endDate, error });
         res.status(500).json({ error: 'Falha ao exportar logs para CSV.' });
     }
 };
 
+// Exporta todas as funções do controller
 module.exports = { 
     getAllLogs,
     getUserLogs,

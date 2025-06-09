@@ -1,5 +1,8 @@
 const notificationService = require('../services/notificationService');
 
+// Função utilitária para validar datas no formato YYYY-MM-DD
+const isValidDate = (dateStr) => /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
+
 /**
  * @desc    Envia uma notificação
  * @route   POST /notifications
@@ -19,6 +22,9 @@ const sendNotification = async (req, res) => {
  * @route   GET /notifications/:userId
  */
 const listNotifications = async (req, res) => {
+    if (!req.params.userId) {
+        return res.status(400).json({ error: 'userId é obrigatório.' });
+    }
     try {
         const notifications = await notificationService.getNotifications(req.params.userId);
         res.status(200).json(notifications);
@@ -33,6 +39,9 @@ const listNotifications = async (req, res) => {
  * @route   PUT /notifications/:id/read
  */
 const markAsRead = async (req, res) => {
+    if (!req.params.id) {
+        return res.status(400).json({ error: 'id é obrigatório.' });
+    }
     try {
         await notificationService.markAsRead(req.params.id);
         res.status(200).json({ message: 'Notificação marcada como lida.' });
@@ -47,6 +56,9 @@ const markAsRead = async (req, res) => {
  * @route   PUT /notifications/:id/unread
  */
 const markAsUnread = async (req, res) => {
+    if (!req.params.id) {
+        return res.status(400).json({ error: 'id é obrigatório.' });
+    }
     try {
         await notificationService.markAsUnread(req.params.id);
         res.status(200).json({ message: 'Notificação marcada como não lida.' });
@@ -61,6 +73,9 @@ const markAsUnread = async (req, res) => {
  * @route   DELETE /notifications/:id
  */
 const deleteNotification = async (req, res) => {
+    if (!req.params.id) {
+        return res.status(400).json({ error: 'id é obrigatório.' });
+    }
     try {
         await notificationService.deleteNotification(req.params.id);
         res.status(200).json({ message: 'Notificação deletada com sucesso.' });
@@ -75,6 +90,9 @@ const deleteNotification = async (req, res) => {
  * @route   GET /notifications/:id
  */
 const getNotificationById = async (req, res) => {
+    if (!req.params.id) {
+        return res.status(400).json({ error: 'id é obrigatório.' });
+    }
     try {
         const notification = await notificationService.getNotificationById(req.params.id);
         if (!notification) {
@@ -92,6 +110,9 @@ const getNotificationById = async (req, res) => {
  * @route   GET /notifications/status/:status
  */
 const getNotificationsByStatus = async (req, res) => {
+    if (!req.params.status) {
+        return res.status(400).json({ error: 'status é obrigatório.' });
+    }
     try {
         const notifications = await notificationService.getNotificationsByStatus(req.params.status);
         res.status(200).json(notifications);
@@ -102,7 +123,7 @@ const getNotificationsByStatus = async (req, res) => {
 };
 
 /**
- * @desc    Obtém notificações por data
+ * @desc    Obtém notificações por data, com validação de formato
  * @route   GET /notifications/date?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD
  */
 const getNotificationsByDate = async (req, res) => {
@@ -110,6 +131,9 @@ const getNotificationsByDate = async (req, res) => {
 
     if (!startDate || !endDate) {
         return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
+    }
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+        return res.status(400).json({ error: 'Datas devem estar no formato YYYY-MM-DD.' });
     }
 
     try {
@@ -126,6 +150,9 @@ const getNotificationsByDate = async (req, res) => {
  * @route   GET /notifications/type/:type
  */
 const getNotificationsByType = async (req, res) => {
+    if (!req.params.type) {
+        return res.status(400).json({ error: 'type é obrigatório.' });
+    }
     try {
         const notifications = await notificationService.getNotificationsByType(req.params.type);
         res.status(200).json(notifications);
@@ -140,6 +167,9 @@ const getNotificationsByType = async (req, res) => {
  * @route   GET /notifications/user/:userId
  */
 const getNotificationsByUser = async (req, res) => {
+    if (!req.params.userId) {
+        return res.status(400).json({ error: 'userId é obrigatório.' });
+    }
     try {
         const notifications = await notificationService.getNotificationsByUser(req.params.userId);
         res.status(200).json(notifications);
@@ -154,6 +184,9 @@ const getNotificationsByUser = async (req, res) => {
  * @route   GET /notifications/priority/:priority
  */
 const getNotificationsByPriority = async (req, res) => {
+    if (!req.params.priority) {
+        return res.status(400).json({ error: 'priority é obrigatório.' });
+    }
     try {
         const notifications = await notificationService.getNotificationsByPriority(req.params.priority);
         res.status(200).json(notifications);
@@ -168,6 +201,9 @@ const getNotificationsByPriority = async (req, res) => {
  * @route   GET /notifications/channel/:channel
  */
 const getNotificationsByChannel = async (req, res) => {
+    if (!req.params.channel) {
+        return res.status(400).json({ error: 'channel é obrigatório.' });
+    }
     try {
         const notifications = await notificationService.getNotificationsByChannel(req.params.channel);
         res.status(200).json(notifications);
@@ -182,6 +218,9 @@ const getNotificationsByChannel = async (req, res) => {
  * @route   GET /notifications/group/:groupId
  */
 const getNotificationsByGroup = async (req, res) => {
+    if (!req.params.groupId) {
+        return res.status(400).json({ error: 'groupId é obrigatório.' });
+    }
     try {
         const notifications = await notificationService.getNotificationsByGroup(req.params.groupId);
         res.status(200).json(notifications);

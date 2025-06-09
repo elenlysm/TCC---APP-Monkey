@@ -1,12 +1,19 @@
 const firestoreService = require('../services/firestoreService');
 const COLLECTION = 'cohabitation';
 
+// Função utilitária para validar datas no formato YYYY-MM-DD
+const isValidDate = (dateStr) => /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
+
 // Função auxiliar para verificar se o usuário é Admin na coabitação
 const isAdmin = (cohabitation, userId) => {
     return cohabitation.responsibilities?.[userId] === 'Admin';
 };
 
-//  Adiciona nova coabitação
+/**
+ * @desc    Adiciona nova coabitação
+ * @route   POST /cohabitation
+ * @access  Privado
+ */
 const addCohabitation = async (req, res, next) => {
     try {
         // Evita duplicidade do criador no array members
@@ -31,9 +38,11 @@ const addCohabitation = async (req, res, next) => {
     }
 };
 
-// @desc    Lista coabitações do usuário logado
-// @route   GET /cohabitation
-// @access  Privado
+/**
+ * @desc    Lista coabitações do usuário logado
+ * @route   GET /cohabitation
+ * @access  Privado
+ */
 const getCohabitations = async (req, res, next) => {
     try {
         const cohabitations = await firestoreService.getDocumentsByArrayContains(COLLECTION, 'members', req.user.id);
@@ -43,9 +52,11 @@ const getCohabitations = async (req, res, next) => {
     }
 };
 
-// @desc    Busca coabitação específica pelo ID
-// @route   GET /cohabitation/:id
-// @access  Privado
+/**
+ * @desc    Busca coabitação específica pelo ID
+ * @route   GET /cohabitation/:id
+ * @access  Privado
+ */
 const getCohabitationById = async (req, res, next) => {
     const { id } = req.params;
     try {
@@ -63,8 +74,11 @@ const getCohabitationById = async (req, res, next) => {
     }
 };
 
-// Atualiza coabitação (dados gerais)
-// Só membro admin pode alterar
+/**
+ * @desc    Atualiza coabitação (dados gerais)
+ * @route   PUT /cohabitation/:id
+ * @access  Privado (apenas Admin)
+ */
 const updateCohabitation = async (req, res, next) => {
     const { id } = req.params;
     try {
@@ -91,8 +105,11 @@ const updateCohabitation = async (req, res, next) => {
     }
 };
 
-// Deleta coabitação (só Admin)
-// Só membro admin pode deletar
+/**
+ * @desc    Deleta coabitação
+ * @route   DELETE /cohabitation/:id
+ * @access  Privado (apenas Admin)
+ */
 const deleteCohabitation = async (req, res, next) => {
     const { id } = req.params;
     try {
@@ -112,7 +129,10 @@ const deleteCohabitation = async (req, res, next) => {
     }
 };
 
-// Adiciona membro (só Admin)
+/**
+ * @desc    Adiciona membro à coabitação (só Admin)
+ * @route   POST /cohabitation/:id/member
+ */
 const addMember = async (req, res, next) => {
     const { id } = req.params;
     const { memberId, role } = req.body;
@@ -131,10 +151,12 @@ const addMember = async (req, res, next) => {
             return res.status(403).json({ message: 'Permissão negada' });
         }
 
-        // Adiciona membro se não existir
-        if (!cohabitation.members.includes(memberId)) {
-            cohabitation.members.push(memberId);
+        // Impede duplicidade de membros
+        if (cohabitation.members.includes(memberId)) {
+            return res.status(400).json({ message: 'Membro já faz parte da coabitação' });
         }
+
+        cohabitation.members.push(memberId);
 
         // Atualiza responsabilidades
         cohabitation.responsibilities = {
@@ -151,7 +173,10 @@ const addMember = async (req, res, next) => {
     }
 };
 
-//  Remove membro (só Admin)
+/**
+ * @desc    Remove membro da coabitação (só Admin)
+ * @route   DELETE /cohabitation/:id/member
+ */
 const removeMember = async (req, res, next) => {
     const { id } = req.params;
     const { memberId } = req.body;
@@ -170,6 +195,14 @@ const removeMember = async (req, res, next) => {
             return res.status(403).json({ message: 'Permissão negada' });
         }
 
+        // Impede remoção do último admin
+        if (
+            cohabitation.responsibilities[memberId] === 'Admin' &&
+            Object.values(cohabitation.responsibilities).filter(role => role === 'Admin').length === 1
+        ) {
+            return res.status(400).json({ message: 'Não é possível remover o último admin da coabitação.' });
+        }
+
         cohabitation.members = cohabitation.members.filter(m => m !== memberId);
 
         if (cohabitation.responsibilities) {
@@ -185,7 +218,10 @@ const removeMember = async (req, res, next) => {
     }
 };
 
-//  Atualiza responsabilidade (só Admin)
+/**
+ * @desc    Atualiza responsabilidade de um membro (só Admin)
+ * @route   PUT /cohabitation/:id/responsibility
+ */
 const updateResponsibility = async (req, res, next) => {
     const { id } = req.params;
     const { memberId, role } = req.body;
@@ -223,9 +259,11 @@ const updateResponsibility = async (req, res, next) => {
 };
 
 // ===== ROTAS DE FILTROS DIVERSOS =====
-// Exemplos de rotas para busca filtrada (verifique se precisam de autenticação / autorização)
 
-// Por membro (ex: admin pode ver membros específicos)
+/**
+ * @desc    Lista coabitações por membro
+ * @route   GET /cohabitation/member/:memberId
+ */
 const getCohabitationsByMember = async (req, res, next) => {
     const { memberId } = req.params;
     try {
@@ -236,7 +274,10 @@ const getCohabitationsByMember = async (req, res, next) => {
     }
 };
 
-// Por categoria
+/**
+ * @desc    Lista coabitações por categoria
+ * @route   GET /cohabitation/category/:category
+ */
 const getCohabitationsByCategory = async (req, res, next) => {
     const { category } = req.params;
     try {
@@ -247,9 +288,16 @@ const getCohabitationsByCategory = async (req, res, next) => {
     }
 };
 
-// Por data de criação (ISO string esperada)
+/**
+ * @desc    Lista coabitações por data de criação
+ * @route   GET /cohabitation/createdAt/:date
+ */
 const getCohabitationsByCreationDate = async (req, res, next) => {
     const { date } = req.params;
+    // Validação de formato de data
+    if (!isValidDate(date)) {
+        return res.status(400).json({ error: 'A data deve estar no formato YYYY-MM-DD.' });
+    }
     try {
         const cohabitations = await firestoreService.getDocumentsByField(COLLECTION, 'createdAt', date);
         res.status(200).json(cohabitations);
@@ -258,7 +306,10 @@ const getCohabitationsByCreationDate = async (req, res, next) => {
     }
 };
 
-// Por status
+/**
+ * @desc    Lista coabitações por status
+ * @route   GET /cohabitation/status/:status
+ */
 const getCohabitationsByStatus = async (req, res, next) => {
     const { status } = req.params;
     try {
@@ -269,9 +320,16 @@ const getCohabitationsByStatus = async (req, res, next) => {
     }
 };
 
-// Por período (datas ISO strings esperadas)
+/**
+ * @desc    Lista coabitações por período de criação
+ * @route   GET /cohabitation/period/:startDate/:endDate
+ */
 const getCohabitationsByPeriod = async (req, res, next) => {
     const { startDate, endDate } = req.params;
+    // Validação de formato de data
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+        return res.status(400).json({ error: 'As datas devem estar no formato YYYY-MM-DD.' });
+    }
     try {
         const cohabitations = await firestoreService.getDocumentsByDateRange(COLLECTION, 'createdAt', startDate, endDate);
         res.status(200).json(cohabitations);
@@ -280,7 +338,10 @@ const getCohabitationsByPeriod = async (req, res, next) => {
     }
 };
 
-// Por prioridade
+/**
+ * @desc    Lista coabitações por prioridade
+ * @route   GET /cohabitation/priority/:priority
+ */
 const getCohabitationsByPriority = async (req, res, next) => {
     const { priority } = req.params;
     try {
@@ -291,7 +352,10 @@ const getCohabitationsByPriority = async (req, res, next) => {
     }
 };
 
-// Por tipo
+/**
+ * @desc    Lista coabitações por tipo
+ * @route   GET /cohabitation/type/:type
+ */
 const getCohabitationsByType = async (req, res, next) => {
     const { type } = req.params;
     try {
@@ -302,7 +366,10 @@ const getCohabitationsByType = async (req, res, next) => {
     }
 };
 
-// Por descrição
+/**
+ * @desc    Lista coabitações por descrição
+ * @route   GET /cohabitation/description/:description
+ */
 const getCohabitationsByDescription = async (req, res, next) => {
     const { description } = req.params;
     try {
@@ -313,7 +380,10 @@ const getCohabitationsByDescription = async (req, res, next) => {
     }
 };
 
-// Por nome
+/**
+ * @desc    Lista coabitações por nome
+ * @route   GET /cohabitation/name/:name
+ */
 const getCohabitationsByName = async (req, res, next) => {
     const { name } = req.params;
     try {
@@ -324,7 +394,10 @@ const getCohabitationsByName = async (req, res, next) => {
     }
 };
 
-// Por localização
+/**
+ * @desc    Lista coabitações por localização
+ * @route   GET /cohabitation/location/:location
+ */
 const getCohabitationsByLocation = async (req, res, next) => {
     const { location } = req.params;
     try {

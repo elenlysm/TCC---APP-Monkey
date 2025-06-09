@@ -3,6 +3,7 @@ Estrutura - Monkey
 
 APP-GESTAO-FINANCEIRA/ 
 ├── .expo/
+│   ├── .gitignore
 │   ├── devices.json
 │   └── README.md
 ├── .idea/ 
@@ -154,7 +155,12 @@ APP-GESTAO-FINANCEIRA/
 │    ├── index.js
 │    ├── package-lock.json
 │    └── package.json
-├── mockOpenFinance/
+├── node_modules
+├── scripts/
+│   ├── README.md
+│   └── reset-project.js
+├── tests/
+│   └── mockOpenFinance/
 │    ├── backend/
 │    │   ├── controllers/
 │    │   │   └── mockOpenFinanceController.js
@@ -167,20 +173,15 @@ APP-GESTAO-FINANCEIRA/
 │    │   ├── package.json
 │    │   └── server.js
 │    └── README.md
-├── node_modules
-├── scripts/
-│   ├── README.md
-│   └── reset-project.js
 ├── .env
 ├── .env.example
 ├── .firebaserc
-├── .gitignore
 ├── babel.config.js
 ├── env.d.ts
 ├── firebase.json
 ├── google-services.json
-├── LICENSE
-├── package-lock.json
+├── LICENSE 
+├── package-lock.json   
 ├── package.json
 ├── react-native-vector-icons.d.ts
 ├── README.md
