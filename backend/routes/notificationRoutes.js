@@ -15,9 +15,18 @@ const authMiddleware = require('../middlewares/authMiddleware');
 router.post('/send', authMiddleware, async (req, res) => {
     const { token, title, body, data } = req.body;
 
-    // Validação básica dos campos obrigatórios
-    if (!token || !title || !body) {
-        return res.status(400).json({ error: 'token, title e body são obrigatórios' });
+    // Validação robusta dos campos obrigatórios e tipos
+    if (
+        !token || typeof token !== 'string' ||
+        !title || typeof title !== 'string' ||
+        !body || typeof body !== 'string'
+    ) {
+        return res.status(400).json({ error: 'token, title e body são obrigatórios e devem ser strings.' });
+    }
+
+    // Se data for enviado, deve ser um objeto
+    if (data && typeof data !== 'object') {
+        return res.status(400).json({ error: 'O campo data, se enviado, deve ser um objeto.' });
     }
 
     try {
@@ -25,10 +34,12 @@ router.post('/send', authMiddleware, async (req, res) => {
         const response = await sendNotification(token, { title, body, data });
 
         // Retorna sucesso e o ID da mensagem enviada
-        res.status(200).json({ message: 'Notificação enviada com sucesso.', response });
+        res.status(200).json({ message: 'Notificação enviada com sucesso.' });
     } catch (error) {
-        // Retorna erro detalhado em caso de falha
-        res.status(500).json({ error: `Erro ao enviar notificação: ${error.message}` });
+        // Loga o erro para análise interna
+        console.error('Erro ao enviar notificação:', error);
+        // Retorna erro genérico ao usuário
+        res.status(500).json({ error: 'Erro ao enviar notificação.' });
     }
 });
 

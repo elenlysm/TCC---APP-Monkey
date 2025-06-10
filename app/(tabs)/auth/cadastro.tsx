@@ -8,6 +8,28 @@ export default function SignUpScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const handleSignUp = () => {
+        if (!email || !password || !confirmPassword) {
+            setError('Preencha todos os campos.');
+            return;
+        }
+        if (!email.includes('@')) {
+            setError('E-mail inválido.');
+            return;
+        }
+        if (password.length < 6) {
+            setError('A senha deve ter pelo menos 6 caracteres.');
+            return;
+        }
+        if (password !== confirmPassword) {
+            setError('As senhas não coincidem.');
+            return;
+        }
+        setError('');
+        // Chame a API de cadastro aqui
+    };
 
     return (
         <Container>
@@ -39,8 +61,10 @@ export default function SignUpScreen() {
                 secureTextEntry
             />
 
+            {error ? <Text style={{ color: 'red', marginBottom: 8 }}>{error}</Text> : null}
+
             <View style={styles.buttonGroup}>
-                <Button title="Cadastrar" onPress={() => console.log('Cadastrar')} />
+                <Button title="Cadastrar" onPress={handleSignUp} />
             </View>
         </Container>
     );
@@ -64,6 +88,7 @@ const styles = StyleSheet.create({
         color: colors.textPrimary,
         marginBottom: 16,
     },
+
     buttonGroup: {
         flexDirection: 'row',
         justifyContent: 'center',

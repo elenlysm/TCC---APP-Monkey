@@ -17,7 +17,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         <View style={styles.container}>
             {/* Imagem de background full */}
             <ImageBackground
-                source={require('../../assets/images/Logo/nome-logo-400dpi_1024x500.png')}
+                source={require('../assets/images/deep-unsplash.png')} // substitua pelo caminho da sua imagem
                 style={styles.background}
                 resizeMode="cover"
             >

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
     },
     textPrimary: {
-        color: colors.buttonTextLight,
+        color: colors.buttonText,
     },
     textSubtle: {
         color: colors.textPrimary,

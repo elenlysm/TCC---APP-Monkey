@@ -20,7 +20,8 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
 
-import { HapticTab } from '@/app/components/HapticTab';
+import { HapticTab } from './components/HapticTab'
+
 import { IconSymbol } from '@/app/components/ui/IconSymbol';
 import TabBarBackground from '@/app/components/ui/TabBarBackground';
 import { Colors } from '@/app/constants/Colors';
@@ -43,7 +44,8 @@ export default function TabLayout() {
           },
           default: {},
         }),
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
