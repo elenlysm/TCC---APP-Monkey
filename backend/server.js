@@ -3,6 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const winston = require('winston');
 
 // Carrega variáveis de ambiente do arquivo .env
 dotenv.config();
@@ -25,6 +30,7 @@ const corsOptions = {
 
 // Aplica o middleware de CORS
 app.use(cors(corsOptions));
+app.use(helmet());
 
 // Middlewares para interpretar o corpo das requisições
 app.use(bodyParser.json()); // JSON
@@ -64,6 +70,13 @@ app.get('/', (req, res) => {
     res.send('Servidor rodando com CORS restrito!');
 });
 
+// Configuração do Swagger para documentação da API
+const swaggerSpec = swaggerJsdoc({ /* config */ });
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Limite de taxa para a rota de login
+app.use('/auth/login', rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }));
+
 // Middleware de tratamento global de erros — deve ser sempre o último
 const errorHandler = require('./middlewares/errorHandler');
 app.use(errorHandler);
@@ -73,3 +86,6 @@ const PORT = process.env.PORT || 5000;
 
 // Inicializa o servidor
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
+
+const logger = winston.createLogger({ /* config */ });
+logger.info('Mensagem de log');

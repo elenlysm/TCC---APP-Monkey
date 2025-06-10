@@ -24,6 +24,7 @@ const addBudget = async (req, res, next) => {
         }
         // (Opcional) Validação de tipos pode ser adicionada aqui
 
+        // Adiciona o orçamento no Firestore
         const id = await firestoreService.addDocument(COLLECTION, req.body);
         res.status(201).json({ message: 'Orçamento adicionado com sucesso.', id });
     } catch (error) {
@@ -39,10 +40,11 @@ const addBudget = async (req, res, next) => {
  */
 const getBudgets = async (req, res, next) => {
     try {
+        // Paginação: page e limit via query string
         const page = parseInt(req.query.page, 10) || 1;
         const limit = parseInt(req.query.limit, 10) || 20;
-        const budgets = await firestoreService.getDocuments(COLLECTION, page, limit);
-        res.status(200).json(budgets);
+        const budgets = await firestoreService.getBudgets({ page, limit });
+        res.status(200).json({ data: budgets, message: 'Orçamentos listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao listar orçamentos:', error);
         next(error);
@@ -57,7 +59,7 @@ const getBudgets = async (req, res, next) => {
 const updateBudget = async (req, res, next) => {
     const { id } = req.params;
     try {
-        // Validação básica dos campos obrigatórios (exemplo: não permitir update vazio)
+        // Validação: não permitir update vazio
         if (!req.body || Object.keys(req.body).length === 0) {
             return res.status(400).json({ error: 'Dados para atualização não fornecidos.' });
         }
@@ -86,7 +88,7 @@ const deleteBudget = async (req, res, next) => {
 };
 
 /**
- * @desc    Busca um orçamento específico
+ * @desc    Busca um orçamento específico por ID
  * @route   GET /budgets/:id
  * @access  Privado
  */
@@ -135,7 +137,7 @@ const getBudgetsByUser = async (req, res, next) => {
 };
 
 /**
- * @desc    Lista orçamentos por período
+ * @desc    Lista orçamentos por período (intervalo de datas)
  * @route   GET /budgets/period/:startDate/:endDate
  */
 const getBudgetsByPeriod = async (req, res, next) => {
@@ -249,7 +251,7 @@ const getBudgetsByUpdateDate = async (req, res, next) => {
     }
 };
 
-// Exporta todas as funções do controller
+// Exporta todas as funções do controller para uso nas rotas
 module.exports = {
     addBudget,
     getBudgets,

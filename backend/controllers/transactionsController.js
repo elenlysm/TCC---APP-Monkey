@@ -28,7 +28,7 @@ const addTransaction = async (req, res) => {
 const getTransactions = async (req, res) => {
     try {
         const transactions = await firestoreService.getDocuments(COLLECTION);
-        res.status(200).json(transactions);
+        res.status(200).json({ data: transactions, message: 'Transações listadas com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter transações:', error);
         res.status(500).json({ error: 'Falha ao obter transações.' });

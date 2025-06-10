@@ -1,5 +1,5 @@
 const authService = require('../services/authService');
-const validator = require('validator'); // Para validação de email
+const validator = require('validator'); // Biblioteca para validação de email
 
 /**
  * @desc    Registra um novo usuário
@@ -22,9 +22,9 @@ const register = async (req, res) => {
             return res.status(400).json({ error: 'A senha deve ter pelo menos 6 caracteres.' });
         }
 
+        // Chama o serviço para registrar o usuário
         const user = await authService.register({ email, password });
-        // Log de sucesso (opcional)
-        // console.info(`Usuário registrado: ${email}`);
+        // Retorna sucesso e o usuário criado (atenção: não exponha dados sensíveis)
         res.status(201).json({ message: 'Usuário registrado com sucesso.', user });
     } catch (error) {
         console.error('Erro no registro:', error);
@@ -49,13 +49,13 @@ const login = async (req, res) => {
             return res.status(400).json({ error: 'Formato de email inválido.' });
         }
 
+        // Chama o serviço para autenticar o usuário
         const token = await authService.login({ email, password });
-        // Log de sucesso (opcional)
-        // console.info(`Login realizado: ${email}`);
         res.status(200).json({ message: 'Login bem-sucedido.', token });
     } catch (error) {
         console.error('Erro no login:', error);
 
+        // Retorna erro 401 se as credenciais forem inválidas
         if (error.message === 'Credenciais inválidas') {
             return res.status(401).json({ error: 'Credenciais inválidas.' });
         }
@@ -70,14 +70,13 @@ const login = async (req, res) => {
  */
 const logout = async (req, res) => {
     try {
-        // Verifica se o usuário está autenticado
+        // Verifica se o usuário está autenticado (req.user deve ser preenchido por um middleware de autenticação)
         if (!req.user) {
             return res.status(401).json({ error: 'Usuário não autenticado.' });
         }
 
+        // Chama o serviço para realizar logout
         await authService.logout(req.user);
-        // Log de sucesso (opcional)
-        // console.info(`Logout realizado: ${req.user.email}`);
         res.status(200).json({ message: 'Logout realizado com sucesso.' });
     } catch (error) {
         console.error('Erro no logout:', error);
@@ -102,9 +101,8 @@ const forgotPassword = async (req, res) => {
             return res.status(400).json({ error: 'Formato de email inválido.' });
         }
 
+        // Chama o serviço para enviar email de recuperação
         await authService.forgotPassword(email);
-        // Log de sucesso (opcional)
-        // console.info(`Solicitação de recuperação de senha: ${email}`);
         res.status(200).json({ message: 'Email de recuperação enviado.' });
     } catch (error) {
         console.error('Erro na recuperação de senha:', error);
@@ -129,9 +127,8 @@ const resetPassword = async (req, res) => {
             return res.status(400).json({ error: 'A nova senha deve ter pelo menos 6 caracteres.' });
         }
 
+        // Chama o serviço para redefinir a senha
         await authService.resetPassword(token, newPassword);
-        // Log de sucesso (opcional)
-        // console.info(`Senha redefinida para token: ${token}`);
         res.status(200).json({ message: 'Senha redefinida com sucesso.' });
     } catch (error) {
         console.error('Erro na redefinição de senha:', error);
@@ -139,4 +136,21 @@ const resetPassword = async (req, res) => {
     }
 };
 
-module.exports = { register, login, logout, forgotPassword, resetPassword };
+/**
+ * @desc    Lista de orçamentos
+ * @route   GET /budgets
+ * OBS: Esta função não deveria estar no controller de autenticação.
+ */
+const listBudgets = async (req, res) => {
+    try {
+        // Busca orçamentos pelo serviço de autenticação (ideal: mover para budgetsController)
+        const budgets = await authService.getBudgets();
+        res.status(200).json({ data: budgets, message: 'Orçamentos listados com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao listar orçamentos:', error);
+        res.status(500).json({ error: 'Falha ao listar orçamentos.' });
+    }
+};
+
+// Exporta todas as funções do controller
+module.exports = { register, login, logout, forgotPassword, resetPassword, listBudgets };

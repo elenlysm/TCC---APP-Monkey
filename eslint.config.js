@@ -9,15 +9,19 @@ module.exports = defineConfig([
       'build/*',
       'web-build/*',
       '.expo/*'],
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     plugins: {
       '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
       'security': require('eslint-plugin-security'),
       'prettier': require('eslint-plugin-prettier'),
+      'react': require('eslint-plugin-react'),
+      'react-hooks': require('eslint-plugin-react-hooks'),
     },
     extends: [
       'plugin:security/recommended',
       'plugin:prettier/recommended',
+      'plugin:react/recommended',
+      'plugin:react-hooks/recommended',
     ],
     rules: {
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
@@ -36,5 +40,6 @@ module.exports = defineConfig([
       'no-alert': 'error',
       'prettier/prettier': 'warn',
     },
+    env: { node: true, es2021: true },
   },
 ]);

@@ -43,8 +43,6 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-
-
 const moveDirectories = async (userInput) => {
   try {
     if (userInput === "y") {
@@ -98,15 +96,18 @@ const moveDirectories = async (userInput) => {
   }
 };
 
-rl.question(
-  "Do you want to move existing files to /app-example instead of deleting them? (Y/n): ",
-  (answer) => {
-    const userInput = answer.trim().toLowerCase() || "y";
-    if (userInput === "y" || userInput === "n") {
-      moveDirectories(userInput).finally(() => rl.close());
-    } else {
-      console.log("❌ Invalid input. Please enter 'Y' or 'N'.");
-      rl.close();
+function askUser() {
+  rl.question(
+    "Do you want to move existing files to /app-example instead of deleting them? (Y/n): ",
+    (answer) => {
+      const userInput = answer.trim().toLowerCase() || "y";
+      if (userInput === "y" || userInput === "n") {
+        moveDirectories(userInput).finally(() => rl.close());
+      } else {
+        console.log("❌ Invalid input. Please enter 'Y' or 'N'.");
+        askUser(); // Repete a pergunta
+      }
     }
-  }
-);
+  );
+}
+askUser();

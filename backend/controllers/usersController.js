@@ -56,7 +56,7 @@ const getUsersByCreationDate = async (req, res) => {
 
     try {
         const users = await firestoreService.getDocumentsByDateRange(COLLECTION, 'createdAt', startDate, endDate);
-        res.status(200).json(users);
+        res.status(200).json({ data: users, message: 'Usuários listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter usuários por data de criação:', error);
         res.status(500).json({ error: 'Falha ao obter usuários por data de criação.' });

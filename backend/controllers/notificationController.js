@@ -22,12 +22,13 @@ const sendNotification = async (req, res) => {
  * @route   GET /notifications/:userId
  */
 const listNotifications = async (req, res) => {
+    // Valida se userId foi informado
     if (!req.params.userId) {
         return res.status(400).json({ error: 'userId é obrigatório.' });
     }
     try {
         const notifications = await notificationService.getNotifications(req.params.userId);
-        res.status(200).json(notifications);
+        res.status(200).json({ data: notifications, message: 'Notificações listadas com sucesso.' });
     } catch (error) {
         console.error('Erro ao listar notificações:', error);
         res.status(500).json({ error: 'Falha ao listar notificações.' });
@@ -129,6 +130,7 @@ const getNotificationsByStatus = async (req, res) => {
 const getNotificationsByDate = async (req, res) => {
     const { startDate, endDate } = req.query;
 
+    // Validação dos parâmetros obrigatórios e formato de data
     if (!startDate || !endDate) {
         return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
     }
@@ -230,7 +232,7 @@ const getNotificationsByGroup = async (req, res) => {
     }
 };
 
-// Exporta todas as funções de uma vez
+// Exporta todas as funções do controller para uso nas rotas
 module.exports = { 
     sendNotification, 
     listNotifications, 
