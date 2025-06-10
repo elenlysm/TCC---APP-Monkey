@@ -1,36 +1,72 @@
-import { useState } from 'react';
-import { View, TextInput, Button, FlatList, Text } from 'react-native';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { Alert, Button, FlatList, SafeAreaView, Text, TextInput } from 'react-native';
 import { db } from '../services/firebaseConfig';
 
 export default function CoabitacaoScreen() {
+    // Estado para o nome do grupo digitado
     const [grupo, setGrupo] = useState('');
+    // Tipo e estado para a lista de grupos
     type Grupo = { id: string; nome: string };
     const [grupos, setGrupos] = useState<Grupo[]>([]);
 
-    const criarGrupo = async () => {
-        await addDoc(collection(db, 'grupos'), { nome: grupo });
+    // Carrega os grupos ao abrir a tela
+    useEffect(() => {
         carregarGrupos();
+    }, []);
+
+    // Função para criar um novo grupo no Firestore
+    const criarGrupo = async () => {
+        if (!grupo.trim()) {
+            Alert.alert('Atenção', 'Digite o nome do grupo.');
+            return;
+        }
+        try {
+            await addDoc(collection(db, 'grupos'), { nome: grupo });
+            setGrupo(''); // Limpa o campo após criar
+            carregarGrupos(); // Atualiza a lista
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível criar o grupo.');
+        }
     };
 
+    // Função para buscar todos os grupos do Firestore
     const carregarGrupos = async () => {
-        const querySnapshot = await getDocs(collection(db, 'grupos'));
-        const lista = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            nome: doc.data().nome as string
-        }));
-        setGrupos(lista);
+        try {
+            const querySnapshot = await getDocs(collection(db, 'grupos'));
+            const lista = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                nome: doc.data().nome as string
+            }));
+            setGrupos(lista);
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível carregar os grupos.');
+        }
     };
 
     return (
-        <View>
-            <TextInput placeholder="Nome do grupo" value={grupo} onChangeText={setGrupo} />
-            <Button title="Criar Grupo" onPress={criarGrupo} />
+        <SafeAreaView style={{ flex: 1, padding: 16 }}>
+            {/* Campo de texto para nome do grupo */}
+            <TextInput
+                placeholder="Nome do grupo"
+                value={grupo}
+                onChangeText={setGrupo}
+                accessibilityLabel="Campo para nome do grupo"
+                style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 8, padding: 8, borderRadius: 4 }}
+            />
+            {/* Botão para criar grupo */}
+            <Button title="Criar Grupo" onPress={criarGrupo} accessibilityLabel="Botão para criar grupo" />
+            {/* Lista de grupos */}
             <FlatList
                 data={grupos}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => <Text>{item.nome}</Text>}
+                ListEmptyComponent={
+                    <Text style={{ color: '#888', marginTop: 16 }}>
+                        Nenhum grupo encontrado.
+                    </Text>
+                }
             />
-        </View>
+        </SafeAreaView>
     );
 }

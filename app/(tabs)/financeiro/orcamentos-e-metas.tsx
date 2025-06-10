@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import { Svg, G, Path, Defs, Filter, FeFlood, FeColorMatrix, FeOffset, FeComposite, FeBlend, Line } from 'react-native-svg';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { G, Line, Path, Svg } from 'react-native-svg'; // Defs, Filter, FeFlood removidos para compatibilidade
 
 export default function OrcamentoEMetas() {
     return (
         <View style={styles.container}>
-            {/* Fundo superior */}
+            {/* SVG decorativo de fundo, sem filtros */}
             <Svg style={styles.vector} width="412" height="206" viewBox="0 0 412 206" fill="none">
-                <G filter="url(#filter0_d)">
+                <G>
                     <Path
                         fillRule="evenodd"
                         clipRule="evenodd"
@@ -17,29 +17,19 @@ export default function OrcamentoEMetas() {
                         strokeWidth="11"
                     />
                 </G>
-                <Defs>
-                    <Filter id="filter0_d" x="-188.226" y="-388.658" width="711.345" height="593.965" filterUnits="userSpaceOnUse">
-                        <FeFlood floodOpacity="0" result="BackgroundImageFix" />
-                        <FeColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                        <FeOffset dx="64" dy="11" />
-                        <FeComposite in2="hardAlpha" operator="out" />
-                        <FeColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.73 0 0 0 0 0.33 0 0 0 1 0" />
-                        <FeBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
-                        <FeBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
-                    </Filter>
-                </Defs>
             </Svg>
 
-            {/* Cabeçalho */}
+            {/* Cabeçalho com imagem de perfil e título */}
             <View style={styles.header}>
                 <ImageBackground
                     style={styles.profileImage}
                     source={{ uri: 'https://dummyimage.com/63x63/000/fff.png' }}
+                    accessibilityLabel="Foto de perfil do usuário"
                 />
                 <Text style={styles.title}>Orçamento e Metas</Text>
             </View>
 
-            {/* Indicadores de progresso */}
+            {/* Indicadores de progresso - estáticos, prontos para dados dinâmicos */}
             <View style={styles.budgetSection}>
                 {['Item 1', 'Item 2', 'Item 3'].map((item, index) => (
                     <View key={index} style={styles.itemContainer}>
@@ -58,9 +48,11 @@ export default function OrcamentoEMetas() {
                 ))}
             </View>
 
-            {/* Ações */}
+            {/* Ações e resumo das metas */}
             <View style={styles.actions}>
-                <Text style={styles.addGoal}>Adicionar Meta ao Orçamento</Text>
+                <Text style={styles.addGoal} accessibilityLabel="Adicionar Meta ao Orçamento">
+                    Adicionar Meta ao Orçamento
+                </Text>
                 <Text style={styles.summary}>Total de Metas: 0</Text>
                 <Text style={styles.summary}>Metas Atingidas: 0</Text>
             </View>
@@ -68,6 +60,7 @@ export default function OrcamentoEMetas() {
     );
 }
 
+// Estilos organizados e prontos para expansão
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -83,12 +76,13 @@ const styles = StyleSheet.create({
         marginTop: 150,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 12,
+        // gap removido para compatibilidade
     },
     profileImage: {
         width: 63,
         height: 63,
         borderRadius: 31.5,
+        marginRight: 12, // Substitui gap
     },
     title: {
         fontSize: 20,
@@ -114,7 +108,7 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     progressValue: {
-        width: '50%', // valor fictício
+        width: '50%', // valor fictício, troque por valor dinâmico depois
         height: '100%',
         backgroundColor: '#1E8087',
     },

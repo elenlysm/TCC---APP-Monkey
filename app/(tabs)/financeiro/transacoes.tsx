@@ -1,41 +1,89 @@
-import { useState } from 'react';
-import { View, TextInput, Button, FlatList, Text } from 'react-native';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { Alert, Button, FlatList, SafeAreaView, Text, TextInput } from 'react-native';
 import { db } from '../../services/firebaseConfig';
 
 export default function TransacoesScreen() {
+    // Estados para os campos de entrada e lista de transações
     const [descricao, setDescricao] = useState('');
     const [valor, setValor] = useState('');
     const [transacoes, setTransacoes] = useState<{ id: string; descricao: string; valor: number }[]>([]);
 
-    const adicionarTransacao = async () => {
-        await addDoc(collection(db, 'transacoes'), { descricao, valor: parseFloat(valor) });
+    // Carrega as transações ao abrir a tela
+    useEffect(() => {
         carregarTransacoes();
+    }, []);
+
+    // Função para adicionar uma nova transação ao Firestore
+    const adicionarTransacao = async () => {
+        if (!descricao.trim() || !valor.trim() || isNaN(Number(valor))) {
+            Alert.alert('Atenção', 'Preencha a descrição e um valor válido.');
+            return;
+        }
+        try {
+            await addDoc(collection(db, 'transacoes'), { descricao, valor: parseFloat(valor) });
+            setDescricao(''); // Limpa campo de descrição
+            setValor('');     // Limpa campo de valor
+            carregarTransacoes(); // Atualiza a lista
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível adicionar a transação.');
+        }
     };
 
+    // Função para buscar todas as transações do Firestore
     const carregarTransacoes = async () => {
-        const querySnapshot = await getDocs(collection(db, 'transacoes'));
-        const lista = querySnapshot.docs.map(doc => {
-            const data = doc.data();
-            return {
-                id: doc.id,
-                descricao: data.descricao ?? '',
-                valor: typeof data.valor === 'number' ? data.valor : parseFloat(data.valor) || 0
-            };
-        });
-        setTransacoes(lista);
+        try {
+            const querySnapshot = await getDocs(collection(db, 'transacoes'));
+            const lista = querySnapshot.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    descricao: data.descricao ?? '',
+                    valor: typeof data.valor === 'number' ? data.valor : parseFloat(data.valor) || 0
+                };
+            });
+            setTransacoes(lista);
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível carregar as transações.');
+        }
     };
 
     return (
-        <View>
-            <TextInput placeholder="Descrição" value={descricao} onChangeText={setDescricao} />
-            <TextInput placeholder="Valor" value={valor} keyboardType="numeric" onChangeText={setValor} />
-            <Button title="Adicionar" onPress={adicionarTransacao} />
+        <SafeAreaView style={{ flex: 1, padding: 16 }}>
+            {/* Campo para descrição da transação */}
+            <TextInput
+                placeholder="Descrição"
+                value={descricao}
+                onChangeText={setDescricao}
+                accessibilityLabel="Campo de descrição"
+                style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 8, padding: 8, borderRadius: 4 }}
+            />
+            {/* Campo para valor da transação */}
+            <TextInput
+                placeholder="Valor"
+                value={valor}
+                keyboardType="numeric"
+                onChangeText={setValor}
+                accessibilityLabel="Campo de valor"
+                style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 8, padding: 8, borderRadius: 4 }}
+            />
+            {/* Botão para adicionar transação */}
+            <Button title="Adicionar" onPress={adicionarTransacao} accessibilityLabel="Botão adicionar transação" />
+            {/* Lista de transações */}
             <FlatList
                 data={transacoes}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => <Text>{item.descricao}: R$ {item.valor}</Text>}
+                renderItem={({ item }) => (
+                    <Text>
+                        {item.descricao}: R$ {item.valor.toFixed(2)}
+                    </Text>
+                )}
+                ListEmptyComponent={
+                    <Text style={{ color: '#888', marginTop: 16 }}>
+                        Nenhuma transação encontrada.
+                    </Text>
+                }
             />
-        </View>
+        </SafeAreaView>
     );
 }
