@@ -6,7 +6,7 @@ import { db } from '../../services/firebaseConfig';
 export default function TransacoesScreen() {
     const [descricao, setDescricao] = useState('');
     const [valor, setValor] = useState('');
-    const [transacoes, setTransacoes] = useState([]);
+    const [transacoes, setTransacoes] = useState<{ id: string; descricao: string; valor: number }[]>([]);
 
     const adicionarTransacao = async () => {
         await addDoc(collection(db, 'transacoes'), { descricao, valor: parseFloat(valor) });
@@ -15,7 +15,14 @@ export default function TransacoesScreen() {
 
     const carregarTransacoes = async () => {
         const querySnapshot = await getDocs(collection(db, 'transacoes'));
-        const lista = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const lista = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                descricao: data.descricao ?? '',
+                valor: typeof data.valor === 'number' ? data.valor : parseFloat(data.valor) || 0
+            };
+        });
         setTransacoes(lista);
     };
 

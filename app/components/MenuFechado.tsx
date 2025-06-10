@@ -52,7 +52,7 @@ export default function MenuFechado() {
                 <View style={styles.block}>
                     <Image
                         style={styles.logo}
-                        source={require('../../assets/images/Logo/Sagui-cabeça-400dpi 192x192.png')}
+                        source={require('../assets/images/icon.png')}
                         resizeMode="contain"
                     />
                 </View>
