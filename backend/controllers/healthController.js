@@ -6,11 +6,11 @@ const firestoreService = require('../services/firestoreService');
  */
 const healthCheck = (req, res) => {
     res.status(200).json({
-        status: 'OK',
+        status: 'OK', // Indica que o sistema está rodando
         uptime: process.uptime(), // Tempo de atividade do processo em segundos
-        nodeVersion: process.version, // Versão do Node.js
-        env: process.env.NODE_ENV || 'development', // Ambiente atual
-        timestamp: new Date().toISOString() // Timestamp padronizado
+        nodeVersion: process.version, // Versão do Node.js em uso
+        env: process.env.NODE_ENV || 'development', // Ambiente atual (development, production, etc)
+        timestamp: new Date().toISOString() // Data/hora da verificação
     });
 };
 
@@ -20,10 +20,10 @@ const healthCheck = (req, res) => {
  */
 const dbHealthCheck = async (req, res) => {
     try {
-        // Simula uma consulta ao banco de dados (coleção pode ser configurável)
+        // Tenta buscar documentos em uma coleção de health check (pode ser configurável via env)
         await firestoreService.getDocuments(process.env.HEALTH_COLLECTION || 'healthCheck');
 
-        // Retorna status saudável do banco
+        // Se não lançar erro, o banco está saudável
         res.status(200).json({
             status: 'Database is healthy',
             timestamp: new Date().toISOString()
@@ -41,8 +41,32 @@ const dbHealthCheck = async (req, res) => {
     }
 };
 
-// Exporta todas as funções do controller
+/**
+ * @desc    Lista todos os orçamentos
+ * @route   GET /orcamentos
+ */
+const listarOrcamentos = async (req, res) => {
+    try {
+        // Busca todos os documentos da coleção 'orcamentos' no Firestore
+        const budgets = await firestoreService.getDocuments('orcamentos');
+
+        // Retorna a lista de orçamentos encontrada
+        res.status(200).json({ data: budgets, message: 'Orçamentos listados com sucesso.' });
+    } catch (error) {
+        // Loga o erro para análise
+        console.error('Erro ao listar orçamentos:', error);
+
+        // Retorna erro detalhado apenas em ambiente de desenvolvimento
+        res.status(500).json({
+            error: 'Erro ao listar orçamentos',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+};
+
+// Exporta todas as funções do controller para uso nas rotas
 module.exports = {
     healthCheck,
-    dbHealthCheck
+    dbHealthCheck,
+    listarOrcamentos
 };

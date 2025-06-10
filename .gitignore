@@ -31,9 +31,19 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
 
 # typescript
 *.tsbuildinfo
 
 app-example
+firebase-debug.log
+firebase-debug.*.log
+backend/build/
+backend/dist/
+backend/out/
+coverage/
+*.snap
+.vscode/
+pnpm-lock.yaml

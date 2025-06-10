@@ -2,7 +2,7 @@ const openFinanceService = require('../services/openFinanceService');
 const tokenService = require('../services/tokenService');
 
 /**
- * @desc    Autorização Open Finance
+ * @desc    Autorização Open Finance (troca código por token e salva para o usuário)
  * @route   POST /openfinance/authorize
  */
 const authorize = async (req, res) => {
@@ -14,10 +14,10 @@ const authorize = async (req, res) => {
     }
 
     try {
+        // Troca o código de autorização por tokens de acesso
         const tokens = await openFinanceService.exchangeCodeForToken(code);
+        // Salva os tokens para o usuário
         await tokenService.saveToken(userId, tokens);
-        // Log de sucesso (opcional)
-        // console.info(`Open Finance autorizado para userId: ${userId}`);
         res.status(200).json({ message: 'Autorização realizada com sucesso.' });
     } catch (error) {
         console.error('Erro na autorização OpenFinance:', error);
@@ -29,7 +29,7 @@ const authorize = async (req, res) => {
 };
 
 /**
- * @desc    Coleta extratos
+ * @desc    Coleta extratos bancários do usuário
  * @route   POST /openfinance/statements
  */
 const getStatements = async (req, res) => {
@@ -41,8 +41,9 @@ const getStatements = async (req, res) => {
     }
 
     try {
+        // Busca extratos do usuário via Open Finance Service
         const statements = await openFinanceService.getStatements(userId);
-        res.status(200).json({ statements });
+        res.status(200).json({ data: statements, message: 'Extratos listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter extratos:', error);
         res.status(500).json({
@@ -53,7 +54,7 @@ const getStatements = async (req, res) => {
 };
 
 /**
- * @desc    Coleta transações    
+ * @desc    Coleta transações bancárias do usuário
  * @route   POST /openfinance/transactions
  */
 const getTransactions = async (req, res) => {
@@ -65,8 +66,10 @@ const getTransactions = async (req, res) => {
     }
 
     try {
+        // Busca transações do usuário via Open Finance Service
         const transactions = await openFinanceService.getTransactions(userId);
-        res.status(200).json({ transactions });
+        // Sugestão: padronize a resposta para { data, message }
+        res.status(200).json({ data: transactions, message: 'Transações listadas com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter transações:', error);
         res.status(500).json({
@@ -76,8 +79,35 @@ const getTransactions = async (req, res) => {
     }
 };
 
+/**
+ * @desc    Coleta orçamentos do usuário
+ * @route   POST /openfinance/budgets
+ */
+const getBudgets = async (req, res) => {
+    const { userId } = req.body;
+
+    // Validação do campo obrigatório e tipo
+    if (!userId || typeof userId !== 'string') {
+        return res.status(400).json({ error: 'userId é obrigatório e deve ser string.' });
+    }
+
+    try {
+        // Busca orçamentos do usuário via Open Finance Service
+        const budgets = await openFinanceService.getBudgets(userId);
+        res.status(200).json({ data: budgets, message: 'Orçamentos listados com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao obter orçamentos:', error);
+        res.status(500).json({
+            error: 'Falha ao obter orçamentos.',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+};
+
+// Exporta todas as funções do controller para uso nas rotas
 module.exports = {
     authorize,
     getStatements,
-    getTransactions
+    getTransactions,
+    getBudgets
 };

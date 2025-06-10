@@ -31,6 +31,7 @@ const addCohabitation = async (req, res, next) => {
             updatedAt: new Date().toISOString(),
         };
 
+        // Adiciona a coabitação no banco
         const id = await firestoreService.addDocument(COLLECTION, newCohabitation);
         res.status(201).json({ message: 'Coabitação adicionada', id });
     } catch (error) {
@@ -45,6 +46,7 @@ const addCohabitation = async (req, res, next) => {
  */
 const getCohabitations = async (req, res, next) => {
     try {
+        // Busca coabitações onde o usuário é membro
         const cohabitations = await firestoreService.getDocumentsByArrayContains(COLLECTION, 'members', req.user.id);
         res.status(200).json(cohabitations);
     } catch (error) {
@@ -87,6 +89,7 @@ const updateCohabitation = async (req, res, next) => {
             return res.status(404).json({ message: 'Coabitação não encontrada' });
         }
 
+        // Só Admin pode atualizar
         if (!isAdmin(cohabitation, req.user.id)) {
             return res.status(403).json({ message: 'Permissão negada' });
         }
@@ -118,6 +121,7 @@ const deleteCohabitation = async (req, res, next) => {
             return res.status(404).json({ message: 'Coabitação não encontrada' });
         }
 
+        // Só Admin pode deletar
         if (!isAdmin(cohabitation, req.user.id)) {
             return res.status(403).json({ message: 'Permissão negada' });
         }
@@ -137,6 +141,7 @@ const addMember = async (req, res, next) => {
     const { id } = req.params;
     const { memberId, role } = req.body;
 
+    // Validação dos campos obrigatórios
     if (!memberId || !role) {
         return res.status(400).json({ message: 'memberId e role são obrigatórios' });
     }
@@ -147,6 +152,7 @@ const addMember = async (req, res, next) => {
             return res.status(404).json({ message: 'Coabitação não encontrada' });
         }
 
+        // Só Admin pode adicionar membros
         if (!isAdmin(cohabitation, req.user.id)) {
             return res.status(403).json({ message: 'Permissão negada' });
         }
@@ -191,6 +197,7 @@ const removeMember = async (req, res, next) => {
             return res.status(404).json({ message: 'Coabitação não encontrada' });
         }
 
+        // Só Admin pode remover membros
         if (!isAdmin(cohabitation, req.user.id)) {
             return res.status(403).json({ message: 'Permissão negada' });
         }
@@ -236,6 +243,7 @@ const updateResponsibility = async (req, res, next) => {
             return res.status(404).json({ message: 'Coabitação não encontrada' });
         }
 
+        // Só Admin pode atualizar responsabilidades
         if (!isAdmin(cohabitation, req.user.id)) {
             return res.status(403).json({ message: 'Permissão negada' });
         }
@@ -408,6 +416,7 @@ const getCohabitationsByLocation = async (req, res, next) => {
     }
 };
 
+// Exporta todas as funções do controller para uso nas rotas
 module.exports = {
     addCohabitation,
     getCohabitations,
