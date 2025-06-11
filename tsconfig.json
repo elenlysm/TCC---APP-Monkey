@@ -10,26 +10,24 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["app/*"]
     }
   },
   "include": [
-    "babel.config.js",
+    "app/**/*.ts",
+    "app/**/*.tsx",
     "env.d.ts",
-    "metro.config.js",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    ".expo/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/*.spec.js",
-    "**/*.test.js"
+    "backend",
+    "babel.config.js",
+    "eslint.config.js",
+    "app/app.config.js",
+    "app/eslint.config.js",
+    "scripts",
+    "functions"
   ]
 }

@@ -1,7 +1,8 @@
+import AuthBackground from '@/components/ui/AuthBackground';
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import Container from '../../components/Container';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Button from '../../components/Button';
+import Container from '../../components/Container';
 import { colors, fonts, fontSizes } from '../../theme';
 
 export default function LoginScreen({ navigation }: any) {
@@ -9,34 +10,36 @@ export default function LoginScreen({ navigation }: any) {
     const [password, setPassword] = useState('');
 
     return (
-        <Container>
-            <Text style={styles.label}>E-mail:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Digite seu e-mail"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
+        <AuthBackground>
+            <Container>
+                <Text style={styles.label}>E-mail:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite seu e-mail"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
 
-            <Text style={styles.label}>Senha:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Digite sua senha"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+                <Text style={styles.label}>Senha:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite sua senha"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
 
-            <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
-                <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
-            </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
+                    <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
+                </TouchableOpacity>
 
-            <View style={styles.buttonGroup}>
-                <Button title="Entrar" onPress={() => console.log('Entrar')} />
-            </View>
-        </Container>
+                <View style={styles.buttonGroup}>
+                    <Button title="Entrar" onPress={() => console.log('Entrar')} />
+                </View>
+            </Container>
+        </AuthBackground>
     );
 }
 

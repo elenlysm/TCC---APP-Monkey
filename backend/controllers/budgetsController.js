@@ -251,6 +251,14 @@ const getBudgetsByUpdateDate = async (req, res, next) => {
     }
 };
 
+/**
+ * @desc    Lista orçamentos por usuário e data de criação
+ * @route   GET /budgets/user-created-at
+ */
+const getBudgetsByUserCreatedAt = (req, res) => {
+    res.status(501).json({ error: 'Not implemented' });
+};
+
 // Exporta todas as funções do controller para uso nas rotas
 module.exports = {
     addBudget,
@@ -266,5 +274,6 @@ module.exports = {
     getBudgetsByType,
     getBudgetsByDescription,
     getBudgetsByCreationDate,
-    getBudgetsByUpdateDate
+    getBudgetsByUpdateDate,
+    getBudgetsByUserCreatedAt
 };

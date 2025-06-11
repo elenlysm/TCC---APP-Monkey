@@ -1,7 +1,11 @@
+import Header from '@/components/Header';
+import MenuFechado from '@/components/MenuFechado';
+import NavigationDrawer from '@/components/NavigationDrawer';
+import { db } from '@/services/firebaseConfig';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { Alert, Button, FlatList, SafeAreaView, Text, TextInput } from 'react-native';
-import { db } from '../services/firebaseConfig';
+import { Alert, Button, FlatList, SafeAreaView, Text, TextInput, View } from 'react-native';
+
 
 export default function CoabitacaoScreen() {
     // Estado para o nome do grupo digitado
@@ -9,6 +13,7 @@ export default function CoabitacaoScreen() {
     // Tipo e estado para a lista de grupos
     type Grupo = { id: string; nome: string };
     const [grupos, setGrupos] = useState<Grupo[]>([]);
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     // Carrega os grupos ao abrir a tela
     useEffect(() => {
@@ -46,27 +51,32 @@ export default function CoabitacaoScreen() {
 
     return (
         <SafeAreaView style={{ flex: 1, padding: 16 }}>
-            {/* Campo de texto para nome do grupo */}
-            <TextInput
-                placeholder="Nome do grupo"
-                value={grupo}
-                onChangeText={setGrupo}
-                accessibilityLabel="Campo para nome do grupo"
-                style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 8, padding: 8, borderRadius: 4 }}
-            />
-            {/* Botão para criar grupo */}
-            <Button title="Criar Grupo" onPress={criarGrupo} accessibilityLabel="Botão para criar grupo" />
-            {/* Lista de grupos */}
-            <FlatList
-                data={grupos}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => <Text>{item.nome}</Text>}
-                ListEmptyComponent={
-                    <Text style={{ color: '#888', marginTop: 16 }}>
-                        Nenhum grupo encontrado.
-                    </Text>
-                }
-            />
+            <View style={{ flex: 1 }}>
+                <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
+                <Header />
+                {/* Campo de texto para nome do grupo */}
+                <TextInput
+                    placeholder="Nome do grupo"
+                    value={grupo}
+                    onChangeText={setGrupo}
+                    accessibilityLabel="Campo para nome do grupo"
+                    style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 8, padding: 8, borderRadius: 4 }}
+                />
+                {/* Botão para criar grupo */}
+                <Button title="Criar Grupo" onPress={criarGrupo} accessibilityLabel="Botão para criar grupo" />
+                {/* Lista de grupos */}
+                <FlatList
+                    data={grupos}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => <Text>{item.nome}</Text>}
+                    ListEmptyComponent={
+                        <Text style={{ color: '#888', marginTop: 16 }}>
+                            Nenhum grupo encontrado.
+                        </Text>
+                    }
+                />
+                <MenuFechado />
+            </View>
         </SafeAreaView>
     );
 }

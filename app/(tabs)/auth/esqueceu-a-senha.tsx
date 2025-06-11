@@ -1,28 +1,31 @@
+import AuthBackground from '@/components/ui/AuthBackground';
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Container from '../../components/Container';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Button from '../../components/Button';
+import Container from '../../components/Container';
 import { colors, fonts, fontSizes } from '../../theme';
 
 export default function ForgotPasswordScreen() {
     const [email, setEmail] = useState('');
 
     return (
-        <Container>
-            <Text style={styles.label}>E-mail:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Digite seu e-mail"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
-            <View style={styles.buttonGroup}>
-                <Button title="Cancelar" variant="subtle" onPress={() => console.log('Cancelar')} />
-                <Button title="Resetar a Senha" onPress={() => console.log('Resetar a Senha')} />
-            </View>
-        </Container>
+        <AuthBackground>
+            <Container>
+                <Text style={styles.label}>E-mail:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite seu e-mail"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
+                <View style={styles.buttonGroup}>
+                    <Button title="Cancelar" variant="subtle" onPress={() => console.log('Cancelar')} />
+                    <Button title="Resetar a Senha" onPress={() => console.log('Resetar a Senha')} />
+                </View>
+            </Container>
+        </AuthBackground>
     );
 }
 

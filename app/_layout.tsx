@@ -22,9 +22,9 @@ import { Platform } from 'react-native';
 
 import { HapticTab } from './components/HapticTab';
 
-import { Colors } from '@/app/constants/Colors';
-import { useColorScheme } from '@/app/hooks/useColorScheme';
-import { IconSymbol } from './components/ui/IconSymbol';
+import { IconSymbol } from '@/components/ui/IconSymbol';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
