@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Svg, Mask, Path, G } from 'react-native-svg';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type DialogBodyProps = {
     onConnect: () => void;
@@ -11,22 +10,33 @@ export default function DialogBody({ onConnect, onCancel }: DialogBodyProps) {
     return (
         <View style={styles.dialogBodyContainer}>
             <View style={styles.svgContainer}>
-                <Svg width="81" height="80" viewBox="0 0 81 80" fill="none">
-                    {/* Aqui mantém o conteúdo SVG existente */}
-                </Svg>
+                <Image
+                    source={require('../assets/images/banco.png')}
+                    style={styles.bankImage}
+                    resizeMode="contain"
+                    accessibilityLabel="Ícone de banco"
+                />
             </View>
-
             <Text style={styles.title}>Conectar com Open Finance</Text>
             <Text style={styles.message}>
                 Para continuar, conecte sua conta bancária de forma segura via Open Finance.
             </Text>
 
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.connectButton} onPress={onConnect}>
+                <TouchableOpacity
+                    style={styles.connectButton}
+                    onPress={onConnect}
+                    accessibilityLabel="Conectar com Open Finance"
+                    accessible
+                >
                     <Text style={styles.connectText}>Conectar</Text>
                 </TouchableOpacity>
-
-                <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
+                <TouchableOpacity
+                    style={styles.cancelButton}
+                    onPress={onCancel}
+                    accessibilityLabel="Cancelar conexão"
+                    accessible
+                >
                     <Text style={styles.cancelText}>Cancelar</Text>
                 </TouchableOpacity>
             </View>
@@ -41,9 +51,15 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         alignItems: 'center',
         elevation: 5,
+        maxWidth: 350,
     },
     svgContainer: {
         marginBottom: 20,
+    },
+    bankImage: {
+        width: 64,
+        height: 64,
+        marginBottom: 8,
     },
     title: {
         fontSize: 18,
@@ -59,13 +75,13 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        gap: 10,
     },
     connectButton: {
         backgroundColor: '#1E8087',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 8,
+        marginRight: 10,
     },
     connectText: {
         color: 'white',

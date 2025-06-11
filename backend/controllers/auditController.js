@@ -72,7 +72,7 @@ const getLogsByDate = async (req, res) => {
     const pageNum = Number(page);
     const limitNum = Number(limit);
     if (isNaN(pageNum) || pageNum < 1 || isNaN(limitNum) || limitNum < 1) {
-      return res.status(400).json({ error: 'page e limit devem ser números positivos.' });
+        return res.status(400).json({ error: 'page e limit devem ser números positivos.' });
     }
 
     try {
@@ -138,7 +138,7 @@ const getUserLogsByDate = async (req, res) => {
     const pageNum = Number(page);
     const limitNum = Number(limit);
     if (isNaN(pageNum) || pageNum < 1 || isNaN(limitNum) || limitNum < 1) {
-      return res.status(400).json({ error: 'page e limit devem ser números positivos.' });
+        return res.status(400).json({ error: 'page e limit devem ser números positivos.' });
     }
 
     try {
@@ -198,7 +198,7 @@ const exportLogsToCSV = async (req, res) => {
 };
 
 // Exporta todas as funções do controller para uso nas rotas
-module.exports = { 
+module.exports = {
     getAllLogs,
     getUserLogs,
     getLogsByActionType,

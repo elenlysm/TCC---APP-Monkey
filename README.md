@@ -56,6 +56,7 @@ npm install
 ```
 
 4. Configurar variáveis de ambiente (criar arquivo .env na raiz do frontend e backend conforme documentação)
+```bash
 5. Rodar o backend
 
 cd backend
@@ -65,7 +66,7 @@ npm start
 
 cd ../app
 npm start
-
+```
 ## Estrutura do projeto
 
 /app      -> Código do frontend React Native + Expo
