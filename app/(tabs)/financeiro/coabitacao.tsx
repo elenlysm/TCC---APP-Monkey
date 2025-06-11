@@ -1,7 +1,8 @@
+import { db } from '@/services/firebaseConfig';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Alert, Button, FlatList, SafeAreaView, Text, TextInput } from 'react-native';
-import { db } from '../services/firebaseConfig';
+
 
 export default function CoabitacaoScreen() {
     // Estado para o nome do grupo digitado

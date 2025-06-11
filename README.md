@@ -3,6 +3,7 @@
 Aplicativo de gestão financeira pessoal com integração à API Open Finance Brasil. Permite importação automática de transações bancárias, organização das finanças pessoais e divisão inteligente de despesas entre usuários, com foco em privacidade e segurança.
 
 ## Índice
+(#app-gestão-financeira---open-finance)
 - [App Gestão Financeira - Open Finance](#app-gestão-financeira---open-finance)
   - [Índice](#índice)
   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
@@ -57,12 +58,12 @@ npm install
 
 4. Configurar variáveis de ambiente (criar arquivo .env na raiz do frontend e backend conforme documentação)
 ```bash
-5. Rodar o backend
+#5. Rodar o backend
 
 cd backend
 npm start
 
-6. Rodar o frontend
+#6. Rodar o frontend
 
 cd ../app
 npm start
