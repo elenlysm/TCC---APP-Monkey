@@ -1,10 +1,18 @@
-import React from 'react';
+import Header from '@/components/Header';
+import MenuFechado from '@/components/MenuFechado';
+import NavigationDrawer from '@/components/NavigationDrawer';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 // Tela de dashboard inicial do app
 export default function DashboardScreen() {
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
     return (
         <SafeAreaView style={styles.container}>
+            <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
+            <Header />
+            <MenuFechado />
             {/* Saldo do usuário, com acessibilidade */}
             <Text style={styles.balance} accessibilityLabel="Saldo disponível">
                 Saldo: R$ 0,00

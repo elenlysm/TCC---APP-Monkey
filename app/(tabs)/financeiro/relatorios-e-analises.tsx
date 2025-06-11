@@ -1,9 +1,16 @@
+import Header from '@/components/Header';
+import MenuFechado from '@/components/MenuFechado';
+import NavigationDrawer from '@/components/NavigationDrawer';
+import { useState } from 'react';
 import { Dimensions, SafeAreaView, Text, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 
 export default function RelatoriosScreen() {
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+            <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
             {/* Título do relatório */}
             <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 16 }}>
                 Relatório Financeiro
@@ -31,6 +38,8 @@ export default function RelatoriosScreen() {
                     style={{ borderRadius: 16 }}
                 />
             </View>
+            <Header />
+            <MenuFechado />
         </SafeAreaView>
     );
 }

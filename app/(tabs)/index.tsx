@@ -1,12 +1,15 @@
 // app/screens/index.tsx
 // Tela inicial do aplicativo
 
+import { useRouter } from 'expo-router'; // Import do hook de navegação
 import React from 'react';
-import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Path, Svg } from 'react-native-svg';
 
 // Componente principal da tela inicial
 function TelaInicial() {
+    const router = useRouter(); // Inicializa o router
+
     return (
         // Garante que o conteúdo fique dentro da área segura do dispositivo
         <SafeAreaView style={styles.container}>
@@ -53,7 +56,7 @@ function TelaInicial() {
                         </View>
 
                         {/* Botão de Login */}
-                        <View style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={() => router.push('/auth/login')}>
                             <Text style={styles._button}>
                                 Login
                             </Text>
@@ -63,7 +66,7 @@ function TelaInicial() {
                                     <Path d="M1.83333 6.49992H11.1667M11.1667 6.49992L6.5 1.83325M11.1667 6.49992L6.5 11.1666" stroke="#070000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </Svg>
                             </View>
-                        </View>
+                        </TouchableOpacity>
 
                         {/* Linha decorativa separando os botões */}
                         <Svg style={styles.line1} width="270" height="18" viewBox="0 0 270 18" fill="none" >
@@ -71,7 +74,7 @@ function TelaInicial() {
                         </Svg>
 
                         {/* Botão de cadastro */}
-                        <View style={styles.__button}>
+                        <TouchableOpacity style={styles.__button} onPress={() => router.push('/auth/cadastro')}>
                             <Text style={styles.___button}>
                                 Cadastre-se
                             </Text>
@@ -81,7 +84,7 @@ function TelaInicial() {
                                     <Path d="M1.33333 6.50004H10.6667M10.6667 6.50004L6 1.83337M10.6667 6.50004L6 11.1667" stroke="#070000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </Svg>
                             </View>
-                        </View>
+                        </TouchableOpacity>
 
                         {/* Logo extra no rodapé */}
                         <ImageBackground

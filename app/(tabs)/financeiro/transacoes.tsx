@@ -1,3 +1,6 @@
+import Header from '@/components/Header';
+import MenuFechado from '@/components/MenuFechado';
+import NavigationDrawer from '@/components/NavigationDrawer';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Alert, Button, FlatList, SafeAreaView, Text, TextInput } from 'react-native';
@@ -8,6 +11,7 @@ export default function TransacoesScreen() {
     const [descricao, setDescricao] = useState('');
     const [valor, setValor] = useState('');
     const [transacoes, setTransacoes] = useState<{ id: string; descricao: string; valor: number }[]>([]);
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     // Carrega as transações ao abrir a tela
     useEffect(() => {
@@ -50,6 +54,8 @@ export default function TransacoesScreen() {
 
     return (
         <SafeAreaView style={{ flex: 1, padding: 16 }}>
+            <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
+            <Header />
             {/* Campo para descrição da transação */}
             <TextInput
                 placeholder="Descrição"
@@ -84,6 +90,7 @@ export default function TransacoesScreen() {
                     </Text>
                 }
             />
+            <MenuFechado />
         </SafeAreaView>
     );
 }

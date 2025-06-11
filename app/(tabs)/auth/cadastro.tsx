@@ -1,7 +1,8 @@
+import AuthBackground from '@/components/ui/AuthBackground';
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Container from '../../components/Container';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Button from '../../components/Button';
+import Container from '../../components/Container';
 import { colors, fonts, fontSizes } from '../../theme';
 
 export default function SignUpScreen() {
@@ -32,41 +33,43 @@ export default function SignUpScreen() {
     };
 
     return (
-        <Container>
-            <Text style={styles.label}>E-mail:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Digite seu e-mail"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
+        <AuthBackground>
+            <Container>
+                <Text style={styles.label}>E-mail:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite seu e-mail"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
 
-            <Text style={styles.label}>Senha:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Digite sua senha"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+                <Text style={styles.label}>Senha:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite sua senha"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
 
-            <Text style={styles.label}>Confirme a Senha:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Confirme sua senha"
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                secureTextEntry
-            />
+                <Text style={styles.label}>Confirme a Senha:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Confirme sua senha"
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
+                    secureTextEntry
+                />
 
-            {error ? <Text style={{ color: 'red', marginBottom: 8 }}>{error}</Text> : null}
+                {error ? <Text style={{ color: 'red', marginBottom: 8 }}>{error}</Text> : null}
 
-            <View style={styles.buttonGroup}>
-                <Button title="Cadastrar" onPress={handleSignUp} />
-            </View>
-        </Container>
+                <View style={styles.buttonGroup}>
+                    <Button title="Cadastrar" onPress={handleSignUp} />
+                </View>
+            </Container>
+        </AuthBackground>
     );
 }
 

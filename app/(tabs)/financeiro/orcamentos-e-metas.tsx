@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { G, Line, Path, Svg } from 'react-native-svg'; // Defs, Filter, FeFlood removidos para compatibilidade
+import { G, Line, Path, Svg } from 'react-native-svg';
+
+// Import de componentes customizados
+import Header from '@/components/Header';
+import MenuFechado from '@/components/MenuFechado';
+import NavigationDrawer from '@/components/NavigationDrawer';
 
 export default function OrcamentoEMetas() {
+    // Controle do drawer
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
     return (
         <View style={styles.container}>
+            {/* Navigation Drawer */}
+            <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
+
+            {/* Header customizado */}
+            <Header />
+
             {/* SVG decorativo de fundo, sem filtros */}
             <Svg style={styles.vector} width="412" height="206" viewBox="0 0 412 206" fill="none">
                 <G>
@@ -56,6 +70,9 @@ export default function OrcamentoEMetas() {
                 <Text style={styles.summary}>Total de Metas: 0</Text>
                 <Text style={styles.summary}>Metas Atingidas: 0</Text>
             </View>
+
+            {/* Menu Fechado no rodapé */}
+            <MenuFechado />
         </View>
     );
 }
