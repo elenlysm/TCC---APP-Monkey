@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Container from '../components/Container';
-import Button from '../components/Button';
-import { colors, fonts, fontSizes } from '../theme';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { colors, fonts, fontSizes } from '../../app/theme';
+import Button from './Button';
+import Container from './Container';
 
 export default function SignUpScreen() {
     const [email, setEmail] = useState('');

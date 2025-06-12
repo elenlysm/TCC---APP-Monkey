@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { colors } from '../theme';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { colors } from '../../app/theme';
 
 type ContainerProps = {
     children: ReactNode;
