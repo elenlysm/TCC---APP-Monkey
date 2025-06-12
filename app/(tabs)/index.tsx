@@ -14,7 +14,7 @@ function TelaInicial() {
         // Garante que o conteúdo fique dentro da área segura do dispositivo
         <SafeAreaView style={styles.container}>
             {/* Fundo da tela com imagem */}
-            <ImageBackground source={require('../assets/images/deep-unsplash.png')} style={{ flex: 1, justifyContent: 'center' }}>
+            <ImageBackground source={require('../../src/assets/images/deep-unsplash.png')} style={{ flex: 1, justifyContent: 'center' }}>
                 {/* Permite rolagem do conteúdo */}
                 <ScrollView contentContainerStyle={{ padding: 16 }}>
                     <View style={styles.telainicialContainer}>
@@ -30,7 +30,7 @@ function TelaInicial() {
 
                         {/* Logo centralizada */}
                         <Image
-                            source={require('../assets/images/logo.png')}
+                            source={require('../../src/assets/images/logo.png')}
                             style={{ width: 120, height: 120, alignSelf: 'center', marginTop: 250 }}
                             resizeMode="contain"
                         />
@@ -49,7 +49,7 @@ function TelaInicial() {
 
                             {/* Imagem de carteira */}
                             <Image
-                                source={require('../assets/images/carteira.png')}
+                                source={require('../../src/assets/images/carteira.png')}
                                 style={{ width: 200, height: 114, alignSelf: 'center', marginVertical: 16 }}
                                 resizeMode="contain"
                             />
@@ -89,7 +89,7 @@ function TelaInicial() {
                         {/* Logo extra no rodapé */}
                         <ImageBackground
                             style={styles.logo_icon}
-                            source={require('../assets/images/logo_icon.png')}
+                            source={require('../../src/assets/images/logo_icon.png')}
                         />
                     </View>
                 </ScrollView>
