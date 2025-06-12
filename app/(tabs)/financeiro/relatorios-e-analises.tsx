@@ -1,9 +1,9 @@
-import Header from '@/components/Header';
-import MenuFechado from '@/components/MenuFechado';
-import NavigationDrawer from '@/components/NavigationDrawer';
 import { useState } from 'react';
 import { Dimensions, SafeAreaView, Text, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
+import Header from '../../../src/components/Header';
+import MenuFechado from '../../../src/components/MenuFechado';
+import NavigationDrawer from '../../../src/components/NavigationDrawer';
 
 export default function RelatoriosScreen() {
     const [drawerOpen, setDrawerOpen] = useState(false);

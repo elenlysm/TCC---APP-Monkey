@@ -10,15 +10,17 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "paths": {
-      "@/*": ["app/*"]
+      "@/*": [
+        "app/*"
+      ]
     }
   },
   "include": [
     "app/**/*.ts",
     "app/**/*.tsx",
     "env.d.ts",
-    "expo-env.d.ts",
-    ".expo/types/**/*.ts"
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
   ],
   "exclude": [
     "node_modules",

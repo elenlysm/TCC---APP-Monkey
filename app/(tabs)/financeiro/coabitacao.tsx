@@ -1,10 +1,10 @@
-import Header from '@/components/Header';
-import MenuFechado from '@/components/MenuFechado';
-import NavigationDrawer from '@/components/NavigationDrawer';
-import { db } from '@/services/firebaseConfig';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Alert, Button, FlatList, SafeAreaView, Text, TextInput, View } from 'react-native';
+import Header from '../../../src/components/Header';
+import MenuFechado from '../../../src/components/MenuFechado';
+import NavigationDrawer from '../../../src/components/NavigationDrawer';
+import { db } from '../../../src/services/firebaseConfig';
 
 
 export default function CoabitacaoScreen() {
