@@ -27,7 +27,8 @@ export default function CoabitacaoScreen() {
             return;
         }
         try {
-            await addDoc(collection(db, 'grupos'), { nome: grupo });
+            // Adicionar grupo
+            await addDoc(collection(db, 'transacoes'), { nome: grupo });
             setGrupo(''); // Limpa o campo após criar
             carregarGrupos(); // Atualiza a lista
         } catch (error) {
@@ -38,7 +39,7 @@ export default function CoabitacaoScreen() {
     // Função para buscar todos os grupos do Firestore
     const carregarGrupos = async () => {
         try {
-            const querySnapshot = await getDocs(collection(db, 'grupos'));
+            const querySnapshot = await getDocs(collection(db, 'transacoes'));
             const lista = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 nome: doc.data().nome as string
