@@ -3,9 +3,9 @@ import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { G, Line, Path, Svg } from 'react-native-svg';
 
 // Import de componentes customizados
-import Header from '@/components/Header';
-import MenuFechado from '@/components/MenuFechado';
-import NavigationDrawer from '@/components/NavigationDrawer';
+import Header from '../../../src/components/Header';
+import MenuFechado from '../../../src/components/MenuFechado';
+import NavigationDrawer from '../../../src/components/NavigationDrawer';
 
 export default function OrcamentoEMetas() {
     // Controle do drawer

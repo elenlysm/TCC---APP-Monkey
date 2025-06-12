@@ -3,9 +3,14 @@ Estrutura - Monkey
 
 APP-GESTAO-FINANCEIRA/ 
 ├── .expo/
+│   ├── types/
+│   │   └── router.d.ts
 │   ├── .gitignore
 │   ├── devices.json
-│   └── README.md
+│   ├── README.md
+│   └── settings.json
+├── .firebase/ logs/
+│               └── vsce-debug.log
 ├── .idea/ 
 │   ├── caches/
 │   │   └── deviceStreaming.xml
@@ -20,83 +25,29 @@ APP-GESTAO-FINANCEIRA/
 ├── .vscode/
 │       └── settings.json
 ├── app/
-│   ├── assets/
-│   │   ├── fonts/
-│   │   │   └── SpaceMono-Regular.ttf
-│   │   └── images/
-│   │         ├── Layout/
-│   │         │    ├── deep-unsplash.png
-│   │         │    ├── public-domain-vectors--8j0sQmeNls-unsplash.png
-│   │         │    ├── round-icons-nBs_Fxr4dwk-unsplash.png
-│   │         │    └── round-icons-UHpQvEG56XY-unsplash.png
-│   │         ├── Logo/
-│   │         │    ├── nome-logo-400dpi 1024x500.png
-│   │         │    ├── Sagui-cabeça-400dpi 192x192.png
-│   │         │    └── Sagui-logo-400dpi 512x512.png
-│   │         ├── adaptive-icon.png
-│   │         ├── favicon.png
-│   │         ├── icon.png
-│   │         ├── partial-react-logo.png
-│   │         ├── react-logo.png
-│   │         ├── react-logo@2x.png
-│   │         ├── react-logo@3x.png
-│   │         └── splash-icon.png
-│   ├── components/
-│   │       ├── ui/
-│   │       │   ├── AuthBackground.tsx
-│   │       │   ├── IconSymbol.ios.tsx
-│   │       │   ├── IconSymbol.tsx
-│   │       │   ├── TabBarBackground.ios.tsx
-│   │       │   └── TabBarBackground.tsx 
-│   │       ├── AuthLayout.tsx
-│   │       ├── Button.tsx
-│   │       ├── Collapsible.tsx
-│   │       ├── Container.tsx
-│   │       ├── ExternalLink.tsx
-│   │       ├── HapticTab.tsx
-│   │       ├── Header.tsx
-│   │       ├── HelloWave.tsx
-│   │       ├── MenuFechado.tsx
-│   │       ├── NavigationDrawer.tsx
-│   │       ├── ParallexScrollView.tsx
-│   │       ├── ThemedText.tsx
-│   │       └── ThemedView.tsx
-│   ├── constants/
-│   │   └── Colors.ts
-│   ├── context/
-│   │   └── AuthContext.tsx
-│   ├── hooks/
-│   │   ├── useColorScheme.ts
-│   │   ├── useColorScheme.web.ts
-│   │   └── useThemeColor.ts 
-│   ├── screens/ 
+│   ├── (tabs)
 │   │   ├── auth/
-│   │   │   ├── cadastro.tsx
-│   │   │   ├── esqueceu-a-senha.tsx
-│   │   │   └── login.tsx
+│   │   │     ├── cadastro.tsx
+│   │   │     ├── esqueceu-a-senha.tsx
+│   │   │     └── login.tsx
 │   │   ├── financeiro/
-│   │   │   ├── orcamentos-e-metas.tsx
-│   │   │   ├── relatorios-e-analises.tsx
-│   │   │   └── transacoes.tsx
-│   │   ├── coabitacao.tsx
-│   │   ├── configuracoes.tsx
-│   │   ├── home.tsx
-│   │   ├── modal.tsx
-│   │   └── tela-inicial.tsx
-│   ├── services/
-│   │   └── firebaseConfig.ts
-│   ├── utils/
-│   │   └── security.ts
+│   │   │     ├── coabitacao.tsx
+│   │   │     ├── home.tsx
+│   │   │     ├── orcamentos-e-metas.tsx
+│   │   │     ├── relatorios-e-analises.tsx
+│   │   │     └── transacoes.tsx
+│   │   ├── config.tsx
+│   │   ├── index.tsx
+│   │   └── modal.tsx
 │   ├── _layout.tsx
 │   ├── .prettierrc.js
 │   ├── app.config.js
-│   ├── app.json
 │   ├── declarations.d.ts
-│   ├── eslint.config.js
 │   ├── README.md
 │   └── theme.ts
 ├── backend/
-│    ├── config/
+│    ├── _tests_/
+│    │   └── auth.test.js
 │    ├── controllers/
 │    │   ├── auditController.js
 │    │   ├── authController.js
@@ -107,14 +58,16 @@ APP-GESTAO-FINANCEIRA/
 │    │   ├── openFinanceController.js
 │    │   ├── profileController.js
 │    │   ├── reportsController.js
+│    │   ├── settingsController.js
 │    │   ├── transactionsController.js
 │    │   └── usersController.js
+│    ├── dist/
+│    │   └── index.js
 │    ├── middlewares/
 │    │   ├── authMiddleware.js
 │    │   ├── errorHandler.js
 │    │   └── validate.js
-│    ├── models/
-│    ├── node_modules/
+│    ├── node_modules/...
 │    ├── routes/
 │    │   ├── api.js
 │    │   ├── authRoutes.js
@@ -127,62 +80,99 @@ APP-GESTAO-FINANCEIRA/
 │    │   ├── transactionsRoutes.js
 │    │   └── usersRoutes.js
 │    ├── services/
+│    │   ├── authService.js
 │    │   ├── firestoreService.js
 │    │   ├── notificationService.js
 │    │   ├── openFinanceService.js
 │    │   └── tokenService.js
+│    ├── src/
+│    │   └── index.ts
 │    ├── utils/
 │    │   ├── errorHandler.js
 │    │   ├── log.js
 │    │   └── transactionUtils.js
 │    ├── validators/
 │    │   └── openFinanceValidator.js
-│    ├── .env
-│    ├── .env.example
 │    ├── firebaseAdmin.js
-│    ├── index.js
-│    ├── package-lock.json
-│    ├── package.json
 │    └── server.js
-├── design/ 
+├── design/ ...
 ├── docs/
 │    ├── Estrutura - Monkey.txt
 │    └── requisitos.md
 ├── functions/
-│    ├── node_modules
 │    ├── .eslintrc.js
-│    ├── .gitignore
+│    ├── .eslintrc.config.js
 │    ├── index.js
 │    ├── package-lock.json
-│    └── package.json
-├── node_modules
+│    ├── package.json
+│    └── node_modules/ ...
+├── node_modules/ ...
 ├── scripts/
 │   ├── README.md
 │   └── reset-project.js
-├── tests/
-│   └── mockOpenFinance/
-│    ├── backend/
-│    │   ├── controllers/
-│    │   │   └── mockOpenFinanceController.js
-│    │   ├── data/
-│    │   │   └── mockData.js
-│    │   ├── node_modules/
-│    │   ├── routes/
-│    │   │   └── mockOpenFinanceRoutes.js
-│    │   ├── package-lock.json
-│    │   ├── package.json
-│    │   └── server.js
-│    └── README.md
+├── src/
+│   ├── assets/
+│   │   ├── fonts/
+│   │   │   ├── AnonymousPro-Bold.ttf
+│   │   │   ├── AnonymousPro-Regular.ttf
+│   │   │   ├── Roboto-VariableFont_wdth,wght.ttf
+│   │   │   └── SpaceMono-Regular.ttf
+│   │   ├── images/
+│   │   │     ├── adaptive-icon.png
+│   │   │     ├── banco.png
+│   │   │     ├── carteira.png
+│   │   │     ├── conta.png
+│   │   │     ├── deep-unsplash.png
+│   │   │     ├── favicon.png
+│   │   │     ├── icon.png
+│   │   │     ├── logo_icon.png
+│   │   │     ├── logo.png
+│   │   │     ├── partial-react-logo.png
+│   │   │     ├── react-logo.png
+│   │   │     ├── react-logo@2x.png
+│   │   │     ├── react-logo@3x.png
+│   │   │     └── splash-icon.png
+│   │   └── react-native-vector-icons.d.ts
+│   ├── components/
+│   │       ├── ui/
+│   │       │   ├── AuthBackground.tsx
+│   │       │   ├── IconSymbol.ios.tsx
+│   │       │   ├── IconSymbol.tsx
+│   │       │   ├── TabBarBackground.ios.tsx
+│   │       │   └── TabBarBackground.tsx 
+│   │       ├── Button.tsx
+│   │       ├── Collapsible.tsx
+│   │       ├── Container.tsx
+│   │       ├── ExternalLink.tsx
+│   │       ├── HapticTab.tsx
+│   │       ├── Header.tsx
+│   │       ├── HelloWave.tsx
+│   │       ├── MenuFechado.tsx
+│   │       └── NavigationDrawer.tsx
+│   ├── constants/
+│   │   └── Colors.ts
+│   ├── context/
+│   │   └── AuthContext.tsx
+│   ├── hooks/
+│   │   ├── useColorScheme.ts
+│   │   ├── useColorScheme.web.ts
+│   │   └── useThemeColor.ts 
+│   ├── services/
+│   │   └── firebaseConfig.ts
+│   └── utils/
+│       └── security.ts
 ├── .env
 ├── .env.example
 ├── .firebaserc
+├── .gitignore
+├── app.json
 ├── babel.config.js
 ├── env.d.ts
+├── eslint.config.js
 ├── firebase.json
 ├── google-services.json
 ├── LICENSE 
 ├── package-lock.json   
 ├── package.json
-├── react-native-vector-icons.d.ts
 ├── README.md
 └── tsconfig.json

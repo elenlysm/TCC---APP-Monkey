@@ -1,8 +1,8 @@
-import AuthBackground from '@/components/ui/AuthBackground';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Button from '../../components/Button';
-import Container from '../../components/Container';
+import Button from '../../../src/components/Button';
+import Container from '../../../src/components/Container';
+import AuthBackground from '../../../src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '../../theme';
 
 export default function LoginScreen({ navigation }: any) {

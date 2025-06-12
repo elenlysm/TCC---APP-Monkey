@@ -1,9 +1,9 @@
-import Header from '@/components/Header';
-import MenuFechado from '@/components/MenuFechado';
-import NavigationDrawer from '@/components/NavigationDrawer';
 import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { G, Path, Svg } from 'react-native-svg'; // Removi Defs pois filtros SVG não são suportados no React Native
+import Header from '../../src/components/Header';
+import MenuFechado from '../../src/components/MenuFechado';
+import NavigationDrawer from '\../../src/components/NavigationDrawer';
 
 export default function Config() {
     const [drawerOpen, setDrawerOpen] = useState(false);

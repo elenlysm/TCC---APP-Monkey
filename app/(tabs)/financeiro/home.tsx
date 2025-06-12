@@ -1,8 +1,8 @@
-import Header from '@/components/Header';
-import MenuFechado from '@/components/MenuFechado';
-import NavigationDrawer from '@/components/NavigationDrawer';
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import Header from '../../../src/components/Header';
+import MenuFechado from '../../../src/components/MenuFechado';
+import NavigationDrawer from '../../../src/components/NavigationDrawer';
 
 // Tela de dashboard inicial do app
 export default function DashboardScreen() {
