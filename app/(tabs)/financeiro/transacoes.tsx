@@ -1,10 +1,10 @@
 import Header from '@/components/Header';
 import MenuFechado from '@/components/MenuFechado';
 import NavigationDrawer from '@/components/NavigationDrawer';
+import { db } from '@/services/firebaseConfig';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Alert, Button, FlatList, SafeAreaView, Text, TextInput } from 'react-native';
-import { db } from '../../services/firebaseConfig';
 
 export default function TransacoesScreen() {
     // Estados para os campos de entrada e lista de transações

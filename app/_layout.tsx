@@ -1,33 +1,24 @@
 import { useFonts } from 'expo-font';
+import { Tabs } from 'expo-router';
+import React from 'react';
+import { Platform } from 'react-native';
 import 'react-native-reanimated';
 
+import { IconSymbol } from '@/components/ui/IconSymbol';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { HapticTab } from './components/HapticTab';
 
-export function RootLayout() {
+export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/AnonymousPro-Regular.ttf'),
+    AnonymousPro: require('./assets/fonts/AnonymousPro-Regular.ttf'),
   });
 
   if (!loaded) {
     // Async font loading only occurs in development.
     return null;
   }
-
-  // You can add your layout JSX here or export this function to another file.
-}
-
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from './components/HapticTab';
-
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <Tabs

@@ -1,5 +1,3 @@
-import 'dotenv/config'; // Carrega as variáveis de ambiente do .env
-
 export default {
     expo: {
         name: "Monkey",          // Nome exibido para o usuário
@@ -49,6 +47,7 @@ export default {
             FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET || '',
             FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID || '',
             FIREBASE_APP_ID: process.env.FIREBASE_APP_ID || '',
+            API_URL: process.env.API_URL,
         },
     },
 };
