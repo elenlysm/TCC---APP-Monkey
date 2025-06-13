@@ -3,30 +3,30 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
+//Importação de componentes personalizados.
 
-// Tela de dashboard inicial do app
 export default function DashboardScreen() {
     const [drawerOpen, setDrawerOpen] = useState(false);
+//Tela de dashboard inicial do app.
 
     return (
         <SafeAreaView style={styles.container}>
             <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
             <Header />
             <MenuFechado />
-            {/* Saldo do usuário, com acessibilidade */}
+
             <Text style={styles.balance} accessibilityLabel="Saldo disponível">
                 Saldo: R$ 0,00
             </Text>
-            {/* Título da seção de transações */}
+{/*Saldo do usuário, com acessibilidade*/}
+
             <Text style={styles.sectionTitle}>Transações recentes</Text>
-            {/* Placeholder para lista de transações */}
+{/*Título da seção de transações*/}
+
             <View style={styles.transactionsPlaceholder}>
                 <Text style={styles.placeholderText}>Nenhuma transação encontrada.</Text>
+{/* Placeholder para lista de transações */}
             </View>
-            {/* 
-                Futuramente, substitua o bloco acima por uma FlatList ou componente de lista 
-                para exibir as transações do usuário.
-            */}
         </SafeAreaView>
     );
 }
@@ -38,3 +38,4 @@ const styles = StyleSheet.create({
     transactionsPlaceholder: { alignItems: 'center', marginTop: 32 },
     placeholderText: { color: '#888' },
 });
+//Estilos e layout dos campos.
