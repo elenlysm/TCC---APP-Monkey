@@ -4,10 +4,13 @@ import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '../../theme';
+//Importação de componentes personalizados
 
-export default function LoginScreen({ navigation }: any) {
+export default function LoginScreen({ navigation }: any) //Navegação entre telas.
+{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+//Armazenamento de e-mail e senha.
 
     return (
         <AuthBackground>
@@ -21,6 +24,7 @@ export default function LoginScreen({ navigation }: any) {
                     keyboardType="email-address"
                     autoCapitalize="none"
                 />
+//Campo de entrada de email.
 
                 <Text style={styles.label}>Senha:</Text>
                 <TextInput
@@ -30,13 +34,16 @@ export default function LoginScreen({ navigation }: any) {
                     onChangeText={setPassword}
                     secureTextEntry
                 />
+//Campo de entrada de senha.
 
                 <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
                     <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
                 </TouchableOpacity>
+//Botão de redirecionamento do usuário ao reset de senha.
 
                 <View style={styles.buttonGroup}>
                     <Button title="Entrar" onPress={() => console.log('Entrar')} />
+//Botão de login.
                 </View>
             </Container>
         </AuthBackground>
@@ -72,3 +79,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+//Estilos e layout dos campos.
