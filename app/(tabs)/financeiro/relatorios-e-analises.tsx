@@ -4,6 +4,7 @@ import { LineChart } from 'react-native-chart-kit';
 import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
+//Importação de componentes personalizados.
 
 export default function RelatoriosScreen() {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -11,12 +12,14 @@ export default function RelatoriosScreen() {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
             <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
-            {/* Título do relatório */}
+
             <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 16 }}>
                 Relatório Financeiro
             </Text>
+{/*Título da seção de relatórios.*/}
+
             <View style={{ padding: 16 }}>
-                {/* Gráfico de linha com dados estáticos (pode ser dinâmico futuramente) */}
+
                 <LineChart
                     data={{
                         labels: ["Jan", "Fev", "Mar"],
@@ -37,6 +40,8 @@ export default function RelatoriosScreen() {
                     }}
                     style={{ borderRadius: 16 }}
                 />
+{/*Gráfico de linha com dados estáticos.*/}
+
             </View>
             <Header />
             <MenuFechado />
