@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { G, Line, Path, Svg } from 'react-native-svg';
-
-// Import de componentes customizados
 import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
+//Importação de componentes personalizados.
 
 export default function OrcamentoEMetas() {
-    // Controle do drawer
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
         <View style={styles.container}>
-            {/* Navigation Drawer */}
             <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
 
-            {/* Header customizado */}
             <Header />
 
-            {/* SVG decorativo de fundo, sem filtros */}
             <Svg style={styles.vector} width="412" height="206" viewBox="0 0 412 206" fill="none">
                 <G>
                     <Path
@@ -32,8 +27,8 @@ export default function OrcamentoEMetas() {
                     />
                 </G>
             </Svg>
+{/*Layout barra de navegação e cabeçalho.*/}
 
-            {/* Cabeçalho com imagem de perfil e título */}
             <View style={styles.header}>
                 <ImageBackground
                     style={styles.profileImage}
@@ -42,8 +37,8 @@ export default function OrcamentoEMetas() {
                 />
                 <Text style={styles.title}>Orçamento e Metas</Text>
             </View>
+{/*Cabeçalho usuário.*/}
 
-            {/* Indicadores de progresso - estáticos, prontos para dados dinâmicos */}
             <View style={styles.budgetSection}>
                 {['Item 1', 'Item 2', 'Item 3'].map((item, index) => (
                     <View key={index} style={styles.itemContainer}>
@@ -61,8 +56,8 @@ export default function OrcamentoEMetas() {
                     </View>
                 ))}
             </View>
+{/*Indicadores de progresso - estáticos, prontos para dados dinâmicos.*/}
 
-            {/* Ações e resumo das metas */}
             <View style={styles.actions}>
                 <Text style={styles.addGoal} accessibilityLabel="Adicionar Meta ao Orçamento">
                     Adicionar Meta ao Orçamento
@@ -70,14 +65,13 @@ export default function OrcamentoEMetas() {
                 <Text style={styles.summary}>Total de Metas: 0</Text>
                 <Text style={styles.summary}>Metas Atingidas: 0</Text>
             </View>
+{/*Ações e resumo das metas.*/}
 
-            {/* Menu Fechado no rodapé */}
             <MenuFechado />
         </View>
     );
 }
 
-// Estilos organizados e prontos para expansão
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -93,13 +87,12 @@ const styles = StyleSheet.create({
         marginTop: 150,
         flexDirection: 'row',
         alignItems: 'center',
-        // gap removido para compatibilidade
     },
     profileImage: {
         width: 63,
         height: 63,
         borderRadius: 31.5,
-        marginRight: 12, // Substitui gap
+        marginRight: 12,
     },
     title: {
         fontSize: 20,
@@ -125,7 +118,7 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     progressValue: {
-        width: '50%', // valor fictício, troque por valor dinâmico depois
+        width: '50%',
         height: '100%',
         backgroundColor: '#1E8087',
     },
@@ -150,3 +143,4 @@ const styles = StyleSheet.create({
         color: '#555',
     },
 });
+//Estilos e layout dos campos.

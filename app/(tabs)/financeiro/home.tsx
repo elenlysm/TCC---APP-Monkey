@@ -18,14 +18,14 @@ export default function DashboardScreen() {
             <Text style={styles.balance} accessibilityLabel="Saldo disponível">
                 Saldo: R$ 0,00
             </Text>
-{/*Saldo do usuário, com acessibilidade*/}
+{/*Saldo do usuário, com acessibilidade.*/}
 
             <Text style={styles.sectionTitle}>Transações recentes</Text>
-{/*Título da seção de transações*/}
+{/*Título da seção de transações.*/}
 
             <View style={styles.transactionsPlaceholder}>
                 <Text style={styles.placeholderText}>Nenhuma transação encontrada.</Text>
-{/* Placeholder para lista de transações */}
+{/*Placeholder para lista de transações.*/}
             </View>
         </SafeAreaView>
     );
