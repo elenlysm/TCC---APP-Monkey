@@ -1,4 +1,4 @@
-// app/screens/index.tsx
+// app/(tabs)/index.tsx
 // Tela inicial do aplicativo
 
 import { useRouter } from 'expo-router';
@@ -6,7 +6,6 @@ import React from 'react';
 import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Defs, FeBlend, FeColorMatrix, FeComposite, FeFlood, FeGaussianBlur, FeOffset, Filter, G, Path, Svg } from 'react-native-svg';
 
-// Componente de mensagem de boas-vindas
 function Mensagemdeboasvindas() {
     return (
         <>
@@ -24,7 +23,6 @@ function TelaInicial() {
             <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1 }}>
                 <View style={styles.telainicialContainer}>
                     <View style={styles.vectorContainer}>
-                        {/* Apenas aqui a imagem de fundo */}
                         <ImageBackground
                             source={require('../../src/assets/images/deep-unsplash.png')}
                             style={styles.mensagemdeboasvindasContainer}
@@ -46,7 +44,6 @@ function TelaInicial() {
                                     </Filter>
                                 </Defs>
                             </Svg>
-
                             <Mensagemdeboasvindas />
                             <Image
                                 source={require('../../src/assets/images/logo.png')}
@@ -56,10 +53,9 @@ function TelaInicial() {
                         </ImageBackground>
                     </View>
                 </View>
-                {/* Container de introdução */}
+
                 <View style={styles.telainicialintroducaoContainer}>
                     <View style={styles.vectorContainer2}>
-                        {/* SVG decorativo de fundo */}
                         <Svg style={styles.vector2} width="640" height="640" viewBox="0 0 412 706" fill="none">
                             <G filter="url(#filter0_dddi_24_59)">
                                 <Path fillRule="evenodd" clipRule="evenodd" d="M168.105 34.9664C217.732 27.6977 262.161 63.2085 309.525 82.065C373.504 107.536 453.756 102.357 495.06 165.133C536.883 228.699 534.032 321.411 518.47 399.633C503.544 474.65 463.445 541.354 411.001 587.636C363.736 629.347 301.33 627.475 243.559 642.242C190.395 655.83 133.48 700.968 85.5026 670.833C36.2972 639.927 49.0497 548.303 13.5326 497.762C-20.5811 449.218 -98.6854 448.549 -113.266 387.984C-127.494 328.88 -83.0334 272.144 -52.858 221.976C-26.8279 178.7 11.0715 151.395 47.674 120.417C86.5108 87.5477 120.601 41.924 168.105 34.9664Z" fill="white" />
@@ -93,53 +89,87 @@ function TelaInicial() {
                                 </Filter>
                             </Defs>
                         </Svg>
-
-                        {/* Frase de destaque */}
                         <View style={styles.svgTextWrapper}>
                             <Text style={styles.svgText}>
                                 Organize sua vida{'\n'}financeira de forma inteligente!
                             </Text>
                         </View>
                     </View>
-                    {/* Imagem de contas */}
                     <Image
                         source={require('../../src/assets/images/conta.png')}
                         style={{ width: 400, height: 300, alignSelf: 'center', marginVertical: 16, transform: [{ rotate: '-15deg' }] }}
                         resizeMode="contain"
                     />
                 </View>
+
                 <View style={{ alignItems: "center", width: "100%", marginTop: 32 }}>
-                    {/* Botão de Login */}
+
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+                            style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flex: 1 }}
                             onPress={() => router.push('/auth/login')}
                         >
                             <Text style={styles.button}>Login</Text>
+                            <Svg width={20} height={20} viewBox="0 0 20 20" style={{ marginLeft: 8 }}>
+                                <Path d="M5 10h10M10 5l5 5-5 5" stroke="#070000" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+                            </Svg>
                         </TouchableOpacity>
                     </View>
 
-                    {/* Botão de Cadastro */}
-                    <View style={[styles.buttonContainer, { marginTop: 16 }]}>
+                    <View style={[styles.line1Container, { marginVertical: 24, alignItems: 'center', height: 120, justifyContent: 'flex-end' }]}>
+                        <Image
+                            style={styles.logo_icon}
+                            source={require('../../src/assets/images/logo_icon.png')}
+                            resizeMode="contain"
+                        />
+                        <Svg style={styles.line1} width="270" height="18" viewBox="0 0 270 18" fill="none" >
+                            <G filter="url(#filter0_d_17_43)">
+                                <Path d="M7 7H263" stroke="#241618" strokeWidth="14" strokeLinecap="round" />
+                            </G>
+                            <Defs>
+                                <Filter id="filter0_d_17_43" x="0" y="0" width="270" height="18" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                    <FeFlood floodOpacity="0" result="BackgroundImageFix" />
+                                    <FeColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                    <FeOffset dy="4" />
+                                    <FeComposite in2="hardAlpha" operator="out" />
+                                    <FeColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                                    <FeBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_17_43" />
+                                    <FeBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_17_43" result="shape" />
+                                </Filter>
+                            </Defs>
+                        </Svg>
+                    </View>
+
+                    <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+                            style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flex: 1 }}
                             onPress={() => router.push('/auth/cadastro')}
                         >
                             <Text style={styles.button}>Cadastre-se</Text>
+                            <Svg width={20} height={20} viewBox="0 0 20 20" style={{ marginLeft: 8 }}>
+                                <Path d="M5 10h10M10 5l5 5-5 5" stroke="#070000" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+                            </Svg>
                         </TouchableOpacity>
                     </View>
+                    <Image
+                        source={require('../../src/assets/images/carteira.png')}
+                        style={{ width: 300, height: 200, alignSelf: 'center', marginVertical: 16, transform: [{ rotate: '20deg' }] }}
+                        resizeMode="contain"
+                    />
+
+                    <Svg style={styles.svg3} width="412" height="254" viewBox="0 0 412 254" fill="none" >
+                        <Path fillRule="evenodd" clipRule="evenodd" d="M360.068 155.518C376.58 153.116 393.102 140.428 408.463 146.744C423.573 152.958 430.013 170.894 434.51 186.13C438.505 199.665 433.311 213.535 432.322 227.575C431.405 240.587 432.961 253.454 428.89 265.891C424.119 280.465 420.089 297.298 406.78 305.595C393.443 313.908 375.942 308.339 360.068 308.793C343.682 309.262 326.017 316.063 311.729 308.313C297.434 300.56 294.418 282.388 286.176 268.714C277.908 254.997 261.845 243.397 263.066 227.575C264.294 211.649 281.91 202.29 292.261 189.824C301.037 179.255 306.996 165.987 319.429 159.697C331.702 153.488 346.364 157.512 360.068 155.518Z" fill="#4FBE9F" />
+                        <Path fillRule="evenodd" clipRule="evenodd" d="M-52.3443 42.9296C-28.7941 32.0921 -1.77211 19.9773 21.8903 27.5869C45.3071 35.1175 49.4873 62.7967 64.5684 80.5275C80.1412 98.8363 106.147 109.919 111.576 133.03C117.591 158.636 113.679 188.756 95.0581 210.331C76.6992 231.604 45.2619 238.023 16.793 242.854C-7.59405 246.993 -30.0609 239.445 -53.907 235.613C-80.7366 231.302 -116.453 239.429 -131.269 219.065C-146.19 198.555 -125.041 169.995 -120.071 144.67C-116.112 124.497 -117.042 103.9 -105.163 86.0554C-92.6254 67.2207 -73.7973 52.802 -52.3443 42.9296Z" fill="#893426" />
+                        <Path fillRule="evenodd" clipRule="evenodd" d="M223.958 300.94C210.995 310.052 206.57 329.005 191.904 334.919C176.6 341.092 157.884 341.095 143.684 333.315C129.719 325.663 127.879 306.573 117.799 294.315C107.645 281.967 84.9733 277.226 84.3122 261.113C83.627 244.412 107.362 236.651 114.81 221.471C121.382 208.078 116.444 191.3 124.687 178.828C134.078 164.622 147.757 152.699 163.875 147.244C181.001 141.447 203.287 136.218 216.814 147.647C231.525 160.076 218.063 188.008 229.994 203.106C241.651 217.859 271.048 211.051 279.997 227.605C288.334 243.027 282.028 264.978 271.142 279.224C260.445 293.222 238.389 290.797 223.958 300.94Z" fill="#744F38" />
+                    </Svg>
                 </View>
-                {/* Logo extra no rodapé */}
-                <ImageBackground
-                    style={styles.logo_icon}
-                    source={require('../../src/assets/images/logo_icon.png')}
-                />
+
+
             </ScrollView>
         </SafeAreaView>
     );
 }
 
-// Estilos da tela inicial
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -161,6 +191,15 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         rowGap: 0
     },
+    mensagemdeboasvindasContainer: {
+        position: "relative",
+        marginTop: -20,
+        flexShrink: 0,
+        height: 919,
+        width: 412,
+        alignItems: "center",
+        justifyContent: "center",
+    },
     vector: {
         position: "absolute",
         flexShrink: 0,
@@ -169,29 +208,6 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         overflow: "visible"
-    },
-    mensagemdeboasvindasContainer: {
-        position: "relative",
-        flexShrink: 0,
-        height: 919,
-        width: 412,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    ao: {
-        position: "absolute",
-        flexShrink: 0,
-        top: 365,
-        width: 426,
-        height: 130,
-        textAlign: "center",
-        color: "rgba(116, 79, 56, 1)",
-        fontFamily: "Anonymous Pro",
-        fontSize: 55,
-        fontWeight: "400",
-        textShadowColor: "rgba(24, 16, 10, 1)",
-        textShadowOffset: { width: -2, height: 2 },
-        textShadowRadius: 0.5
     },
     bemvindo: {
         position: "absolute",
@@ -208,6 +224,21 @@ const styles = StyleSheet.create({
         textShadowOffset: { width: -2, height: 2 },
         textShadowRadius: 0.5
     },
+    ao: {
+        position: "absolute",
+        flexShrink: 0,
+        top: 365,
+        width: 426,
+        height: 130,
+        textAlign: "center",
+        color: "rgba(116, 79, 56, 1)",
+        fontFamily: "Anonymous Pro",
+        fontSize: 55,
+        fontWeight: "400",
+        textShadowColor: "rgba(24, 16, 10, 1)",
+        textShadowOffset: { width: -2, height: 2 },
+        textShadowRadius: 0.5
+    },
     logo: {
         position: "relative",
         flexShrink: 0,
@@ -218,7 +249,6 @@ const styles = StyleSheet.create({
         marginBottom: 100,
         marginTop: 100,
     },
-
     telainicialintroducaoContainer: {
         marginTop: 700,
         alignItems: "center",
@@ -230,97 +260,19 @@ const styles = StyleSheet.create({
         marginTop: 40,
         marginBottom: 24,
         width: '100%',
-        height: 640, 
+        height: 640,
         position: 'relative',
     },
     vector2: {
-        width: 640, 
-        height: 640, 
-    },
-
-    buttonContainer: {
-        position: "relative",
-        flexShrink: 0,
-        height: 71,
-        width: 293,
-        backgroundColor: "rgba(255, 255, 255, 1)",
-        shadowColor: "rgba(0, 0, 0, 0.25)",
-        shadowOffset: {
-            width: 6,
-            height: 6
-        },
-        shadowRadius: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        columnGap: 20,
-        padding: 12,
-        borderRadius: 8
-    },
-    button: {
-        textAlign: "center",
-        color: "rgba(0, 0, 0, 1)",
-        fontFamily: "Anonymous Pro",
-        fontSize: 32,
-        fontWeight: "400",
-        lineHeight: 32,
-    },
-    _button: {
-        fontSize: 32,
-        color: "#000",
-        fontFamily: "Anonymous Pro",
-        fontWeight: "400",
-        textAlign: "center",
-    },
-    arrowright: {
-        marginLeft: 12,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    icon: {
-        width: 16,
-        height: 16,
-    },
-    line1: {
-        marginTop: 32,
-        alignSelf: "center",
-    },
-    __button: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#fff",
-        padding: 12,
-        borderRadius: 8,
-        marginTop: 16,
-        shadowColor: "rgba(0, 0, 0, 0.25)",
-        shadowOffset: { width: 6, height: 6 },
-        shadowRadius: 0,
-    },
-    ___button: {
-        fontSize: 32,
-        color: "#000",
-        fontFamily: "Anonymous Pro",
-        fontWeight: "400",
-        textAlign: "center",
-    },
-    _arrowright: {
-        marginLeft: 12,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    logo_icon: {
-        position: "relative",
-        flexShrink: 0,
-        width: 383,
-        height: 187,
+        width: 640,
+        height: 640,
     },
     svgTextWrapper: {
         position: 'absolute',
         top: 0,
         left: 0,
-        width: 500, 
-        height: 460, 
+        width: 500,
+        height: 460,
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 1,
@@ -334,7 +286,59 @@ const styles = StyleSheet.create({
         fontFamily: "Anonymous Pro",
         fontSize: 40,
         fontWeight: "400",
+    },
+    buttonContainer: {
+        position: "relative",
+        flexShrink: 0,
+        height: 71,
+        width: 293,
+        backgroundColor: "rgba(255, 255, 255, 1)",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 12,
+        borderRadius: 8,
+        marginVertical: 32,
+        shadowColor: "#000",
+        shadowOffset: { width: 6, height: 6 },
+        shadowRadius: 0,
+        elevation: 8,
+    },
+    button: {
+        textAlign: "center",
+        color: "rgba(0, 0, 0, 1)",
+        fontFamily: "Anonymous Pro",
+        fontSize: 32,
+        fontWeight: "400",
+        lineHeight: 35,
+    },
+    logo_icon: {
+        width: 170,
+        height: 170,
+        marginBottom: -95.5,
+        alignSelf: 'center',
+        zIndex: 1,
+        transform: [{ rotate: '-30deg' }],
+    },
+    line1Container: {
+        alignItems: "center",
+        justifyContent: "flex-end",
+        flexDirection: "column",
+        width: 270,
+        height: 110,
 
+    },
+    line1: {
+        position: "relative",
+        marginTop: 0,
+        zIndex: 0,
+        marginVertical: 32,
+    },
+    svg3: {
+        position: "relative",
+        marginBottom: -50,
+        flexShrink: 0,
+        height: 366,
+        width: 615
     },
 });
 
