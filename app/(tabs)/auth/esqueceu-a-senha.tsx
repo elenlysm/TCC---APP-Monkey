@@ -22,6 +22,8 @@ export default function ForgotPasswordScreen() {
                     keyboardType="email-address"
                     autoCapitalize="none"
                 />
+    //Campo de entrada de e-mail
+    
                 <View style={styles.buttonGroup}>
                     <Button title="Cancelar" variant="subtle" onPress={() => console.log('Cancelar')} /> //Botão de cancelamento reset
                     <Button title="Resetar a Senha" onPress={() => console.log('Resetar a Senha')} /> // Botão de reset senha
