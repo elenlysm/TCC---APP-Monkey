@@ -41,7 +41,8 @@ app.use('/auth', require('./routes/authRoutes'));
 app.use('/transactions', require('./routes/transactionsRoutes'));
 
 // Orçamentos
-app.use('/budgets', require('./routes/budgetsRoutes'));
+const budgetsRoutes = require('./routes/budgetsRoutes');
+app.use('/api/budgets', budgetsRoutes);
 
 // Usuários
 app.use('/users', require('./routes/usersRoutes'));
@@ -75,6 +76,8 @@ app.use('/auth/login', rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }));
 
 // Middleware de tratamento global de erros — deve ser sempre o último
 const errorHandler = require('./middlewares/errorHandler');
+
+// Middleware de erro (sempre por último)
 app.use(errorHandler);
 
 // Define a porta do servidor

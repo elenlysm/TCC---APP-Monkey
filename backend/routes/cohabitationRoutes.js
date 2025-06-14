@@ -1,18 +1,31 @@
-// Importa o framework Express
 const express = require('express');
-// Cria um novo roteador do Express
 const router = express.Router();
 // Importa o controller responsável pelas operações de coabitação
 const controller = require('../controllers/cohabitationController');
 // Importa o middleware de autenticação
 const authMiddleware = require('../middlewares/authMiddleware');
+// Importa o middleware de validação
+const validate = require('../middlewares/validate');
+// Importa os esquemas de validação
+const {
+    cohabitationSchema,
+    updateCohabitationSchema,
+    memberSchema,
+    removeMemberSchema,
+    responsibilitySchema
+} = require('../validators/cohabitationValidator');
 
 /**
  * Rotas principais de coabitação
  */
 
 // Rota para adicionar uma nova coabitação (POST /)
-router.post('/', authMiddleware, controller.addCohabitation);
+router.post(
+    '/',
+    authMiddleware,
+    validate(cohabitationSchema, 'body'),
+    controller.addCohabitation
+);
 
 // Rota para obter todas as coabitações do usuário autenticado (GET /)
 router.get('/', authMiddleware, controller.getCohabitations);
@@ -21,7 +34,12 @@ router.get('/', authMiddleware, controller.getCohabitations);
 router.get('/:id', authMiddleware, controller.getCohabitationById);
 
 // Rota para atualizar uma coabitação pelo ID (PUT /:id)
-router.put('/:id', authMiddleware, controller.updateCohabitation);
+router.put(
+    '/:id',
+    authMiddleware,
+    validate(updateCohabitationSchema, 'body'),
+    controller.updateCohabitation
+);
 
 // Rota para deletar uma coabitação pelo ID (DELETE /:id)
 router.delete('/:id', authMiddleware, controller.deleteCohabitation);
@@ -31,13 +49,28 @@ router.delete('/:id', authMiddleware, controller.deleteCohabitation);
  */
 
 // Adiciona membro à coabitação
-router.post('/:id/member', authMiddleware, controller.addMember);
+router.post(
+    '/:id/member',
+    authMiddleware,
+    validate(memberSchema, 'body'),
+    controller.addMember
+);
 
 // Remove membro da coabitação
-router.delete('/:id/member', authMiddleware, controller.removeMember);
+router.delete(
+    '/:id/member',
+    authMiddleware,
+    validate(removeMemberSchema, 'body'),
+    controller.removeMember
+);
 
 // Atualiza responsabilidade de membro
-router.put('/:id/responsibility', authMiddleware, controller.updateResponsibility);
+router.put(
+    '/:id/responsibility',
+    authMiddleware,
+    validate(responsibilitySchema, 'body'),
+    controller.updateResponsibility
+);
 
 /**
  * Rotas de filtros e buscas

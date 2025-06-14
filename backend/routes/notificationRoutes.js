@@ -1,47 +1,56 @@
-// Importa o framework Express
 const express = require('express');
-// Cria um novo roteador do Express
 const router = express.Router();
-// Importa a função de envio de notificação do serviço correspondente
-const { sendNotification } = require('../services/notificationService');
-// Importa o middleware de autenticação
-const authMiddleware = require('../middlewares/authMiddleware');
+const controller = require('../controllers/notificationController');
+const validate = require('../middlewares/validate');
+const {
+    sendNotificationSchema,
+    userIdParamSchema,
+    idParamSchema,
+    statusParamSchema,
+    typeParamSchema,
+    priorityParamSchema,
+    channelParamSchema,
+    groupIdParamSchema,
+    dateQuerySchema
+} = require('../validators/notificationValidator');
 
-/**
- * @route   POST /notifications/send
- * @desc    Envia uma notificação push para um dispositivo usando FCM
- * @access  Privado (requer autenticação)
- */
-router.post('/send', authMiddleware, async (req, res) => {
-    const { token, title, body, data } = req.body;
+// Enviar notificação
+router.post('/', validate(sendNotificationSchema, 'body'), controller.sendNotification);
 
-    // Validação robusta dos campos obrigatórios e tipos
-    if (
-        !token || typeof token !== 'string' ||
-        !title || typeof title !== 'string' ||
-        !body || typeof body !== 'string'
-    ) {
-        return res.status(400).json({ error: 'token, title e body são obrigatórios e devem ser strings.' });
-    }
+// Listar notificações do usuário
+router.get('/:userId', validate(userIdParamSchema, 'params'), controller.listNotifications);
 
-    // Se data for enviado, deve ser um objeto
-    if (data && typeof data !== 'object') {
-        return res.status(400).json({ error: 'O campo data, se enviado, deve ser um objeto.' });
-    }
+// Marcar como lida
+router.put('/:id/read', validate(idParamSchema, 'params'), controller.markAsRead);
 
-    try {
-        // Envia a notificação usando o serviço
-        const response = await sendNotification(token, { title, body, data });
+// Marcar como não lida
+router.put('/:id/unread', validate(idParamSchema, 'params'), controller.markAsUnread);
 
-        // Retorna sucesso e o ID da mensagem enviada
-        res.status(200).json({ message: 'Notificação enviada com sucesso.' });
-    } catch (error) {
-        // Loga o erro para análise interna
-        console.error('Erro ao enviar notificação:', error);
-        // Retorna erro genérico ao usuário
-        res.status(500).json({ error: 'Erro ao enviar notificação.' });
-    }
-});
+// Deletar notificação
+router.delete('/:id', validate(idParamSchema, 'params'), controller.deleteNotification);
 
-// Exporta o roteador para ser usado em outros arquivos
+// Obter notificação por ID
+router.get('/id/:id', validate(idParamSchema, 'params'), controller.getNotificationById);
+
+// Por status
+router.get('/status/:status', validate(statusParamSchema, 'params'), controller.getNotificationsByStatus);
+
+// Por data
+router.get('/date', validate(dateQuerySchema, 'query'), controller.getNotificationsByDate);
+
+// Por tipo
+router.get('/type/:type', validate(typeParamSchema, 'params'), controller.getNotificationsByType);
+
+// Por usuário
+router.get('/user/:userId', validate(userIdParamSchema, 'params'), controller.getNotificationsByUser);
+
+// Por prioridade
+router.get('/priority/:priority', validate(priorityParamSchema, 'params'), controller.getNotificationsByPriority);
+
+// Por canal
+router.get('/channel/:channel', validate(channelParamSchema, 'params'), controller.getNotificationsByChannel);
+
+// Por grupo
+router.get('/group/:groupId', validate(groupIdParamSchema, 'params'), controller.getNotificationsByGroup);
+
 module.exports = router;

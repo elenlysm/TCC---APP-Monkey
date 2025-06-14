@@ -13,18 +13,7 @@ const isValidDate = (dateStr) => /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
  */
 const addBudget = async (req, res, next) => {
     try {
-        const { name, value, category, userId, date } = req.body;
-        // Validação básica dos campos obrigatórios
-        if (!name || !value || !category || !userId || !date) {
-            return res.status(400).json({ error: 'Campos obrigatórios: name, value, category, userId, date.' });
-        }
-        // Validação de formato de data
-        if (!isValidDate(date)) {
-            return res.status(400).json({ error: 'O campo date deve estar no formato YYYY-MM-DD.' });
-        }
-        // (Opcional) Validação de tipos pode ser adicionada aqui
-
-        // Adiciona o orçamento no Firestore
+        // req.body já está validado pelo Joi!
         const id = await firestoreService.addDocument(COLLECTION, req.body);
         res.status(201).json({ message: 'Orçamento adicionado com sucesso.', id });
     } catch (error) {
@@ -59,10 +48,6 @@ const getBudgets = async (req, res, next) => {
 const updateBudget = async (req, res, next) => {
     const { id } = req.params;
     try {
-        // Validação: não permitir update vazio
-        if (!req.body || Object.keys(req.body).length === 0) {
-            return res.status(400).json({ error: 'Dados para atualização não fornecidos.' });
-        }
         await firestoreService.updateDocument(COLLECTION, id, req.body);
         res.status(200).json({ message: 'Orçamento atualizado com sucesso.' });
     } catch (error) {
@@ -259,6 +244,25 @@ const getBudgetsByUserCreatedAt = (req, res) => {
     res.status(501).json({ error: 'Not implemented' });
 };
 
+/**
+ * @desc    Lista orçamentos por data (YYYY-MM-DD)
+ * @route   GET /budgets/date/:date
+ */
+const getBudgetsByDate = async (req, res, next) => {
+  try {
+    const { date } = req.params;
+    // Validação simples de data
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return res.status(400).json({ error: 'Data inválida. Use o formato YYYY-MM-DD.' });
+    }
+    // Busca usando o service
+    const budgets = await firestoreService.getDocuments(COLLECTION, [['date', '==', date]]);
+    res.json(budgets);
+  } catch (error) {
+    next(error); // Isso envia o erro para o errorHandler
+  }
+};
+
 // Exporta todas as funções do controller para uso nas rotas
 module.exports = {
     addBudget,
@@ -275,5 +279,6 @@ module.exports = {
     getBudgetsByDescription,
     getBudgetsByCreationDate,
     getBudgetsByUpdateDate,
-    getBudgetsByUserCreatedAt
+    getBudgetsByUserCreatedAt,
+    getBudgetsByDate
 };

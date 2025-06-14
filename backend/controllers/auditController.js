@@ -7,7 +7,7 @@ const isValidDate = (dateStr) => /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
  * @desc    Lista todos os logs de auditoria
  * @route   GET /audit/logs
  */
-const getAllLogs = async (req, res) => {
+const getAllLogs = async (req, res, next) => {
     try {
         // Busca todos os logs de auditoria
         const logs = await auditService.getAllLogs();
@@ -15,7 +15,7 @@ const getAllLogs = async (req, res) => {
     } catch (error) {
         // Loga erro e retorna status 500
         console.error('Erro ao obter logs:', error);
-        res.status(500).json({ error: 'Falha ao obter logs.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 
@@ -23,7 +23,7 @@ const getAllLogs = async (req, res) => {
  * @desc    Lista logs de um usuário específico
  * @route   GET /audit/logs/:userId
  */
-const getUserLogs = async (req, res) => {
+const getUserLogs = async (req, res, next) => {
     try {
         // Valida se userId foi informado
         if (!req.params.userId) {
@@ -34,7 +34,7 @@ const getUserLogs = async (req, res) => {
         res.status(200).json({ data: logs, message: 'Logs do usuário listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter logs do usuário:', { userId: req.params.userId, error });
-        res.status(500).json({ error: 'Falha ao obter logs do usuário.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 
@@ -42,14 +42,14 @@ const getUserLogs = async (req, res) => {
  * @desc    Lista logs por tipo de ação
  * @route   GET /audit/logs/action/:actionType
  */
-const getLogsByActionType = async (req, res) => {
+const getLogsByActionType = async (req, res, next) => {
     try {
         // Busca logs pelo tipo de ação
         const logs = await auditService.getLogsByActionType(req.params.actionType);
         res.status(200).json({ data: logs, message: 'Logs por tipo de ação listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter logs por tipo de ação:', { actionType: req.params.actionType, error });
-        res.status(500).json({ error: 'Falha ao obter logs por tipo de ação.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 
@@ -57,31 +57,13 @@ const getLogsByActionType = async (req, res) => {
  * @desc    Lista logs por data, com validação e paginação
  * @route   GET /audit/logs/date?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD&page=1&limit=100
  */
-const getLogsByDate = async (req, res) => {
-    const { startDate, endDate, page = 1, limit = 100 } = req.query;
-
-    // Validação dos parâmetros obrigatórios e formato de data
-    if (!startDate || !endDate) {
-        return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
-    }
-    if (!isValidDate(startDate) || !isValidDate(endDate)) {
-        return res.status(400).json({ error: 'Datas devem estar no formato YYYY-MM-DD.' });
-    }
-
-    // Validação de paginação
-    const pageNum = Number(page);
-    const limitNum = Number(limit);
-    if (isNaN(pageNum) || pageNum < 1 || isNaN(limitNum) || limitNum < 1) {
-        return res.status(400).json({ error: 'page e limit devem ser números positivos.' });
-    }
-
+const getLogsByDate = async (req, res, next) => {
+    const { startDate, endDate, page, limit } = req.query;
     try {
-        // Busca logs por data com paginação
-        const logs = await auditService.getLogsByDate(startDate, endDate, Number(page), Number(limit));
+        const logs = await auditService.getLogsByDate(startDate, endDate, page, limit);
         res.status(200).json({ data: logs, message: 'Logs por data listados com sucesso.' });
     } catch (error) {
-        console.error('Erro ao obter logs por data:', { startDate, endDate, error });
-        res.status(500).json({ error: 'Falha ao obter logs por data.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 
@@ -89,14 +71,14 @@ const getLogsByDate = async (req, res) => {
  * @desc    Lista logs por nível de severidade
  * @route   GET /audit/logs/severity/:severityLevel
  */
-const getLogsBySeverity = async (req, res) => {
+const getLogsBySeverity = async (req, res, next) => {
     try {
         // Busca logs pelo nível de severidade
         const logs = await auditService.getLogsBySeverity(req.params.severityLevel);
         res.status(200).json({ data: logs, message: 'Logs por nível de severidade listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter logs por nível de severidade:', { severityLevel: req.params.severityLevel, error });
-        res.status(500).json({ error: 'Falha ao obter logs por nível de severidade.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 
@@ -104,7 +86,7 @@ const getLogsBySeverity = async (req, res) => {
  * @desc    Lista logs por usuário e tipo de ação
  * @route   GET /audit/logs/user/:userId/action/:actionType
  */
-const getUserLogsByActionType = async (req, res) => {
+const getUserLogsByActionType = async (req, res, next) => {
     try {
         // Valida se userId foi informado
         if (!req.params.userId) {
@@ -115,7 +97,7 @@ const getUserLogsByActionType = async (req, res) => {
         res.status(200).json({ data: logs, message: 'Logs do usuário por tipo de ação listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter logs do usuário por tipo de ação:', { userId: req.params.userId, actionType: req.params.actionType, error });
-        res.status(500).json({ error: 'Falha ao obter logs do usuário por tipo de ação.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 
@@ -123,7 +105,7 @@ const getUserLogsByActionType = async (req, res) => {
  * @desc    Lista logs por usuário e data, com validação e paginação
  * @route   GET /audit/logs/user/:userId/date?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD&page=1&limit=100
  */
-const getUserLogsByDate = async (req, res) => {
+const getUserLogsByDate = async (req, res, next) => {
     const { startDate, endDate, page = 1, limit = 100 } = req.query;
 
     // Validação dos parâmetros obrigatórios e formato de data
@@ -147,7 +129,7 @@ const getUserLogsByDate = async (req, res) => {
         res.status(200).json({ data: logs, message: 'Logs do usuário por data listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter logs do usuário por data:', { userId: req.params.userId, startDate, endDate, error });
-        res.status(500).json({ error: 'Falha ao obter logs do usuário por data.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 
@@ -155,7 +137,7 @@ const getUserLogsByDate = async (req, res) => {
  * @desc    Lista logs por usuário e nível de severidade
  * @route   GET /audit/logs/user/:userId/severity/:severityLevel
  */
-const getUserLogsBySeverity = async (req, res) => {
+const getUserLogsBySeverity = async (req, res, next) => {
     try {
         // Valida se userId foi informado
         if (!req.params.userId) {
@@ -166,7 +148,7 @@ const getUserLogsBySeverity = async (req, res) => {
         res.status(200).json({ data: logs, message: 'Logs do usuário por nível de severidade listados com sucesso.' });
     } catch (error) {
         console.error('Erro ao obter logs do usuário por nível de severidade:', { userId: req.params.userId, severityLevel: req.params.severityLevel, error });
-        res.status(500).json({ error: 'Falha ao obter logs do usuário por nível de severidade.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 
@@ -174,7 +156,7 @@ const getUserLogsBySeverity = async (req, res) => {
  * @desc    Exporta logs para um arquivo CSV, com validação de datas
  * @route   GET /audit/logs/export?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD
  */
-const exportLogsToCSV = async (req, res) => {
+const exportLogsToCSV = async (req, res, next) => {
     const { startDate, endDate } = req.query;
 
     // Validação dos parâmetros obrigatórios e formato de data
@@ -193,7 +175,7 @@ const exportLogsToCSV = async (req, res) => {
         res.status(200).send(csvData);
     } catch (error) {
         console.error('Erro ao exportar logs para CSV:', { startDate, endDate, error });
-        res.status(500).json({ error: 'Falha ao exportar logs para CSV.' });
+        next(error); // Isso envia o erro para o errorHandler
     }
 };
 

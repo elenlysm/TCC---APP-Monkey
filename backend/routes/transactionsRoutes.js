@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/transactionsController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const validate = require('../middlewares/validate');
+const { transactionSchema, updateTransactionSchema, periodSchema } = require('../validators/transactionValidator');
 
 /**
  * @route   POST /transactions
  * @desc    Cria uma nova transação para o usuário autenticado
  * @access  Privado (requer autenticação)
  */
-router.post('/', authMiddleware, controller.addTransaction);
+router.post('/', validate(transactionSchema, 'body'), controller.addTransaction);
 
 /**
  * @route   GET /transactions
@@ -22,7 +23,7 @@ router.get('/', authMiddleware, controller.getTransactions);
  * @desc    Atualiza uma transação específica pelo ID
  * @access  Privado (requer autenticação)
  */
-router.put('/:id', authMiddleware, controller.updateTransaction);
+router.put('/:id', validate(updateTransactionSchema, 'body'), controller.updateTransaction);
 
 /**
  * @route   DELETE /transactions/:id
@@ -30,6 +31,13 @@ router.put('/:id', authMiddleware, controller.updateTransaction);
  * @access  Privado (requer autenticação)
  */
 router.delete('/:id', authMiddleware, controller.deleteTransaction);
+
+/**
+ * @route   GET /transactions/period
+ * @desc    Busca transações por período
+ * @access  Privado (requer autenticação)
+ */
+router.get('/period', validate(periodSchema, 'query'), controller.getTransactionsByPeriod);
 
 // Exporta o roteador para ser usado em outros arquivos
 module.exports = router;

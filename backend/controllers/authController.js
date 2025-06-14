@@ -1,5 +1,4 @@
 const authService = require('../services/authService');
-const validator = require('validator'); // Biblioteca para validação de email
 
 /**
  * @desc    Registra um novo usuário
@@ -7,28 +6,13 @@ const validator = require('validator'); // Biblioteca para validação de email
  */
 const register = async (req, res) => {
     try {
+        // req.body já está validado pelo Joi!
         const { email, password } = req.body;
-
-        // Validação básica dos campos obrigatórios
-        if (!email || !password) {
-            return res.status(400).json({ error: 'Email e senha são obrigatórios.' });
-        }
-        // Validação de formato de email
-        if (!validator.isEmail(email)) {
-            return res.status(400).json({ error: 'Formato de email inválido.' });
-        }
-        // Validação de força mínima da senha
-        if (password.length < 6) {
-            return res.status(400).json({ error: 'A senha deve ter pelo menos 6 caracteres.' });
-        }
-
-        // Chama o serviço para registrar o usuário
         const user = await authService.register({ email, password });
-        // Retorna sucesso e o usuário criado (atenção: não exponha dados sensíveis)
         res.status(201).json({ message: 'Usuário registrado com sucesso.', user });
     } catch (error) {
         console.error('Erro no registro:', error);
-        res.status(500).json({ error: 'Falha ao registrar usuário.' });
+        res.status(500).json({ error: error.message || 'Falha ao registrar usuário.' });
     }
 };
 
@@ -38,29 +22,16 @@ const register = async (req, res) => {
  */
 const login = async (req, res) => {
     try {
+        // req.body já está validado pelo Joi!
         const { email, password } = req.body;
-
-        // Validação básica dos campos obrigatórios
-        if (!email || !password) {
-            return res.status(400).json({ error: 'Email e senha são obrigatórios.' });
-        }
-        // Validação de formato de email
-        if (!validator.isEmail(email)) {
-            return res.status(400).json({ error: 'Formato de email inválido.' });
-        }
-
-        // Chama o serviço para autenticar o usuário
         const token = await authService.login({ email, password });
         res.status(200).json({ message: 'Login bem-sucedido.', token });
     } catch (error) {
         console.error('Erro no login:', error);
-
-        // Retorna erro 401 se as credenciais forem inválidas
         if (error.message === 'Credenciais inválidas') {
             return res.status(401).json({ error: 'Credenciais inválidas.' });
         }
-
-        res.status(500).json({ error: 'Falha ao processar login.' });
+        res.status(500).json({ error: error.message || 'Falha ao processar login.' });
     }
 };
 
