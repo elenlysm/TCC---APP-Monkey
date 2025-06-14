@@ -1,55 +1,54 @@
 import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { G, Path, Svg } from 'react-native-svg'; // Removi Defs pois filtros SVG não são suportados no React Native
+import { G, Path, Svg } from 'react-native-svg';
 import Header from '../../src/components/Header';
 import MenuFechado from '../../src/components/MenuFechado';
 import NavigationDrawer from '\../../src/components/NavigationDrawer';
+// Importação de componentes personalizados + dependências do react.
 
 export default function Config() {
     const [drawerOpen, setDrawerOpen] = useState(false);
+//Controle do menu lateral (fechado ou aberto)
 
     return (
         <View style={{ flex: 1 }}>
             <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
             <Header />
+ {/*Formata o cabeçalho e menu lateral.*/}
+
             <View style={styles.androidCompact2}>
                 <View style={styles.configuracoes}>
-
-                    {/* SVG decorativo - filtros removidos para evitar warnings/erros */}
                     <Svg style={styles.vector} width="412" height="206" viewBox="0 0 412 206" fill="none">
                         <G>
                             <Path d="..." fill="#1E8087" />
                             <Path d="..." stroke="#893426" strokeWidth="11" />
                         </G>
                     </Svg>
+{/*Decoração topo da tela.*/}
 
-                    {/* Conteúdo principal */}
                     <View style={styles.buildingBlocksContent}>
                         <View style={styles.content}>
                             <Text style={styles.titulo}>Configurações</Text>
                             <View style={styles.iconButton}>
-                                {/* Ícone SVG pode ser adicionado aqui */}
                             </View>
                         </View>
                     </View>
+{/*Layout botões*/}
 
-                    {/* Cabeçalho */}
                     <View style={styles.header}>
                         <ImageBackground
                             style={styles.logo}
                             source={{ uri: 'https://dummyimage.com/63x63/000/fff.png' }}
                             accessibilityLabel="Logo do aplicativo"
                         />
-                        {/* Menu de opções - se for interativo, use TouchableOpacity */}
+                        
                         <TouchableOpacity style={styles.menu} accessibilityLabel="Menu de opções">
-                            {/* Menu Icon pode ser adicionado aqui */}
                         </TouchableOpacity>
-                        {/* Botão de notificações */}
+{/* Menu de opções.*/}
                         <TouchableOpacity style={styles.bell} accessibilityLabel="Notificações">
-                            {/* Bell Icon pode ser adicionado aqui */}
+{/* Botão de notificações */}
                         </TouchableOpacity>
                     </View>
-
                 </View>
             </View>
             <MenuFechado />
@@ -119,5 +118,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    // ... outros estilos
 });
+//Estilos e layout dos campos.

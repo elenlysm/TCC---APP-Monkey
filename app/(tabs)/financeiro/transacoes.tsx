@@ -17,7 +17,6 @@ export default function TransacoesScreen() {
     const [drawerOpen, setDrawerOpen] = useState(false);
 //Estado que armazena as transações e menu lateral.
 
-    // Carrega as transações ao abrir a tela
     useEffect(() => {
         carregarTransacoes();
     }, []);
@@ -57,7 +56,7 @@ export default function TransacoesScreen() {
             Alert.alert('Erro', 'Não foi possível carregar as transações.');
         }
     };
-//Carregar as transações e atualizar o estado com a lista obtida.
+//Carrega as transações e atualizar o estado com a lista obtida.
 
     return (
         <SafeAreaView style={{ flex: 1, padding: 16 }}>

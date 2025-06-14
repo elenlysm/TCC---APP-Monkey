@@ -25,7 +25,7 @@ export default function RelatoriosScreen() {
                         labels: ["Jan", "Fev", "Mar"],
                         datasets: [{ data: [50, 100, 75] }]
                     }}
-                    width={Dimensions.get('window').width - 32} // largura responsiva com padding
+                    width={Dimensions.get('window').width - 32}
                     height={220}
                     yAxisLabel="R$"
                     chartConfig={{
