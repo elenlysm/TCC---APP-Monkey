@@ -5,36 +5,42 @@ import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
 import { db } from '../../../src/services/firebaseConfig';
+//Importação de componentes personalizados (React e funções Firebase).
 
 export default function TransacoesScreen() {
     // Estados para os campos de entrada e lista de transações
     const [descricao, setDescricao] = useState('');
     const [valor, setValor] = useState('');
+//Estados para os campos de entrada do formulário.
+
     const [transacoes, setTransacoes] = useState<{ id: string; descricao: string; valor: number }[]>([]);
     const [drawerOpen, setDrawerOpen] = useState(false);
+//Estado que armazena as transações e menu lateral.
 
     // Carrega as transações ao abrir a tela
     useEffect(() => {
         carregarTransacoes();
     }, []);
+//Carrega as transações.
 
-    // Função para adicionar uma nova transação ao Firestore
     const adicionarTransacao = async () => {
         if (!descricao.trim() || !valor.trim() || isNaN(Number(valor))) {
             Alert.alert('Atenção', 'Preencha a descrição e um valor válido.');
             return;
         }
+//Função para adicionar transações ao banco e valida se os campos estão preenchidos.
+
         try {
             await addDoc(collection(db, 'transacoes'), { descricao, valor: parseFloat(valor) });
-            setDescricao(''); // Limpa campo de descrição
-            setValor('');     // Limpa campo de valor
-            carregarTransacoes(); // Atualiza a lista
+            setDescricao(''); //Limpa campo de descrição.
+            setValor('');     //Limpa campo de valor.
+            carregarTransacoes(); //Atualiza a lista.
         } catch (error) {
             Alert.alert('Erro', 'Não foi possível adicionar a transação.');
         }
     };
+//Adiciona documento na coleção "Transações".
 
-    // Função para buscar todas as transações do Firestore
     const carregarTransacoes = async () => {
         try {
             const querySnapshot = await getDocs(collection(db, 'transacoes'));
@@ -51,12 +57,13 @@ export default function TransacoesScreen() {
             Alert.alert('Erro', 'Não foi possível carregar as transações.');
         }
     };
+//Carregar as transações e atualizar o estado com a lista obtida.
 
     return (
         <SafeAreaView style={{ flex: 1, padding: 16 }}>
             <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
             <Header />
-            {/* Campo para descrição da transação */}
+            {/*Campo para descrição da transação.*/}
             <TextInput
                 placeholder="Descrição"
                 value={descricao}
@@ -64,7 +71,7 @@ export default function TransacoesScreen() {
                 accessibilityLabel="Campo de descrição"
                 style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 8, padding: 8, borderRadius: 4 }}
             />
-            {/* Campo para valor da transação */}
+            {/*Campo para valor da transação.*/}
             <TextInput
                 placeholder="Valor"
                 value={valor}
@@ -73,9 +80,9 @@ export default function TransacoesScreen() {
                 accessibilityLabel="Campo de valor"
                 style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 8, padding: 8, borderRadius: 4 }}
             />
-            {/* Botão para adicionar transação */}
+            {/*Botão para adicionar transação.*/}
             <Button title="Adicionar" onPress={adicionarTransacao} accessibilityLabel="Botão adicionar transação" />
-            {/* Lista de transações */}
+            {/*Lista de transações.*/}
             <FlatList
                 data={transacoes}
                 keyExtractor={item => item.id}
@@ -94,3 +101,4 @@ export default function TransacoesScreen() {
         </SafeAreaView>
     );
 }
+//Estilos e layout dos campos.
