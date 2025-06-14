@@ -1,31 +1,28 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '../../theme';
-//Importação de componentes personalizados
 
 export default function SignUpScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-//Declaração de estados para email, senha, confirmação de senha e erro
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleSignUp = () => {
         if (!email || !password || !confirmPassword) {
             setError('Preencha todos os campos.');
             return;
         }
-//Início de cadastro e validação de preenchimento.
-
         if (!email.includes('@')) {
             setError('E-mail inválido.');
             return;
         }
-//Valida se o e-mail possui formato básico válido.
-
         if (password.length < 6) {
             setError('A senha deve ter pelo menos 6 caracteres.');
             return;
@@ -34,12 +31,7 @@ export default function SignUpScreen() {
             setError('As senhas não coincidem.');
             return;
         }
-//Valida se a senha tem pelo menos 6 caracteres e se ela foi confirmada.
-
         setError('');
-
-//Limpa o erro caso todas as validações passem
-
         // Chame a API de cadastro aqui
     };
 
@@ -55,30 +47,52 @@ export default function SignUpScreen() {
                     keyboardType="email-address"
                     autoCapitalize="none"
                 />
-//Campo de entrada de e-mail
 
                 <Text style={styles.label}>Senha:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite sua senha"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                />
-//Campo de entrada senha com ocultação
+                <View style={styles.passwordContainer}>
+                    <TextInput
+                        style={styles.inputPassword}
+                        placeholder="Digite sua senha"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry={!showPassword}
+                    />
+                    <TouchableOpacity
+                        style={styles.icon}
+                        onPress={() => setShowPassword(!showPassword)}
+                        activeOpacity={0.7}
+                    >
+                        <Icon
+                            name={showPassword ? 'eye' : 'eye-off'}
+                            size={22}
+                            color={colors.primary}
+                        />
+                    </TouchableOpacity>
+                </View>
 
                 <Text style={styles.label}>Confirme a Senha:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Confirme sua senha"
-                    value={confirmPassword}
-                    onChangeText={setConfirmPassword}
-                    secureTextEntry
-                />
-//Campo de entrada confirmação de senha
+                <View style={styles.passwordContainer}>
+                    <TextInput
+                        style={styles.inputPassword}
+                        placeholder="Confirme sua senha"
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
+                        secureTextEntry={!showConfirmPassword}
+                    />
+                    <TouchableOpacity
+                        style={styles.icon}
+                        onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                        activeOpacity={0.7}
+                    >
+                        <Icon
+                            name={showConfirmPassword ? 'eye' : 'eye-off'}
+                            size={22}
+                            color={colors.primary}
+                        />
+                    </TouchableOpacity>
+                </View>
 
                 {error ? <Text style={{ color: 'red', marginBottom: 8 }}>{error}</Text> : null}
-//Exibe mensagem de erro, se houver.
 
                 <View style={styles.buttonGroup}>
                     <Button title="Cadastrar" onPress={handleSignUp} />
@@ -106,10 +120,31 @@ const styles = StyleSheet.create({
         color: colors.textPrimary,
         marginBottom: 16,
     },
-
+    passwordContainer: {
+        position: 'relative',
+        justifyContent: 'center',
+        marginBottom: 16,
+    },
+    inputPassword: {
+        borderWidth: 1,
+        borderColor: colors.border,
+        borderRadius: 8,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        fontSize: fontSizes.regular,
+        fontFamily: fonts.secondary,
+        color: colors.textPrimary,
+    },
+    icon: {
+        position: 'absolute',
+        right: 12,
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        height: '100%',
+    },
     buttonGroup: {
         flexDirection: 'row',
         justifyContent: 'center',
     },
 });
-//Estilos e layout dos campos.
