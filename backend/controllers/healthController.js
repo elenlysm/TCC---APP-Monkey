@@ -18,7 +18,7 @@ const healthCheck = (req, res) => {
  * @desc    Verifica status do banco de dados
  * @route   GET /health/db
  */
-const dbHealthCheck = async (req, res) => {
+const dbHealthCheck = async (req, res, next) => {
     try {
         // Tenta buscar documentos em uma coleção de health check (pode ser configurável via env)
         await firestoreService.getDocuments(process.env.HEALTH_COLLECTION || 'healthCheck');
@@ -45,7 +45,7 @@ const dbHealthCheck = async (req, res) => {
  * @desc    Lista todos os orçamentos
  * @route   GET /orcamentos
  */
-const listarOrcamentos = async (req, res) => {
+const listarOrcamentos = async (req, res, next) => {
     try {
         // Busca todos os documentos da coleção 'orcamentos' no Firestore
         const budgets = await firestoreService.getDocuments('orcamentos');

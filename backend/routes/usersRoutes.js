@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/usersController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const validate = require('../middlewares/validate');
+const { userSchema, updateUserSchema, creationDateSchema } = require('../validators/userValidator');
 
 /**
  * @route   POST /users
  * @desc    Cria um novo usuário (requer autenticação)
  * @access  Privado
  */
-router.post('/', authMiddleware, controller.addUser);
+router.post('/', validate(userSchema, 'body'), controller.addUser);
 
 /**
  * @route   GET /users
@@ -22,7 +23,7 @@ router.get('/', authMiddleware, controller.getUsers);
  * @desc    Atualiza um usuário específico pelo ID (requer autenticação)
  * @access  Privado
  */
-router.put('/:id', authMiddleware, controller.updateUser);
+router.put('/:id', validate(updateUserSchema, 'body'), controller.updateUser);
 
 /**
  * @route   DELETE /users/:id
@@ -30,6 +31,13 @@ router.put('/:id', authMiddleware, controller.updateUser);
  * @access  Privado
  */
 router.delete('/:id', authMiddleware, controller.deleteUser);
+
+/**
+ * @route   GET /users/creation
+ * @desc    Busca usuários por data de criação (requer autenticação)
+ * @access  Privado
+ */
+router.get('/creation', validate(creationDateSchema, 'query'), controller.getUsersByCreationDate);
 
 // Exporta o roteador para ser usado em outros arquivos
 module.exports = router;

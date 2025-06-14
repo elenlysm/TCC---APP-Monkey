@@ -1,19 +1,15 @@
 const notificationService = require('../services/notificationService');
 
-// Função utilitária para validar datas no formato YYYY-MM-DD
-const isValidDate = (dateStr) => /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
-
 /**
  * @desc    Envia uma notificação
  * @route   POST /notifications
  */
-const sendNotification = async (req, res) => {
+const sendNotification = async (req, res, next) => {
     try {
         await notificationService.sendNotification(req.body);
         res.status(200).json({ message: 'Notificação enviada com sucesso.' });
     } catch (error) {
-        console.error('Erro ao enviar notificação:', error);
-        res.status(500).json({ error: 'Falha ao enviar notificação.' });
+        next(error);
     }
 };
 
@@ -21,17 +17,12 @@ const sendNotification = async (req, res) => {
  * @desc    Lista notificações do usuário
  * @route   GET /notifications/:userId
  */
-const listNotifications = async (req, res) => {
-    // Valida se userId foi informado
-    if (!req.params.userId) {
-        return res.status(400).json({ error: 'userId é obrigatório.' });
-    }
+const listNotifications = async (req, res, next) => {
     try {
         const notifications = await notificationService.getNotifications(req.params.userId);
         res.status(200).json({ data: notifications, message: 'Notificações listadas com sucesso.' });
     } catch (error) {
-        console.error('Erro ao listar notificações:', error);
-        res.status(500).json({ error: 'Falha ao listar notificações.' });
+        next(error);
     }
 };
 
@@ -39,16 +30,12 @@ const listNotifications = async (req, res) => {
  * @desc    Marca notificação como lida
  * @route   PUT /notifications/:id/read
  */
-const markAsRead = async (req, res) => {
-    if (!req.params.id) {
-        return res.status(400).json({ error: 'id é obrigatório.' });
-    }
+const markAsRead = async (req, res, next) => {
     try {
         await notificationService.markAsRead(req.params.id);
         res.status(200).json({ message: 'Notificação marcada como lida.' });
     } catch (error) {
-        console.error('Erro ao marcar notificação como lida:', error);
-        res.status(500).json({ error: 'Falha ao marcar notificação.' });
+        next(error);
     }
 };
 
@@ -56,16 +43,12 @@ const markAsRead = async (req, res) => {
  * @desc    Marca notificação como não lida
  * @route   PUT /notifications/:id/unread
  */
-const markAsUnread = async (req, res) => {
-    if (!req.params.id) {
-        return res.status(400).json({ error: 'id é obrigatório.' });
-    }
+const markAsUnread = async (req, res, next) => {
     try {
         await notificationService.markAsUnread(req.params.id);
         res.status(200).json({ message: 'Notificação marcada como não lida.' });
     } catch (error) {
-        console.error('Erro ao marcar notificação como não lida:', error);
-        res.status(500).json({ error: 'Falha ao marcar notificação.' });
+        next(error);
     }
 };
 
@@ -73,27 +56,20 @@ const markAsUnread = async (req, res) => {
  * @desc    Deleta uma notificação
  * @route   DELETE /notifications/:id
  */
-const deleteNotification = async (req, res) => {
-    if (!req.params.id) {
-        return res.status(400).json({ error: 'id é obrigatório.' });
-    }
+const deleteNotification = async (req, res, next) => {
     try {
         await notificationService.deleteNotification(req.params.id);
         res.status(200).json({ message: 'Notificação deletada com sucesso.' });
     } catch (error) {
-        console.error('Erro ao deletar notificação:', error);
-        res.status(500).json({ error: 'Falha ao deletar notificação.' });
+        next(error);
     }
 };
 
 /**
  * @desc    Obtém uma notificação por ID
- * @route   GET /notifications/:id
+ * @route   GET /notifications/id/:id
  */
-const getNotificationById = async (req, res) => {
-    if (!req.params.id) {
-        return res.status(400).json({ error: 'id é obrigatório.' });
-    }
+const getNotificationById = async (req, res, next) => {
     try {
         const notification = await notificationService.getNotificationById(req.params.id);
         if (!notification) {
@@ -101,8 +77,7 @@ const getNotificationById = async (req, res) => {
         }
         res.status(200).json(notification);
     } catch (error) {
-        console.error('Erro ao obter notificação:', error);
-        res.status(500).json({ error: 'Falha ao obter notificação.' });
+        next(error);
     }
 };
 
@@ -110,40 +85,26 @@ const getNotificationById = async (req, res) => {
  * @desc    Obtém notificações por status
  * @route   GET /notifications/status/:status
  */
-const getNotificationsByStatus = async (req, res) => {
-    if (!req.params.status) {
-        return res.status(400).json({ error: 'status é obrigatório.' });
-    }
+const getNotificationsByStatus = async (req, res, next) => {
     try {
         const notifications = await notificationService.getNotificationsByStatus(req.params.status);
         res.status(200).json(notifications);
     } catch (error) {
-        console.error('Erro ao obter notificações por status:', error);
-        res.status(500).json({ error: 'Falha ao obter notificações por status.' });
+        next(error);
     }
 };
 
 /**
- * @desc    Obtém notificações por data, com validação de formato
+ * @desc    Obtém notificações por data
  * @route   GET /notifications/date?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD
  */
-const getNotificationsByDate = async (req, res) => {
+const getNotificationsByDate = async (req, res, next) => {
     const { startDate, endDate } = req.query;
-
-    // Validação dos parâmetros obrigatórios e formato de data
-    if (!startDate || !endDate) {
-        return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
-    }
-    if (!isValidDate(startDate) || !isValidDate(endDate)) {
-        return res.status(400).json({ error: 'Datas devem estar no formato YYYY-MM-DD.' });
-    }
-
     try {
         const notifications = await notificationService.getNotificationsByDate(startDate, endDate);
         res.status(200).json(notifications);
     } catch (error) {
-        console.error('Erro ao obter notificações por data:', error);
-        res.status(500).json({ error: 'Falha ao obter notificações por data.' });
+        next(error);
     }
 };
 
@@ -151,16 +112,12 @@ const getNotificationsByDate = async (req, res) => {
  * @desc    Obtém notificações por tipo
  * @route   GET /notifications/type/:type
  */
-const getNotificationsByType = async (req, res) => {
-    if (!req.params.type) {
-        return res.status(400).json({ error: 'type é obrigatório.' });
-    }
+const getNotificationsByType = async (req, res, next) => {
     try {
         const notifications = await notificationService.getNotificationsByType(req.params.type);
         res.status(200).json(notifications);
     } catch (error) {
-        console.error('Erro ao obter notificações por tipo:', error);
-        res.status(500).json({ error: 'Falha ao obter notificações por tipo.' });
+        next(error);
     }
 };
 
@@ -168,16 +125,12 @@ const getNotificationsByType = async (req, res) => {
  * @desc    Obtém notificações por usuário
  * @route   GET /notifications/user/:userId
  */
-const getNotificationsByUser = async (req, res) => {
-    if (!req.params.userId) {
-        return res.status(400).json({ error: 'userId é obrigatório.' });
-    }
+const getNotificationsByUser = async (req, res, next) => {
     try {
         const notifications = await notificationService.getNotificationsByUser(req.params.userId);
         res.status(200).json(notifications);
     } catch (error) {
-        console.error('Erro ao obter notificações por usuário:', error);
-        res.status(500).json({ error: 'Falha ao obter notificações por usuário.' });
+        next(error);
     }
 };
 
@@ -185,16 +138,12 @@ const getNotificationsByUser = async (req, res) => {
  * @desc    Obtém notificações por prioridade
  * @route   GET /notifications/priority/:priority
  */
-const getNotificationsByPriority = async (req, res) => {
-    if (!req.params.priority) {
-        return res.status(400).json({ error: 'priority é obrigatório.' });
-    }
+const getNotificationsByPriority = async (req, res, next) => {
     try {
         const notifications = await notificationService.getNotificationsByPriority(req.params.priority);
         res.status(200).json(notifications);
     } catch (error) {
-        console.error('Erro ao obter notificações por prioridade:', error);
-        res.status(500).json({ error: 'Falha ao obter notificações por prioridade.' });
+        next(error);
     }
 };
 
@@ -202,16 +151,12 @@ const getNotificationsByPriority = async (req, res) => {
  * @desc    Obtém notificações por canal
  * @route   GET /notifications/channel/:channel
  */
-const getNotificationsByChannel = async (req, res) => {
-    if (!req.params.channel) {
-        return res.status(400).json({ error: 'channel é obrigatório.' });
-    }
+const getNotificationsByChannel = async (req, res, next) => {
     try {
         const notifications = await notificationService.getNotificationsByChannel(req.params.channel);
         res.status(200).json(notifications);
     } catch (error) {
-        console.error('Erro ao obter notificações por canal:', error);
-        res.status(500).json({ error: 'Falha ao obter notificações por canal.' });
+        next(error);
     }
 };
 
@@ -219,20 +164,15 @@ const getNotificationsByChannel = async (req, res) => {
  * @desc    Obtém notificações por grupo
  * @route   GET /notifications/group/:groupId
  */
-const getNotificationsByGroup = async (req, res) => {
-    if (!req.params.groupId) {
-        return res.status(400).json({ error: 'groupId é obrigatório.' });
-    }
+const getNotificationsByGroup = async (req, res, next) => {
     try {
         const notifications = await notificationService.getNotificationsByGroup(req.params.groupId);
         res.status(200).json(notifications);
     } catch (error) {
-        console.error('Erro ao obter notificações por grupo:', error);
-        res.status(500).json({ error: 'Falha ao obter notificações por grupo.' });
+        next(error);
     }
 };
 
-// Exporta todas as funções do controller para uso nas rotas
 module.exports = { 
     sendNotification, 
     listNotifications, 

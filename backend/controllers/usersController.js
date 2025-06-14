@@ -5,61 +5,112 @@ const COLLECTION = 'users';
  * @desc    Adiciona um novo usuário
  * @route   POST /users
  */
-const addUser = async (req, res) => { /* ... */ };
+const addUser = async (req, res, next) => {
+    try {
+        const id = await firestoreService.addDocument(COLLECTION, req.body);
+        res.status(201).json({ message: 'Usuário adicionado com sucesso.', id });
+    } catch (error) {
+        next(error);
+    }
+};
 
 /**
  * @desc    Lista todos os usuários
  * @route   GET /users
  */
-const getUsers = async (req, res) => { /* ... */ };
+const getUsers = async (req, res, next) => {
+    try {
+        const users = await firestoreService.getDocuments(COLLECTION);
+        res.status(200).json({ data: users, message: 'Usuários listados com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
+};
 
 /**
  * @desc    Atualiza um usuário
  * @route   PUT /users/:id
  */
-const updateUser = async (req, res) => { /* ... */ };
+const updateUser = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        await firestoreService.updateDocument(COLLECTION, id, req.body);
+        res.status(200).json({ message: 'Usuário atualizado com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
+};
 
 /**
  * @desc    Deleta um usuário
  * @route   DELETE /users/:id
  */
-const deleteUser = async (req, res) => { /* ... */ };
+const deleteUser = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        await firestoreService.deleteDocument(COLLECTION, id);
+        res.status(200).json({ message: 'Usuário deletado com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
+};
 
 /**
  * @desc    Obtém um usuário por ID
  * @route   GET /users/:id
  */
-const getUserById = async (req, res) => { /* ... */ };
+const getUserById = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const user = await firestoreService.getDocumentById(COLLECTION, id);
+        if (!user) {
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
+        }
+        res.status(200).json({ data: user });
+    } catch (error) {
+        next(error);
+    }
+};
 
 /**
  * @desc    Obtém usuários por status
  * @route   GET /users/status/:status
  */
-const getUsersByStatus = async (req, res) => { /* ... */ };
+const getUsersByStatus = async (req, res, next) => {
+    const { status } = req.params;
+    try {
+        const users = await firestoreService.getDocumentsByField(COLLECTION, 'status', status);
+        res.status(200).json({ data: users, message: 'Usuários listados com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
+};
 
 /**
  * @desc    Obtém usuários por papel (role)
  * @route   GET /users/role/:role
  */
-const getUsersByRole = async (req, res) => { /* ... */ };
+const getUsersByRole = async (req, res, next) => {
+    const { role } = req.params;
+    try {
+        const users = await firestoreService.getDocumentsByField(COLLECTION, 'role', role);
+        res.status(200).json({ data: users, message: 'Usuários listados com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
+};
 
 /**
  * @desc    Obtém usuários por data de criação
  * @route   GET /users/creation?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD
  */
-const getUsersByCreationDate = async (req, res) => {
+const getUsersByCreationDate = async (req, res, next) => {
     const { startDate, endDate } = req.query;
-
-    if (!startDate || !endDate) {
-        return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
-    }
-
     try {
         const users = await firestoreService.getDocumentsByDateRange(COLLECTION, 'createdAt', startDate, endDate);
         res.status(200).json({ data: users, message: 'Usuários listados com sucesso.' });
     } catch (error) {
-        console.error('Erro ao obter usuários por data de criação:', error);
-        res.status(500).json({ error: 'Falha ao obter usuários por data de criação.' });
+        next(error);
     }
 };
 

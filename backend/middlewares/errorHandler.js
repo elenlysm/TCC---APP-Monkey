@@ -1,4 +1,4 @@
-// middlewares/errorHandler.js
+// Middleware global de tratamento de erros
 module.exports = function (err, req, res, next) {
     // Log detalhado do erro para análise
     console.error(err.stack || err);

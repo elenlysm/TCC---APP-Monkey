@@ -1,14 +1,15 @@
 const express = require('express');
-const { body, query, validationResult } = require('express-validator');
 const router = express.Router();
 const controller = require('../controllers/budgetsController');
 const authMiddleware = require('../middlewares/authMiddleware');
+const validate = require('../middlewares/validate');
+const { budgetSchema, updateBudgetSchema } = require('../validators/budgetValidator');
 
 /**
  * Middleware reutilizável para validação de campos e resposta padronizada de erro.
  * Executa todas as validações passadas, e se houver erro, retorna o primeiro erro encontrado.
  */
-const validate = (validations) => {
+const customValidate = (validations) => {
     return async (req, res, next) => {
         await Promise.all(validations.map(validation => validation.run(req)));
         const errors = validationResult(req);
@@ -25,12 +26,7 @@ const validate = (validations) => {
 router.post(
     '/',
     authMiddleware,
-    validate([
-        body('amount').isNumeric().withMessage('O valor é obrigatório e deve ser numérico.'),
-        body('category').notEmpty().withMessage('A categoria é obrigatória.'),
-        body('description').optional().isString().withMessage('Descrição deve ser uma string.'),
-        body('date').optional().isISO8601().withMessage('Data deve estar no formato ISO8601.')
-    ]),
+    validate(budgetSchema, 'body'),
     controller.addBudget
 );
 
@@ -43,12 +39,7 @@ router.get('/', authMiddleware, controller.getBudgets);
 router.put(
     '/:id',
     authMiddleware,
-    validate([
-        body('amount').optional().isNumeric().withMessage('O valor deve ser numérico.'),
-        body('category').optional().notEmpty().withMessage('A categoria não pode estar vazia.'),
-        body('description').optional().isString().withMessage('Descrição deve ser uma string.'),
-        body('date').optional().isISO8601().withMessage('Data deve estar no formato ISO8601.')
-    ]),
+    validate(updateBudgetSchema, 'body'),
     controller.updateBudget
 );
 
@@ -56,23 +47,11 @@ router.put(
 // Remove um orçamento pelo ID.
 router.delete('/:id', authMiddleware, controller.deleteBudget);
 
-//  Obter orçamento por ID
-// Retorna um orçamento específico pelo ID.
-router.get('/:id', authMiddleware, controller.getBudgetById);
-
 //  Obter orçamentos por categoria
 router.get('/category/:category', authMiddleware, controller.getBudgetsByCategory);
 
 //  Obter orçamentos por data (usa query params para intervalo de datas)
-router.get(
-    '/date',
-    authMiddleware,
-    validate([
-        query('startDate').optional().isISO8601().withMessage('Data de início deve estar no formato ISO8601.'),
-        query('endDate').optional().isISO8601().withMessage('Data de fim deve estar no formato ISO8601.')
-    ]),
-    controller.getBudgetsByDate
-);
+router.get('/date/:date', authMiddleware, controller.getBudgetsByDate);
 
 //  Obter orçamentos por status
 router.get('/status/:status', authMiddleware, controller.getBudgetsByStatus);
@@ -223,6 +202,9 @@ router.get(
     ]),
     controller.getBudgetsByBudgetUpdatedAt
 );
+
+//  Obter orçamento por ID (deixe por último)
+router.get('/:id', authMiddleware, controller.getBudgetById);
 
 module.exports = router;
 

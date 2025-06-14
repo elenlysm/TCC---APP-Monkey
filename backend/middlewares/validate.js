@@ -1,11 +1,9 @@
-// Middleware para validação de requisições usando um schema (ex: Joi)
-const validate = (schema) => (req, res, next) => {
-    const { error } = schema.validate(req.body);
+
+module.exports = (schema, property = 'query') => (req, res, next) => {
+    const { error, value } = schema.validate(req[property]);
     if (error) {
-        // Retorna erro 400 com a primeira mensagem de validação encontrada
         return res.status(400).json({ error: error.details[0].message });
     }
+    req[property] = value;
     next();
 };
-
-module.exports = validate;

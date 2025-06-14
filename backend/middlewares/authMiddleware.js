@@ -19,4 +19,11 @@ const authMiddleware = async (req, res, next) => {
     }
 };
 
-module.exports = authMiddleware;
+module.exports = (schema, property = 'body') => (req, res, next) => {
+    const { error, value } = schema.validate(req[property]);
+    if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+    }
+    req[property] = value;
+    next();
+};

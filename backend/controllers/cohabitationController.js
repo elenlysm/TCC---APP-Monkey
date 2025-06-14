@@ -139,12 +139,7 @@ const deleteCohabitation = async (req, res, next) => {
  */
 const addMember = async (req, res, next) => {
     const { id } = req.params;
-    const { memberId, role } = req.body;
-
-    // Validação dos campos obrigatórios
-    if (!memberId || !role) {
-        return res.status(400).json({ message: 'memberId e role são obrigatórios' });
-    }
+    const { memberId, role } = req.body; // já validados pelo Joi
 
     try {
         const cohabitation = await firestoreService.getDocumentById(COLLECTION, id);
@@ -185,11 +180,8 @@ const addMember = async (req, res, next) => {
  */
 const removeMember = async (req, res, next) => {
     const { id } = req.params;
-    const { memberId } = req.body;
+    const { memberId, role } = req.body; // já validados pelo Joi
 
-    if (!memberId) {
-        return res.status(400).json({ message: 'memberId é obrigatório' });
-    }
 
     try {
         const cohabitation = await firestoreService.getDocumentById(COLLECTION, id);
@@ -231,11 +223,8 @@ const removeMember = async (req, res, next) => {
  */
 const updateResponsibility = async (req, res, next) => {
     const { id } = req.params;
-    const { memberId, role } = req.body;
+    const { memberId, role } = req.body; // já validados pelo Joi
 
-    if (!memberId || !role) {
-        return res.status(400).json({ message: 'memberId e role são obrigatórios' });
-    }
 
     try {
         const cohabitation = await firestoreService.getDocumentById(COLLECTION, id);
