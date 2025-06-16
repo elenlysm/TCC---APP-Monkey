@@ -1,5 +1,5 @@
 // controllers/budgetsController.js
-
+const budgetsValidator = require('../validators/budgetsValidator');
 const firestoreService = require('../services/firestoreService');
 const COLLECTION = 'budgets';
 
@@ -249,19 +249,213 @@ const getBudgetsByUserCreatedAt = (req, res) => {
  * @route   GET /budgets/date/:date
  */
 const getBudgetsByDate = async (req, res, next) => {
-  try {
-    const { date } = req.params;
-    // Validação simples de data
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      return res.status(400).json({ error: 'Data inválida. Use o formato YYYY-MM-DD.' });
+    try {
+        const { date } = req.params;
+        // Validação simples de data
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+            return res.status(400).json({ error: 'Data inválida. Use o formato YYYY-MM-DD.' });
+        }
+        // Busca usando o service
+        const budgets = await firestoreService.getDocuments(COLLECTION, [['date', '==', date]]);
+        res.json(budgets);
+    } catch (error) {
+        next(error); // Isso envia o erro para o errorHandler
     }
-    // Busca usando o service
-    const budgets = await firestoreService.getDocuments(COLLECTION, [['date', '==', date]]);
-    res.json(budgets);
-  } catch (error) {
-    next(error); // Isso envia o erro para o errorHandler
-  }
 };
+
+/**
+ * @desc    Lista orçamentos por quantidade
+ * @route   GET /budgets/amount/:amount
+ */
+const getBudgetsByAmount = async (req, res, next) => {
+    const { amount } = req.params;
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'amount', parseFloat(amount));
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por quantidade:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc    Lista orçamentos por data de criação
+ * @route   GET /budgets/createdAt/:date
+ */
+const getBudgetsByBudgetCreatedAt = async (req, res, next) => {
+    const { date } = req.params;
+    if (!isValidDate(date)) {
+        return res.status(400).json({ error: 'A data deve estar no formato YYYY-MM-DD.' });
+    }
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'createdAt', date);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por data de criação do orçamento:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc    Lista orçamentos por data de atualização
+ * @route   GET /budgets/updatedAt/:date
+ */
+const getBudgetsByBudgetUpdatedAt = async (req, res, next) => {
+    const { date } = req.params;
+    if (!isValidDate(date)) {
+        return res.status(400).json({ error: 'A data deve estar no formato YYYY-MM-DD.' });
+    }
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'updatedAt', date);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por data de atualização do orçamento:', error);
+        next(error);
+    }
+}
+
+/** 
+ * @desc    Lista orçamentos por categoria
+ * @route   GET /budgets/tag/:tag
+ */
+const getBudgetsByTag = async (req, res, next) => {
+    const { tag } = req.params;
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'tags', tag);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por tag:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc Lista orçamentos por local
+ * @route GET /budgets/location/:location
+ */
+const getBudgetsByLocation = async (req, res, next) => {
+    const { location } = req.params;
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'location', location);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por localização:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc Lista orçamentos por moeda
+ * @route GET /budgets/currency/:currency
+ */
+const getBudgetsByCurrency = async (req, res, next) => {
+    const { currency } = req.params;
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'currency', currency);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por moeda:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc Lista orçamentos por método de pagamento
+ * @route GET /budgets/payment-method/:method
+ */
+const getBudgetsByPaymentMethod = async (req, res, next) => {
+    const { method } = req.params;
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'paymentMethod', method);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por método de pagamento:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc Lista orçamentos por frequência
+ * @route GET /budgets/frequency/:frequency
+ */
+const getBudgetsByFrequency = async (req, res, next) => {
+    const { frequency } = req.params;
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'frequency', frequency);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por frequência:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc Lista orçamentos por recorrência
+ * @route GET /budgets/recurrence/:recurrence
+ */
+const getBudgetsByRecurrence = async (req, res, next) => {
+    const { recurrence } = req.params;
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'recurrence', recurrence);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por recorrência:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc Lista orçamentos por status de pagamento
+ * @route GET /budgets/payment-status/:status
+ */
+const getBudgetsByPaymentStatus = async (req, res, next) => {
+    const { status } = req.params;
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'paymentStatus', status);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por status de pagamento:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc Lista orçamentos por data de vencimento
+ * @route GET /budgets/due-date
+ */
+const getBudgetsByDueDate = async (req, res, next) => {
+    const { startDate, endDate } = req.query;
+    // Validação de datas
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+        return res.status(400).json({ error: 'As datas devem estar no formato YYYY-MM-DD.' });
+    }
+    try {
+        const budgets = await firestoreService.getDocumentsByDateRange(COLLECTION, 'dueDate', startDate, endDate);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por data de vencimento:', error);
+        next(error);
+    }
+}
+
+/**
+ * @desc Lista orçamentos por data de pagamento
+ * @route GET /budgets/payment-date
+ */
+const getBudgetsByPaymentDate = async (req, res, next) => {
+    const { startDate, endDate } = req.query;
+    // Validação de datas
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+        return res.status(400).json({ error: 'As datas devem estar no formato YYYY-MM-DD.' });
+    }
+    try {
+        const budgets = await firestoreService.getDocumentsByDateRange(COLLECTION, 'paymentDate', startDate, endDate);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por data de pagamento:', error);
+        next(error);
+    }
+}
 
 // Exporta todas as funções do controller para uso nas rotas
 module.exports = {
@@ -280,5 +474,17 @@ module.exports = {
     getBudgetsByCreationDate,
     getBudgetsByUpdateDate,
     getBudgetsByUserCreatedAt,
-    getBudgetsByDate
+    getBudgetsByDate,
+    getBudgetsByAmount,
+    getBudgetsByTag,
+    getBudgetsByLocation,
+    getBudgetsByCurrency,
+    getBudgetsByPaymentMethod,
+    getBudgetsByFrequency,
+    getBudgetsByRecurrence,
+    getBudgetsByPaymentStatus,
+    getBudgetsByDueDate,
+    getBudgetsByPaymentDate,
+    getBudgetsByBudgetCreatedAt,
+    getBudgetsByBudgetUpdatedAt
 };
