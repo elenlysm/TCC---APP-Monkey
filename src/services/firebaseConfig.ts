@@ -5,12 +5,12 @@ import { getFirestore } from 'firebase/firestore';
 
 // 🔒 Configurações sensíveis — substitua pelos valores reais do seu projeto Firebase
 const firebaseConfig = {
-  apiKey: 'SUA_API_KEY',
-  authDomain: 'SEU_PROJETO.firebaseapp.com',
-  projectId: 'SEU_PROJECT_ID',
-  storageBucket: 'SEU_PROJECT_ID.appspot.com',
-  messagingSenderId: 'SEU_MESSAGING_SENDER_ID',
-  appId: 'SEU_APP_ID',
+  apiKey: 'AIzaSyC81YNWKiJePrR12KOYk7dFGc7sZkaiJaI',
+  authDomain: 'monkey.app.financeiro.open.finance.TCC',
+  projectId: 'monkey-f805b',
+  storageBucket: 'monkey-f805b.firebasestorage.app',
+  messagingSenderId: '104043920090',
+  appId: '1:104043920090:android:d6c1b60a6232d84765c3e3',
 };
 
 // Inicializa o app
@@ -21,3 +21,4 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export { app, auth, db };
+
