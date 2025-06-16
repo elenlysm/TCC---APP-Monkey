@@ -28,6 +28,21 @@ const getMonthlyReport = async (req, res, next) => {
         next(error);
     }
 };
+/**
+ * @desc    Lista de orçamentos
+ * @route   GET /budgets
+ * OBS: Esta função não deveria estar no controller de autenticação.
+ */
+const listBudgets = async (req, res) => {
+    try {
+        // Busca orçamentos pelo serviço de autenticação (ideal: mover para budgetsController)
+        const budgets = await authService.getBudgets();
+        res.status(200).json({ data: budgets, message: 'Orçamentos listados com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao listar orçamentos:', error);
+        res.status(500).json({ error: 'Falha ao listar orçamentos.' });
+    }
+};
 
 /**
  * @desc    Retorna resumo das transações agrupadas por categoria para um usuário.
@@ -49,4 +64,4 @@ const getCategorySummary = async (req, res, next) => {
     }
 };
 
-module.exports = { getMonthlyReport, getCategorySummary };
+module.exports = { getMonthlyReport, getCategorySummary, listBudgets };

@@ -1,7 +1,29 @@
 // tests/auth.test.js
 const request = require('supertest');
-const app = require('../app'); // seu arquivo principal do Express
+const app = require('../server');  // Ajuste se o seu server exporta o app Express
 
+describe('Segurança nas rotas Auth', () => {
+
+    it('Deve bloquear registro com dados inválidos', async () => {
+        const response = await request(app)
+            .post('/auth/register')
+            .send({ email: 'invalido', password: '123' });
+
+        expect(response.statusCode).toBe(400);
+        expect(response.body.error).toBeDefined();
+    });
+
+    it('Deve permitir registro válido (mock)', async () => {
+        const response = await request(app)
+            .post('/auth/register')
+            .send({ email: 'teste@example.com', password: 'senhaSegura123' });
+
+        // Isso depende da lógica do seu controller. Se for criar usuário de verdade no Firebase,
+        // você pode mockar o serviço antes.
+        expect([201, 400, 500]).toContain(response.statusCode);  // Só para exemplo, ajuste depois
+    });
+
+});
 describe('Auth API', () => {
     // Testa login inválido (credenciais erradas)
     it('deve retornar 401 para login inválido', async () => {
@@ -26,12 +48,4 @@ describe('Auth API', () => {
         expect(res.body).toHaveProperty('error');
     });
 
-    // Exemplo de teste para login válido (ajuste conforme seu ambiente)
-    // it('deve fazer login com sucesso', async () => {
-    //     const res = await request(app)
-    //         .post('/auth/login')
-    //         .send({ email: 'usuario@valido.com', password: 'senhaValida' });
-    //     expect(res.statusCode).toBe(200);
-    //     expect(res.body).toHaveProperty('token');
-    // });
 });

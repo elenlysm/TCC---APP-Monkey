@@ -70,16 +70,19 @@ APP-GESTAO-FINANCEIRA/
 │    ├── node_modules/...
 │    ├── routes/
 │    │   ├── api.js
+│    │   ├── auditRoutes.js
 │    │   ├── authRoutes.js
 │    │   ├── budgetsRoutes.js
 │    │   ├── cohabitationRoutes.js
 │    │   ├── notificationRoutes.js
 │    │   ├── openFinanceRoutes.js
+│    │   ├── profileRoutes.js
 │    │   ├── reportsRoutes.js
 │    │   ├── settingsRoutes.js
 │    │   ├── transactionsRoutes.js
 │    │   └── usersRoutes.js
 │    ├── services/
+│    │   ├── auditService.js
 │    │   ├── authService.js
 │    │   ├── firestoreService.js
 │    │   ├── notificationService.js
@@ -92,9 +95,13 @@ APP-GESTAO-FINANCEIRA/
 │    │   ├── log.js
 │    │   └── transactionUtils.js
 │    ├── validators/
+│    │   ├── joiValidator.js
 │    │   └── openFinanceValidator.js
 │    ├── firebaseAdmin.js
-│    └── server.js
+│    ├── package-lock.json
+│    ├── package.json
+│    ├── server.js
+│    └── tsconfig.json
 ├── design/ ...
 ├── docs/
 │    ├── Estrutura - Monkey.txt

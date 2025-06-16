@@ -1,4 +1,5 @@
 const authService = require('../services/authService');
+const firestoreService = require('../services/firestoreService');
 
 /**
  * @desc    Registra um novo usuário
@@ -6,7 +7,7 @@ const authService = require('../services/authService');
  */
 const register = async (req, res) => {
     try {
-        // req.body já está validado pelo Joi!
+
         const { email, password } = req.body;
         const user = await authService.register({ email, password });
         res.status(201).json({ message: 'Usuário registrado com sucesso.', user });
@@ -22,7 +23,7 @@ const register = async (req, res) => {
  */
 const login = async (req, res) => {
     try {
-        // req.body já está validado pelo Joi!
+        // req.body validado pelo Joi
         const { email, password } = req.body;
         const token = await authService.login({ email, password });
         res.status(200).json({ message: 'Login bem-sucedido.', token });
@@ -59,7 +60,7 @@ const logout = async (req, res) => {
  * @desc    Recuperação de senha
  * @route   POST /auth/forgot-password
  */
-const forgotPassword = async (req, res) => {
+const resetPassword = async (req, res) => {
     try {
         const { email } = req.body;
 
@@ -82,46 +83,39 @@ const forgotPassword = async (req, res) => {
 };
 
 /**
- * @desc    Redefinição de senha
- * @route   POST /auth/reset-password
+ * @desc    Atualiza a senha do usuário autenticado
+ * @route   POST /auth/update-password
  */
-const resetPassword = async (req, res) => {
+const updatePassword = async (req, res) => {
     try {
-        const { token, newPassword } = req.body;
+        // Verifica se o usuário está autenticado (req.user deve ser preenchido por um middleware de autenticação)
+        if (!req.user) {
+            return res.status(401).json({ error: 'Usuário não autenticado.' });
+        }
+
+        const { currentPassword, newPassword } = req.body;
 
         // Validação dos campos obrigatórios
-        if (!token || !newPassword) {
-            return res.status(400).json({ error: 'Token e nova senha são obrigatórios.' });
-        }
-        // Validação de força mínima da nova senha
-        if (newPassword.length < 6) {
-            return res.status(400).json({ error: 'A nova senha deve ter pelo menos 6 caracteres.' });
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ error: 'Senha atual e nova senha são obrigatórias.' });
         }
 
-        // Chama o serviço para redefinir a senha
-        await authService.resetPassword(token, newPassword);
-        res.status(200).json({ message: 'Senha redefinida com sucesso.' });
+        // Chama o serviço para atualizar a senha
+        await authService.updatePassword(req.user.uid, currentPassword, newPassword);
+        res.status(200).json({ message: 'Senha atualizada com sucesso.' });
     } catch (error) {
-        console.error('Erro na redefinição de senha:', error);
-        res.status(500).json({ error: 'Falha ao redefinir senha.' });
-    }
-};
+        console.error('Erro na atualização de senha:', error);
+        if (error.message === 'Senha atual inválida') {
+            return res.status(401).json({ error: 'Senha atual inválida.' });
+        }
+        res.status(500).json({ error: error.message || 'Falha ao atualizar a senha.' });
+    };
+}
 
-/**
- * @desc    Lista de orçamentos
- * @route   GET /budgets
- * OBS: Esta função não deveria estar no controller de autenticação.
- */
-const listBudgets = async (req, res) => {
-    try {
-        // Busca orçamentos pelo serviço de autenticação (ideal: mover para budgetsController)
-        const budgets = await authService.getBudgets();
-        res.status(200).json({ data: budgets, message: 'Orçamentos listados com sucesso.' });
-    } catch (error) {
-        console.error('Erro ao listar orçamentos:', error);
-        res.status(500).json({ error: 'Falha ao listar orçamentos.' });
-    }
+module.exports = {
+    register,
+    login,
+    logout,
+    resetPassword,
+    updatePassword
 };
-
-// Exporta todas as funções do controller
-module.exports = { register, login, logout, forgotPassword, resetPassword, listBudgets };

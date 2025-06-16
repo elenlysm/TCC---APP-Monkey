@@ -88,3 +88,5 @@ app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
 
 const logger = winston.createLogger({ /* config */ });
 logger.info('Mensagem de log');
+
+module.exports = app;

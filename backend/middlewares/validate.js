@@ -1,8 +1,11 @@
 
-module.exports = (schema, property = 'query') => (req, res, next) => {
-    const { error, value } = schema.validate(req[property]);
+module.exports = (schema, property = 'body') => (req, res, next) => {
+    const { error, value } = schema.validate(req[property], { abortEarly: false });
     if (error) {
-        return res.status(400).json({ error: error.details[0].message });
+        return res.status(400).json({
+            status: 'validation_error',
+            error: error.details.map((detail) => detail.message,)
+        });
     }
     req[property] = value;
     next();
