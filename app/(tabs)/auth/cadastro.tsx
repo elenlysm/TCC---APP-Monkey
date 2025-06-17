@@ -14,25 +14,39 @@ export default function SignUpScreen() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         if (!email || !password || !confirmPassword) {
             setError('Preencha todos os campos.');
             return;
         }
-        if (!email.includes('@')) {
-            setError('E-mail inválido.');
-            return;
+
+        try {
+            const response = await fetch('http://192.168.56.1:8081', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password: password,
+                    confirmPassword
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Cadastro realizado com sucesso!');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
+            } else {
+                setError(data.error || 'Erro ao cadastrar.');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            setError('Erro de conexão com o servidor.');
         }
-        if (password.length < 6) {
-            setError('A senha deve ter pelo menos 6 caracteres.');
-            return;
-        }
-        if (password !== confirmPassword) {
-            setError('As senhas não coincidem.');
-            return;
-        }
-        setError('');
-        // Chame a API de cadastro aqui
     };
 
     return (

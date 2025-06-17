@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
-import { Svg, Path } from 'react-native-svg';
+import { Platform, StyleSheet, View } from 'react-native';
+import { Path, Svg } from 'react-native-svg';
 
 // Tipagem das props para garantir que o componente receba filhos válidos
 interface AuthBackgroundProps {
@@ -53,8 +53,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: -92,
         right: 0,
-        // Ajuste para responsividade
-        // left: 260, // substituído por right: 0 para melhor adaptação em telas menores
     },
     vectorBrown: {
         position: 'absolute',

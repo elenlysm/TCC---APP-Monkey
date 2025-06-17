@@ -14,7 +14,7 @@ const winston = require('winston');
 const app = express();
 
 // Configuração de CORS — restringe as origens permitidas
-const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:3000'];
+const allowedOrigins = [process.env.FRONTEND_URL || 'http://192.168.56.1:8081'];
 
 const corsOptions = {
     origin: function (origin, callback) {
