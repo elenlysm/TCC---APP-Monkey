@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { Dimensions, SafeAreaView, Text, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
+//Importações React Native + biblioteca de gráfico
 import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
-//Importação de componentes personalizados.
+//Importação de componentes personalizados
 
 export default function RelatoriosScreen() {
-    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(false); //Estado que controla se o menu lateral está aberto
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-            <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
+            <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)}/>
+            {/*Menu lateral de navegação*/}
 
             <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 16 }}>
                 Relatório Financeiro
             </Text>
-{/*Título da seção de relatórios.*/}
+            {/*Título da tela*/}
 
             <View style={{ padding: 16 }}>
 
@@ -40,7 +42,7 @@ export default function RelatoriosScreen() {
                     }}
                     style={{ borderRadius: 16 }}
                 />
-{/*Gráfico de linha com dados estáticos.*/}
+                {/*Gráfico de linha representando dados financeiros fictícios*/}
 
             </View>
             <Header />

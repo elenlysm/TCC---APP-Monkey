@@ -4,13 +4,13 @@ import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '../../theme';
-//Importação de componentes personalizados
+//Importação de componentes personalizados + tema da aplicação
 
-export default function LoginScreen({ navigation }: any) //Navegação entre telas.
+export default function LoginScreen({ navigation }: any) //Navegação entre telas
 {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-//Armazenamento de e-mail e senha.
+    //Armazenamento de e-mail e senha digitados
 
     return (
         <AuthBackground>
@@ -21,10 +21,9 @@ export default function LoginScreen({ navigation }: any) //Navegação entre tel
                     placeholder="Digite seu e-mail"
                     value={email}
                     onChangeText={setEmail}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                />
-//Campo de entrada de email.
+                    keyboardType="email-address" //Usa teclado com "@" no celular
+                    autoCapitalize="none" //Não coloca a primeira letra em maiúsculo
+                /> {/*Campo de entrada email*/}
 
                 <Text style={styles.label}>Senha:</Text>
                 <TextInput
@@ -32,18 +31,16 @@ export default function LoginScreen({ navigation }: any) //Navegação entre tel
                     placeholder="Digite sua senha"
                     value={password}
                     onChangeText={setPassword}
-                    secureTextEntry
-                />
-//Campo de entrada de senha.
+                    secureTextEntry //Oculta os caracteres da senha
+                /> {/*Campo de entrada de senha*/}
 
                 <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
                     <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
                 </TouchableOpacity>
-//Botão de redirecionamento do usuário ao reset de senha.
-
+                {/*Link para a tela de "Esqueci minha senha"*/}
                 <View style={styles.buttonGroup}>
                     <Button title="Entrar" onPress={() => console.log('Entrar')} />
-//Botão de login.
+                {/*Botão de login + chamada de lógica de autenticação*/}
                 </View>
             </Container>
         </AuthBackground>
@@ -79,4 +76,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
-//Estilos e layout dos campos.
+//Estilos e layout dos campos

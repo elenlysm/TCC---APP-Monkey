@@ -4,11 +4,11 @@ import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '../../theme';
-//Importação de componentes personalizados
+//Importação de componentes personalizados + tema da aplicação
 
 export default function ForgotPasswordScreen() {
     const [email, setEmail] = useState('');
-//Declara um estado para armazenamento de email
+//Estado para armazenamento de email digitado
 
     return (
         <AuthBackground>
@@ -21,12 +21,13 @@ export default function ForgotPasswordScreen() {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
-                />
-    //Campo de entrada de e-mail
+                /> {/*Campo de entrada de email.*/}
     
                 <View style={styles.buttonGroup}>
-                    <Button title="Cancelar" variant="subtle" onPress={() => console.log('Cancelar')} /> //Botão de cancelamento reset
-                    <Button title="Resetar a Senha" onPress={() => console.log('Resetar a Senha')} /> // Botão de reset senha
+                    <Button title="Cancelar" variant="subtle" onPress={() => console.log('Cancelar')} /> 
+                    {/*Cancelamento de reset senha.*/}
+                    <Button title="Resetar a Senha" onPress={() => console.log('Resetar a Senha')} />
+                    {/*Confirmação de reset senha.*/}
                 </View>
             </Container>
         </AuthBackground>
@@ -57,4 +58,4 @@ const styles = StyleSheet.create({
         gap: 16,
     },
 });
-//Estilos e layout dos campos.
+//Estilos e layout dos campos

@@ -4,18 +4,19 @@ import { G, Line, Path, Svg } from 'react-native-svg';
 import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
-//Importação de componentes personalizados.
+//Importação de componentes personalizados + componentes visuais e gráficos SVG
 
 export default function OrcamentoEMetas() {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    //Estado que controla se o menu lateral está aberto
 
     return (
         <View style={styles.container}>
             <NavigationDrawer isOpen={drawerOpen} closeDrawer={() => setDrawerOpen(false)} />
-
-            <Header />
+            <Header/>{/*Menu lateral de navegação*/}
 
             <Svg style={styles.vector} width="412" height="206" viewBox="0 0 412 206" fill="none">
+            {/*Ilustração em SVG no fundo da tela*/}   
                 <G>
                     <Path
                         fillRule="evenodd"
@@ -27,7 +28,7 @@ export default function OrcamentoEMetas() {
                     />
                 </G>
             </Svg>
-{/*Layout barra de navegação e cabeçalho.*/}
+            {/*Layout barra de navegação e cabeçalho*/}
 
             <View style={styles.header}>
                 <ImageBackground
@@ -37,7 +38,7 @@ export default function OrcamentoEMetas() {
                 />
                 <Text style={styles.title}>Orçamento e Metas</Text>
             </View>
-{/*Cabeçalho usuário.*/}
+            {/*Cabeçalho com imagem de perfil e título da tela*/}
 
             <View style={styles.budgetSection}>
                 {['Item 1', 'Item 2', 'Item 3'].map((item, index) => (
@@ -56,7 +57,7 @@ export default function OrcamentoEMetas() {
                     </View>
                 ))}
             </View>
-{/*Indicadores de progresso - estáticos, prontos para dados dinâmicos.*/}
+             {/*Seção que lista itens de orçamento com barra de progresso*/}
 
             <View style={styles.actions}>
                 <Text style={styles.addGoal} accessibilityLabel="Adicionar Meta ao Orçamento">
@@ -65,7 +66,7 @@ export default function OrcamentoEMetas() {
                 <Text style={styles.summary}>Total de Metas: 0</Text>
                 <Text style={styles.summary}>Metas Atingidas: 0</Text>
             </View>
-{/*Ações e resumo das metas.*/}
+            {/*Seção com ações e resumo das metas*/}
 
             <MenuFechado />
         </View>
@@ -143,4 +144,4 @@ const styles = StyleSheet.create({
         color: '#555',
     },
 });
-//Estilos e layout dos campos.
+//Estilos e layout dos campos

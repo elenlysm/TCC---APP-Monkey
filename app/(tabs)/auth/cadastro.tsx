@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+//Ícone da biblioteca Feather para mostrar/ocultar senha
 import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '../../theme';
+//Importação do tema e componentes personalizados: cores, fontes e tamanhos
+
 
 export default function SignUpScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false); //Controle de visibilidade da senha
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); //Visibilidade da confirmação de senha
+    //Estados para armazenar os dados do formulário
 
     const handleSignUp = () => {
         if (!email || !password || !confirmPassword) {
             setError('Preencha todos os campos.');
             return;
-        }
+        } //Função chamada ao pressionar o botão "Cadastrar"
         if (!email.includes('@')) {
             setError('E-mail inválido.');
             return;
-        }
+        } // Validação de e-mail
         if (password.length < 6) {
             setError('A senha deve ter pelo menos 6 caracteres.');
             return;
@@ -30,9 +34,9 @@ export default function SignUpScreen() {
         if (password !== confirmPassword) {
             setError('As senhas não coincidem.');
             return;
-        }
+        } //Verifica se a senha tem pelo menos 6 caracteres e se as senhas são iguais
         setError('');
-        // Chame a API de cadastro aqui
+        //Chame a API de cadastro aqui
     };
 
     return (
@@ -46,7 +50,7 @@ export default function SignUpScreen() {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
-                />
+                /> {/*Campo de e-mail*/}
 
                 <Text style={styles.label}>Senha:</Text>
                 <View style={styles.passwordContainer}>
@@ -56,7 +60,7 @@ export default function SignUpScreen() {
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry={!showPassword}
-                    />
+                    /> 
                     <TouchableOpacity
                         style={styles.icon}
                         onPress={() => setShowPassword(!showPassword)}
@@ -66,9 +70,9 @@ export default function SignUpScreen() {
                             name={showPassword ? 'eye' : 'eye-off'}
                             size={22}
                             color={colors.primary}
-                        />
+                        /> 
                     </TouchableOpacity>
-                </View>
+                </View> {/*Campo de senha com botão de mostrar/ocultar*/}
 
                 <Text style={styles.label}>Confirme a Senha:</Text>
                 <View style={styles.passwordContainer}>
@@ -90,13 +94,14 @@ export default function SignUpScreen() {
                             color={colors.primary}
                         />
                     </TouchableOpacity>
-                </View>
+                </View> {/*Campo de confirmação de senha com botão de mostrar/ocultar*/}
 
                 {error ? <Text style={{ color: 'red', marginBottom: 8 }}>{error}</Text> : null}
+                {/*Exibe a mensagem de erro, se houver*/}
 
                 <View style={styles.buttonGroup}>
                     <Button title="Cadastrar" onPress={handleSignUp} />
-                </View>
+                </View> {/*Botão de cadastro*/}
             </Container>
         </AuthBackground>
     );
@@ -148,3 +153,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+//Estilos personalizados para os componentes da tela
