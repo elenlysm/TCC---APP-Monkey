@@ -107,7 +107,6 @@ const getUserLogsByActionType = async (req, res, next) => {
  */
 const getUserLogsByDate = async (req, res, next) => {
     const { startDate, endDate, page = 1, limit = 100 } = req.query;
-
     // Validação dos parâmetros obrigatórios e formato de data
     if (!startDate || !endDate) {
         return res.status(400).json({ error: 'startDate e endDate são obrigatórios.' });
@@ -115,14 +114,12 @@ const getUserLogsByDate = async (req, res, next) => {
     if (!isValidDate(startDate) || !isValidDate(endDate)) {
         return res.status(400).json({ error: 'Datas devem estar no formato YYYY-MM-DD.' });
     }
-
     // Validação de paginação
     const pageNum = Number(page);
     const limitNum = Number(limit);
     if (isNaN(pageNum) || pageNum < 1 || isNaN(limitNum) || limitNum < 1) {
         return res.status(400).json({ error: 'page e limit devem ser números positivos.' });
     }
-
     try {
         // Busca logs do usuário por data com paginação
         const logs = await auditService.getUserLogsByDate(req.params.userId, startDate, endDate, Number(page), Number(limit));

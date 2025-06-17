@@ -92,6 +92,25 @@ const getBudgetById = async (req, res, next) => {
 };
 
 /**
+ * @desc Busca orçamentos por data de criação
+ * @route GET /budgets/createdAt/:date
+ */
+
+const getBudgetsByCreationDate = async (req, res, next) => {
+    const { date } = req.params;
+    if (!isValidDate(date)) {
+        return res.status(400).json({ error: 'A data deve estar no formato YYYY-MM-DD.' });
+    }
+    try {
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'createdAt', date);
+        res.status(200).json(budgets);
+    } catch (error) {
+        console.error('Erro ao listar orçamentos por data de criação:', error);
+        next(error);
+    }
+}
+
+/**
  * @desc    Lista orçamentos por categoria
  * @route   GET /budgets/category/:category
  */
@@ -196,24 +215,6 @@ const getBudgetsByDescription = async (req, res, next) => {
         res.status(200).json(budgets);
     } catch (error) {
         console.error('Erro ao listar orçamentos por descrição:', error);
-        next(error);
-    }
-};
-
-/**
- * @desc    Lista orçamentos por data de criação
- * @route   GET /budgets/createdAt/:date
- */
-const getBudgetsByCreationDate = async (req, res, next) => {
-    const { date } = req.params;
-    if (!isValidDate(date)) {
-        return res.status(400).json({ error: 'A data deve estar no formato YYYY-MM-DD.' });
-    }
-    try {
-        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'createdAt', date);
-        res.status(200).json(budgets);
-    } catch (error) {
-        console.error('Erro ao listar orçamentos por data de criação:', error);
         next(error);
     }
 };
@@ -486,5 +487,6 @@ module.exports = {
     getBudgetsByDueDate,
     getBudgetsByPaymentDate,
     getBudgetsByBudgetCreatedAt,
+    getBudgetsByCreationDate,
     getBudgetsByBudgetUpdatedAt
 };

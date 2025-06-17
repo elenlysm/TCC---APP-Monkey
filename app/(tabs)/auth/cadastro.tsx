@@ -18,15 +18,15 @@ export default function SignUpScreen() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); //Visibilidade da confirmação de senha
     //Estados para armazenar os dados do formulário
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         if (!email || !password || !confirmPassword) {
             setError('Preencha todos os campos.');
             return;
-        } //Função chamada ao pressionar o botão "Cadastrar"
+        }
         if (!email.includes('@')) {
             setError('E-mail inválido.');
             return;
-        } // Validação de e-mail
+        }
         if (password.length < 6) {
             setError('A senha deve ter pelo menos 6 caracteres.');
             return;
@@ -34,9 +34,9 @@ export default function SignUpScreen() {
         if (password !== confirmPassword) {
             setError('As senhas não coincidem.');
             return;
-        } //Verifica se a senha tem pelo menos 6 caracteres e se as senhas são iguais
+        }
         setError('');
-        //Chame a API de cadastro aqui
+        // Chame a API de cadastro aqui
     };
 
     return (

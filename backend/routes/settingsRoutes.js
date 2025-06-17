@@ -1,11 +1,8 @@
-// Importa o roteador do Express
 const express = require('express');
 const router = express.Router();
-// Importa os controllers responsáveis pelas configurações
 const controller = require('../controllers/settingsController');
-// Importa o middleware de validação
 const validate = require('../middlewares/validate');
-// Importa os schemas de validação
+const authMiddleware = require('../middlewares/authMiddleware');
 const { createSettingSchema, updateSettingsSchema } = require('../validators/settingsValidator');
 
 /**
@@ -13,7 +10,7 @@ const { createSettingSchema, updateSettingsSchema } = require('../validators/set
  * @desc    Retorna as configurações do usuário autenticado
  * @access  Privado (requer autenticação)
  */
-router.get('/', authMiddleware, getSettings);
+router.get('/', authMiddleware, controller.getSettings);
 
 /**
  * @route   POST /settings

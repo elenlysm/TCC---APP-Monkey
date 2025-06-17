@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// 🔒 Configurações sensíveis — substitua pelos valores reais do seu projeto Firebase
+// Configurações sensíveis — substitua pelos valores reais do seu projeto Firebase
 const firebaseConfig = {
   apiKey: 'AIzaSyC81YNWKiJePrR12KOYk7dFGc7sZkaiJaI',
   authDomain: 'monkey.app.financeiro.open.finance.TCC',
@@ -17,7 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Exporta os serviços do Firebase
-const auth = getAuth(app);
+const auth = getAuth(app,) ;
 const db = getFirestore(app);
 
 export { app, auth, db };

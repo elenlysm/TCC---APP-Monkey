@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { body, param, query } = require('express-validator');
 const controller = require('../controllers/budgetsController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const validate = require('../middlewares/validate');
-const { budgetSchema, updateBudgetSchema } = require('../validators/budgetValidator');
+const { budgetSchema, updateBudgetSchema } = require('../validators/budgetsValidator');
+
 
 /**
  * Middleware reutilizável para validação de campos e resposta padronizada de erro.
@@ -88,7 +90,7 @@ router.get(
         query('startDate').optional().isISO8601().withMessage('Data de início deve estar no formato ISO8601.'),
         query('endDate').optional().isISO8601().withMessage('Data de fim deve estar no formato ISO8601.')
     ]),
-    controller.getBudgetsByCreatedAt
+    controller.getBudgetsByCreationDate
 );
 
 //  Obter orçamentos por data de atualização (usa query params)
@@ -99,7 +101,7 @@ router.get(
         query('startDate').optional().isISO8601().withMessage('Data de início deve estar no formato ISO8601.'),
         query('endDate').optional().isISO8601().withMessage('Data de fim deve estar no formato ISO8601.')
     ]),
-    controller.getBudgetsByUpdatedAt
+    controller.getBudgetsByBudgetUpdatedAt
 );
 
 //  Obter orçamentos por tipo
@@ -159,28 +161,6 @@ router.get(
     controller.getBudgetsByPaymentDate
 );
 
-//  Obter orçamentos por data de criação do usuário (usa query params)
-router.get(
-    '/user-created-at',
-    authMiddleware,
-    validate([
-        query('startDate').optional().isISO8601().withMessage('Data de início deve estar no formato ISO8601.'),
-        query('endDate').optional().isISO8601().withMessage('Data de fim deve estar no formato ISO8601.')
-    ]),
-    controller.getBudgetsByUserCreatedAt
-);
-
-//  Obter orçamentos por data de atualização do usuário (usa query params)
-router.get(
-    '/user-updated-at',
-    authMiddleware,
-    validate([
-        query('startDate').optional().isISO8601().withMessage('Data de início deve estar no formato ISO8601.'),
-        query('endDate').optional().isISO8601().withMessage('Data de fim deve estar no formato ISO8601.')
-    ]),
-    controller.getBudgetsByUserUpdatedAt
-);
-
 //  Obter orçamentos por data de criação do orçamento (usa query params)
 router.get(
     '/budget-created-at',
@@ -202,9 +182,6 @@ router.get(
     ]),
     controller.getBudgetsByBudgetUpdatedAt
 );
-
-//  Obter orçamento por ID (deixe por último)
-router.get('/:id', authMiddleware, controller.getBudgetById);
 
 module.exports = router;
 

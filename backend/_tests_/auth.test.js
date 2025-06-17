@@ -18,8 +18,6 @@ describe('Segurança nas rotas Auth', () => {
             .post('/auth/register')
             .send({ email: 'teste@example.com', password: 'senhaSegura123' });
 
-        // Isso depende da lógica do seu controller. Se for criar usuário de verdade no Firebase,
-        // você pode mockar o serviço antes.
         expect([201, 400, 500]).toContain(response.statusCode);  
     });
 
