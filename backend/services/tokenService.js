@@ -2,7 +2,14 @@ const crypto = require('crypto');
 const { db } = require('../firebaseAdmin');
 
 const algorithm = 'aes-256-cbc';
-const key = crypto.scryptSync(process.env.ENCRYPTION_SECRET, 'salt', 32);
+const secret = process.env.ENCRYPTION_SECRET;
+
+if (!secret) {
+    throw new Error('ENCRYPTION_SECRET não definida no arquivo .env');
+}
+
+const key = crypto.scryptSync(secret, 'salt', 32);
+
 
 /**
  * Gera um IV aleatório para cada criptografia.

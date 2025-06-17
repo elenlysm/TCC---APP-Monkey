@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/transactionsController');
 const validate = require('../middlewares/validate');
+const authMiddleware = require('../middlewares/authMiddleware');
 const { transactionSchema, updateTransactionSchema, periodSchema } = require('../validators/transactionValidator');
 
 /**

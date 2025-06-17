@@ -26,7 +26,19 @@ const resetPasswordSchema = Joi.object({
 });
 const updatePasswordSchema = Joi.object({
     oldPassword: Joi.string().valid(Joi.ref('Password')).required(),
-    newPassword: Joi.string().min(6).required()
+    newPassword: Joi.string()
+        .min(6)
+        .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$'))
+        .required()
+        .messages({
+            'string.pattern.base': 'A senha deve ter no mínimo uma letra maiúscula, uma minúscula, um número e um caractere especial.'
+        }),
+    confirmNewPassword: Joi.string()
+        .valid(Joi.ref('newPassword'))
+        .required()
+        .messages({
+            'any.only': 'A confirmação de senha não corresponde à senha informada.'
+        })
 });
 
 module.exports = {

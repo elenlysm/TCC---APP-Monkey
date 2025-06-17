@@ -63,6 +63,11 @@ APP-GESTAO-FINANCEIRA/
 │    │   └── usersController.js
 │    ├── dist/
 │    │   └── index.js
+│    ├── logs/
+│    │   ├── combined.log
+│    │   ├── error.log
+│    │   ├── exeptions.log
+│    │   └── rejections.log
 │    ├── middlewares/
 │    │   ├── authMiddleware.js
 │    │   ├── errorHandler.js
@@ -74,6 +79,7 @@ APP-GESTAO-FINANCEIRA/
 │    │   ├── authRoutes.js
 │    │   ├── budgetsRoutes.js
 │    │   ├── cohabitationRoutes.js
+│    │   ├── healthRoutes.js
 │    │   ├── notificationRoutes.js
 │    │   ├── openFinanceRoutes.js
 │    │   ├── profileRoutes.js
@@ -84,23 +90,32 @@ APP-GESTAO-FINANCEIRA/
 │    ├── services/
 │    │   ├── auditService.js
 │    │   ├── authService.js
+│    │   ├── budgetsService.js
 │    │   ├── firestoreService.js
 │    │   ├── notificationService.js
 │    │   ├── openFinanceService.js
+│    │   ├── settingsService.js
 │    │   └── tokenService.js
-│    ├── src/
-│    │   └── index.ts
 │    ├── utils/
 │    │   ├── errorHandler.js
-│    │   ├── log.js
 │    │   └── transactionUtils.js
 │    ├── validators/
-│    │   ├── joiValidator.js
-│    │   └── openFinanceValidator.js
+│    │   ├── auditValidator.js
+│    │   ├── authValidator.js
+│    │   ├── budgetsValidator.js
+│    │   ├── cohabitationValidator.js
+│    │   ├── healthValidator.js
+│    │   ├── notificationValidator.js
+│    │   ├── openFinanceValidator.js
+│    │   ├── reportsValidator.js
+│    │   ├── transactionValidator.js
+│    │   └── userValidator.js
 │    ├── firebaseAdmin.js
+│    ├── jest.config.js
 │    ├── package-lock.json
 │    ├── package.json
 │    ├── server.js
+│    ├── start.js
 │    └── tsconfig.json
 ├── design/ ...
 ├── docs/
@@ -111,8 +126,7 @@ APP-GESTAO-FINANCEIRA/
 │    ├── .eslintrc.config.js
 │    ├── index.js
 │    ├── package-lock.json
-│    ├── package.json
-│    └── node_modules/ ...
+│    └── package.json
 ├── node_modules/ ...
 ├── scripts/
 │   ├── README.md
