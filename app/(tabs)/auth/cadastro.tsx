@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {db} from 'src/services/firebaseConfig';
+import { auth } from 'src/services/firebaseConfig';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 //Ícone da biblioteca Feather para mostrar/ocultar senha
@@ -36,7 +40,25 @@ export default function SignUpScreen() {
             return;
         }
         setError('');
-        // Chame a API de cadastro aqui
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        alert ('Usuário cadastrado com sucesso!');
+        console.log('Usuário', userCredential.user);
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+    } catch (error: any){
+        console.error('Erro ao criar usuário:', error);
+        if (error.code === 'auth/email-already-in-use'){
+            setError('Este e-mail já está sendo utilizado!');
+        } else if (error.code === 'auth/invalid-email'){
+            setError('E-mail inválido!');
+        } else if (error.code === 'auth/weak-password'){
+            setError('Senha fraca! Use pelo menos 6 caracteres.');
+        } else {
+            setError('Erro ao cadastrar usuário, tente novamente')
+        }
+    }
     };
 
     return (
