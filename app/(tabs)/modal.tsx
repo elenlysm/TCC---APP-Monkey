@@ -1,18 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+//Importação react + componentes visuais React Native
 
 type DialogBodyProps = {
-    onConnect: () => void;
-    onCancel: () => void;
+    onConnect: () => void; //Função chamada quando o usuário clicar em "Conectar"
+    onCancel: () => void; //Função chamada quando o usuário clicar em "Cancelar"
 };
 
 export default function DialogBody({ onConnect, onCancel }: DialogBodyProps) {
     return (
         <View style={styles.dialogBodyContainer}>
-            <Text style={styles.title}>Conectar Open Finance</Text>
+            <Text style={styles.title}>Conectar Open Finance</Text> {/*Título do diálogo*/}
             <Text style={styles.message}>
                 Para acessar os dados bancários, conecte sua conta via Open Finance.
-            </Text>
+            </Text> {/* Mensagem explicativa para o usuário */}
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.connectButton} onPress={onConnect}>
                     <Text style={styles.connectText}>Conectar</Text>
@@ -20,17 +21,15 @@ export default function DialogBody({ onConnect, onCancel }: DialogBodyProps) {
                 <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
                     <Text style={styles.cancelText}>Cancelar</Text>
                 </TouchableOpacity>
-            </View>
+            </View> {/*Container dos botões */}
         </View>
     );
-}
+} //Componente funcional que exibe o corpo do diálogo/modal
 
-// Exemplo de função para habilitar Open Finance (adicione onde for usar o modal)
+
 async function habilitarOpenFinance() {
-    // Chame aqui sua lógica de autenticação Open Finance
-    // Por exemplo, redirecionar para OAuth, abrir WebView, etc.
     alert('Open Finance habilitado!');
-}
+} //Função para habilitar Open Finance
 
 const styles = StyleSheet.create({
     dialogBodyContainer: {
@@ -77,3 +76,4 @@ const styles = StyleSheet.create({
         color: '#333',
     },
 });
+//Estilos e layout dos campos

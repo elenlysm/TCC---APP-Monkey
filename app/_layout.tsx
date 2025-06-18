@@ -1,21 +1,21 @@
-import { useFonts } from 'expo-font';
-import { Tabs } from 'expo-router';
-import React from 'react';
-import 'react-native-reanimated';
+import { useFonts } from 'expo-font'; //Hook para carregar fontes customizadas no Expo
+import { Tabs } from 'expo-router'; //Componente para navegação em abas
+import React from 'react'; //Importação do reac
+import 'react-native-reanimated'; //Biblioteca para animações
 
-import { Colors } from '../src/constants/Colors';
-import { useColorScheme } from '../src/hooks/useColorScheme';
+import { Colors } from '../src/constants/Colors'; //Constantes de cores definidas no projeto
+import { useColorScheme } from '../src/hooks/useColorScheme'; //Hook customizado para detectar o tema (claro/escuro)
 
 export default function RootLayout() {
+// Obtém o esquema de cores atual do dispositivo (light/dark)
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     AnonymousPro: require('../src/assets/fonts/AnonymousPro-Regular.ttf'),
-  });
+  }); //Usa o hook useFonts para carregar a fonte 'AnonymousPro' do arquivo local
 
   if (!loaded) {
-    // Async font loading only occurs in development.
     return null;
-  }
+  } 
 
   return (
     <Tabs
@@ -28,7 +28,6 @@ export default function RootLayout() {
         },
       }}
     >
-      {/* Add your Tab.Screen components here */}
     </Tabs>
   );
 }

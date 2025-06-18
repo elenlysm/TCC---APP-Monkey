@@ -28,3 +28,5 @@ export const fontSizes = {
 };
 
 export default { colors, fonts, fontSizes };
+
+//Definição uma paleta de cores padrão para uso global no app + tamanhos

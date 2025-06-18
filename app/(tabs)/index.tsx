@@ -1,10 +1,10 @@
-// app/(tabs)/index.tsx
 // Tela inicial do aplicativo
 
-import { useRouter } from 'expo-router';
-import React from 'react';
+import { useRouter } from 'expo-router'; //Importa o hook de navegação do Expo (Emulador)
+import React from 'react'; //Importa o React
 import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Defs, FeBlend, FeColorMatrix, FeComposite, FeFlood, FeGaussianBlur, FeOffset, Filter, G, Path, Svg } from 'react-native-svg';
+//Importação de componentes personalizados + componentes visuais e gráficos SVG
 
 function Mensagemdeboasvindas() {
     return (
@@ -13,25 +13,25 @@ function Mensagemdeboasvindas() {
             <Text style={styles.ao}>ao</Text>
         </>
     );
-}
+} //Saudação inicial
 
 function TelaInicial() {
-    const router = useRouter();
+    const router = useRouter(); //Navegação entre telas
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1 }}>
+        <SafeAreaView style={styles.container}> {/*Garante que o conteúdo fique dentro da área segura da tela*/}
+            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1 }}> {/*ScrollView permite rolar o conteúdo caso ultrapasse a tela*/}
                 <View style={styles.telainicialContainer}>
                     <View style={styles.vectorContainer}>
                         <ImageBackground
                             source={require('../../src/assets/images/deep-unsplash.png')}
                             style={styles.mensagemdeboasvindasContainer}
                             resizeMode="cover"
-                        >
+                        > {/*Imagem de fundo da parte superior da tela*/}
                             <Svg style={styles.vector} width="412" height="361" viewBox="0 0 412 361" fill="none" >
                                 <G filter="url(#filter0_d_17_2)">
                                     <Path fillRule="evenodd" clipRule="evenodd" d="M214.68 0.895523C255.691 -3.33057 297.606 7.79967 332.057 25.8761C366.223 43.8028 392.283 70.6122 405.832 101.193C418.728 130.3 407.738 161.042 405.585 191.833C403.197 225.996 416.541 263.405 392.5 291.866C367.863 321.033 321.705 333.733 278.614 342.15C236.765 350.325 192.455 350.556 151.972 338.849C112.925 327.558 80.0511 305.415 57.0144 278.07C35.6064 252.658 36.0833 221.187 27.7399 191.383C18.6099 158.769 -12.7202 124.828 5.69944 94.7619C24.1642 64.6218 78.6126 64.7466 115.461 48.1958C149.735 32.801 175.583 4.92431 214.68 0.895523Z" fill="#97A08E" />
-                                </G>
+                                </G> {/*SVG decorativo*/}
                                 <Defs>
                                     <Filter id="filter0_d_17_2" x="-13" y="0" width="425" height="361" filterUnits="userSpaceOnUse">
                                         <FeFlood floodOpacity="0" result="BackgroundImageFix" />
@@ -42,7 +42,7 @@ function TelaInicial() {
                                         <FeBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_17_2" />
                                         <FeBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_17_2" result="shape" />
                                     </Filter>
-                                </Defs>
+                                </Defs> {/*Definição do filtro de sombra usado acima*/}
                             </Svg>
                             <Mensagemdeboasvindas />
                             <Image
@@ -50,7 +50,7 @@ function TelaInicial() {
                                 style={styles.logo}
                                 resizeMode="contain"
                             />
-                        </ImageBackground>
+                        </ImageBackground> {/*Logo da aplicação centralizada sobre a imagem*/}
                     </View>
                 </View>
 
@@ -87,13 +87,13 @@ function TelaInicial() {
                                     <FeColorMatrix type="matrix" values="0 0 0 0 0.380392 0 0 0 0 0.745098 0 0 0 0 0.670588 0 0 0 1 0" />
                                     <FeBlend mode="normal" in2="shape" result="effect4_innerShadow_24_59" />
                                 </Filter>
-                            </Defs>
+                            </Defs> {/*Outros filtros e sombreados adicionais*/}
                         </Svg>
                         <View style={styles.svgTextWrapper}>
                             <Text style={styles.svgText}>
                                 Organize sua vida{'\n'}financeira de forma inteligente!
-                            </Text>
-                        </View>
+                            </Text> 
+                        </View> {/*Container para o texto posicionado sobre o SVG*/}
                     </View>
                     <Image
                         source={require('../../src/assets/images/conta.png')}
@@ -102,21 +102,21 @@ function TelaInicial() {
                     />
                 </View>
 
-                <View style={{ alignItems: "center", width: "100%", marginTop: 32 }}>
+                <View style={{ alignItems: "center", width: "100%", marginTop: 32 }}> {/*Container centralizado para botões e elementos abaixo*/}
 
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flex: 1 }}
-                            onPress={() => router.push('/auth/login')}
+                            onPress={() => router.push('/auth/login')} //Navega para tela de login ao clicar
                         >
                             <Text style={styles.button}>Login</Text>
                             <Svg width={20} height={20} viewBox="0 0 20 20" style={{ marginLeft: 8 }}>
                                 <Path d="M5 10h10M10 5l5 5-5 5" stroke="#070000" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
                             </Svg>
-                        </TouchableOpacity>
+                        </TouchableOpacity> {/*Ícone SVG de seta para indicar ação de avançar*/}
                     </View>
 
-                    <View style={[styles.line1Container, { marginVertical: 24, alignItems: 'center', height: 120, justifyContent: 'flex-end' }]}>
+                    <View style={[styles.line1Container, { marginVertical: 24, alignItems: 'center', height: 120, justifyContent: 'flex-end' }]}> {/*Ícone pequeno da logo*/}
                         <Image
                             style={styles.logo_icon}
                             source={require('../../src/assets/images/logo_icon.png')}
@@ -138,12 +138,12 @@ function TelaInicial() {
                                 </Filter>
                             </Defs>
                         </Svg>
-                    </View>
+                    </View> {/*Linha SVG decorativa abaixo da logo*/}
 
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flex: 1 }}
-                            onPress={() => router.push('/auth/cadastro')}
+                            onPress={() => router.push('/auth/cadastro')} //Navega para tela de cadastro ao clicar
                         >
                             <Text style={styles.button}>Cadastre-se</Text>
                             <Svg width={20} height={20} viewBox="0 0 20 20" style={{ marginLeft: 8 }}>
@@ -163,12 +163,10 @@ function TelaInicial() {
                         <Path fillRule="evenodd" clipRule="evenodd" d="M223.958 300.94C210.995 310.052 206.57 329.005 191.904 334.919C176.6 341.092 157.884 341.095 143.684 333.315C129.719 325.663 127.879 306.573 117.799 294.315C107.645 281.967 84.9733 277.226 84.3122 261.113C83.627 244.412 107.362 236.651 114.81 221.471C121.382 208.078 116.444 191.3 124.687 178.828C134.078 164.622 147.757 152.699 163.875 147.244C181.001 141.447 203.287 136.218 216.814 147.647C231.525 160.076 218.063 188.008 229.994 203.106C241.651 217.859 271.048 211.051 279.997 227.605C288.334 243.027 282.028 264.978 271.142 279.224C260.445 293.222 238.389 290.797 223.958 300.94Z" fill="#744F38" />
                     </Svg>
                 </View>
-
-
             </ScrollView>
         </SafeAreaView>
     );
-}
+} //SVG decorativo final colorido
 
 const styles = StyleSheet.create({
     container: {
@@ -343,3 +341,4 @@ const styles = StyleSheet.create({
 });
 
 export default TelaInicial;
+//Estilos e layout dos campos
