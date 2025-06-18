@@ -1,9 +1,9 @@
-// app/firebaseConfig.ts
+//app/firebaseConfig.ts
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// Configurações sensíveis — substitua pelos valores reais do seu projeto Firebase
+//Configurações sensíveis - Credenciais do APP
 const firebaseConfig = {
   apiKey: 'AIzaSyC81YNWKiJePrR12KOYk7dFGc7sZkaiJaI',
   authDomain: 'monkey.app.financeiro.open.finance.TCC',
@@ -13,11 +13,12 @@ const firebaseConfig = {
   appId: '1:104043920090:android:d6c1b60a6232d84765c3e3',
 };
 
-// Inicializa o app
+//Inicializa o app
 const app = initializeApp(firebaseConfig);
 
-// Exporta os serviços do Firebase
+//Exporta os serviços do Firebase
 const auth = getAuth(app,) ;
 const db = getFirestore(app);
 
 export { app, auth, db };
+

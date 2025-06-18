@@ -1,8 +1,3 @@
-/**
- * Learn more about light and dark modes:
- * https://docs.expo.dev/guides/color-schemes/
- */
-
 import { Colors } from '../constants/Colors';
 import { useColorScheme } from './useColorScheme';
 
@@ -19,3 +14,5 @@ export function useThemeColor(
     return Colors[theme][colorName];
   }
 }
+
+//Hook que facilita a escolha da cor correta com base no tema atual (claro ou escuro)
