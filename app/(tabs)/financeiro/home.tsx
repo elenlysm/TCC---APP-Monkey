@@ -5,7 +5,7 @@ import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
 //Importação de componentes personalizados
 
-export default function DashboardScreen() {
+export default function HomeScreen() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     //Estado que controla a abertura do menu lateral (drawer)
 

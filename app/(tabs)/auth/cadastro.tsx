@@ -6,7 +6,7 @@ import { auth } from 'src/services/firebaseConfig';
 import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
-import { colors, fonts, fontSizes } from '../../theme';
+import { colors, fonts, fontSizes } from '../../../src/constants/theme';
 //Importação do tema e componentes personalizados: cores, fontes e tamanhos
 
 

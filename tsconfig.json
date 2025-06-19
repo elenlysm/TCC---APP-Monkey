@@ -21,13 +21,13 @@
     "env.d.ts",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ],
+, "src/assets/declarations.d.ts", "src/constants/theme.ts"  ],
   "exclude": [
     "node_modules",
     "backend",
     "babel.config.js",
     "eslint.config.js",
-    "app/app.config.js",
+    "src/services/app.config.js",
     "functions/eslint.config.js",
     "scripts",
     "functions"

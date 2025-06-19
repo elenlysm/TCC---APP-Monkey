@@ -5,8 +5,10 @@ APP-GESTAO-FINANCEIRA/
 ├── .expo/
 │   ├── types/
 │   │   └── router.d.ts
+│   ├── web/...
 │   ├── .gitignore
 │   ├── devices.json
+│   ├── packager-info.json
 │   ├── README.md
 │   └── settings.json
 ├── .firebase/ logs/
@@ -23,6 +25,7 @@ APP-GESTAO-FINANCEIRA/
 │   ├── vcs.xml
 │   └── workspace.xml
 ├── .vscode/
+│       ├── launch.json
 │       └── settings.json
 ├── app/
 │   ├── (tabs)
@@ -39,12 +42,7 @@ APP-GESTAO-FINANCEIRA/
 │   │   ├── config.tsx
 │   │   ├── index.tsx
 │   │   └── modal.tsx
-│   ├── _layout.tsx
-│   ├── .prettierrc.js
-│   ├── app.config.js
-│   ├── declarations.d.ts
-│   ├── README.md
-│   └── theme.ts
+│   └── _layout.tsx
 ├── backend/
 │    ├── _tests_/
 │    │   └── auth.test.js
@@ -153,6 +151,7 @@ APP-GESTAO-FINANCEIRA/
 │   │   │     ├── react-logo@2x.png
 │   │   │     ├── react-logo@3x.png
 │   │   │     └── splash-icon.png
+│   │   ├── declarations.d.ts
 │   │   └── react-native-vector-icons.d.ts
 │   ├── components/
 │   │       ├── ui/
@@ -171,7 +170,8 @@ APP-GESTAO-FINANCEIRA/
 │   │       ├── MenuFechado.tsx
 │   │       └── NavigationDrawer.tsx
 │   ├── constants/
-│   │   └── Colors.ts
+│   │   ├── Colors.ts
+│   │   └── theme.ts
 │   ├── context/
 │   │   └── AuthContext.tsx
 │   ├── hooks/
@@ -186,6 +186,8 @@ APP-GESTAO-FINANCEIRA/
 ├── .env.example
 ├── .firebaserc
 ├── .gitignore
+├── .prettierrc.js
+├── app.config.js
 ├── app.json
 ├── babel.config.js
 ├── env.d.ts

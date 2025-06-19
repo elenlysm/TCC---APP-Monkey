@@ -6,7 +6,7 @@ import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
 //Importação de componentes personalizados + componentes visuais e gráficos SVG
 
-export default function OrcamentoEMetas() {
+export default function BudgetScreen() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     //Estado que controla se o menu lateral está aberto
 

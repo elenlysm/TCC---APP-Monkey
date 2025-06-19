@@ -7,7 +7,7 @@ import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
 //Importação de componentes personalizados (React + Firebase).
 
-export default function TransacoesScreen() {
+export default function TransactionsScreen() {
 //Componente principal da tela de transações
     const [descricao, setDescricao] = useState(''); //Armazena o texto da descrição
     const [valor, setValor] = useState(''); //Armaena o valor da transaçãa
