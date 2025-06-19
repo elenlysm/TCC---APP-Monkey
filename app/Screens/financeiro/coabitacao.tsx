@@ -4,8 +4,7 @@ import { Alert, Button, FlatList, SafeAreaView, Text, TextInput, View } from 're
 import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
-import { db } from '../../../src/services/firebaseConfig'; //Conexão com Firestone (DB)
-//Importação de componentes personalizados
+import { db } from 'src/services/firebaseConfig';
 
 export default function CoabitacaoScreen() { //Tela para criação e listagem de grupos de coabitação
 

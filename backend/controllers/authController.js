@@ -1,15 +1,15 @@
 const authService = require('../services/authService');
-const firestoreService = require('../services/firestoreService');
+const validator = require('validator');
 
-/**
- * @desc    Registra um novo usuário
- * @route   POST /auth/register
- */
+/*Registra um novo usuário*/
 const register = async (req, res) => {
     try {
-
         const { email, password } = req.body;
         const user = await authService.register({ email, password });
+        await firestoreService.createUserDocument(user.uid, {
+            email: user.email,
+            createdAt: new Date().toISOString(),
+        });
         res.status(201).json({ message: 'Usuário registrado com sucesso.', user });
     } catch (error) {
         console.error('Erro no registro:', error);

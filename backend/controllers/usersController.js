@@ -7,7 +7,11 @@ const COLLECTION = 'users';
  */
 const addUser = async (req, res, next) => {
     try {
-        const id = await firestoreService.addDocument(COLLECTION, req.body);
+        const userData = {
+            ...req.body, 
+            createdAt: new Date()
+        };
+        const id = await firestoreService.addDocument(COLLECTION, userData);
         res.status(201).json({ message: 'Usuário adicionado com sucesso.', id });
     } catch (error) {
         next(error);

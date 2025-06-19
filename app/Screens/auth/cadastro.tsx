@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {db} from 'src/services/firebaseConfig';
-import { auth } from 'src/services/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-//Ícone da biblioteca Feather para mostrar/ocultar senha
+import { auth } from 'src/services/firebaseConfig';
 import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
@@ -13,14 +10,13 @@ import { colors, fonts, fontSizes } from '../../theme';
 //Importação do tema e componentes personalizados: cores, fontes e tamanhos
 
 
-export default function SignUpScreen() {
+export default function RegisterScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false); //Controle de visibilidade da senha
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); //Visibilidade da confirmação de senha
-    //Estados para armazenar os dados do formulário
 
     const handleSignUp = async () => {
         if (!email || !password || !confirmPassword) {
@@ -40,25 +36,41 @@ export default function SignUpScreen() {
             return;
         }
         setError('');
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        alert ('Usuário cadastrado com sucesso!');
-        console.log('Usuário', userCredential.user);
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-    } catch (error: any){
-        console.error('Erro ao criar usuário:', error);
-        if (error.code === 'auth/email-already-in-use'){
-            setError('Este e-mail já está sendo utilizado!');
-        } else if (error.code === 'auth/invalid-email'){
-            setError('E-mail inválido!');
-        } else if (error.code === 'auth/weak-password'){
-            setError('Senha fraca! Use pelo menos 6 caracteres.');
-        } else {
-            setError('Erro ao cadastrar usuário, tente novamente')
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            console.log('Usuário criado no Firebase:', user.uid);
+
+            const response = await fetch('http://192.168.56.1:8081/users', {
+                method: 'POST',
+                headers: {
+                    'content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    createdAt: new Date().toISOString(),
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Error ao salvar usuário no backend');
+            }
+            alert('Usuário cadastrado com sucesso!')
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+        } catch (error: any) {
+            console.error('Erro ao cadastrar:', error);
+            if (error.code === 'auth/email-already in use') {
+                setError('Este e-mail já está sendo utilizado!');
+            } else if (error.code === 'auth/invalid-email') {
+                setError('E-mail inválido!');
+            } else if (error.code === 'auth/weak-password') {
+                setError('Senha fraca! Use pelo menos 6 caracteres.');
+            } else {
+                setError('Erro ao cadastrar usuário, tente novamente')
+            }
         }
-    }
     };
 
     return (
@@ -82,7 +94,7 @@ export default function SignUpScreen() {
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry={!showPassword}
-                    /> 
+                    />
                     <TouchableOpacity
                         style={styles.icon}
                         onPress={() => setShowPassword(!showPassword)}
@@ -92,7 +104,7 @@ export default function SignUpScreen() {
                             name={showPassword ? 'eye' : 'eye-off'}
                             size={22}
                             color={colors.primary}
-                        /> 
+                        />
                     </TouchableOpacity>
                 </View> {/*Campo de senha com botão de mostrar/ocultar*/}
 

@@ -10,7 +10,7 @@ const { userSchema, updateUserSchema, creationDateSchema } = require('../validat
  * @desc    Cria um novo usuário (requer autenticação)
  * @access  Privado
  */
-router.post('/', validate(userSchema, 'body'), controller.addUser);
+router.post('/', authMiddleware, validate(userSchema, 'body'), controller.addUser);
 
 /**
  * @route   GET /users
@@ -24,7 +24,7 @@ router.get('/', authMiddleware, controller.getUsers);
  * @desc    Atualiza um usuário específico pelo ID (requer autenticação)
  * @access  Privado
  */
-router.put('/:id', validate(updateUserSchema, 'body'), controller.updateUser);
+router.put('/:id', authMiddleware, validate(updateUserSchema, 'body'), controller.updateUser);
 
 /**
  * @route   DELETE /users/:id
@@ -38,7 +38,7 @@ router.delete('/:id', authMiddleware, controller.deleteUser);
  * @desc    Busca usuários por data de criação (requer autenticação)
  * @access  Privado
  */
-router.get('/creation', validate(creationDateSchema, 'query'), controller.getUsersByCreationDate);
+router.get('/creation', authMiddleware, validate(creationDateSchema, 'query'), controller.getUsersByCreationDate);
 
 // Exporta o roteador para ser usado em outros arquivos
 module.exports = router;

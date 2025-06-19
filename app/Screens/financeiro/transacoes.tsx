@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, Text, TextInput } from 'react-native';
+import { db } from 'src/services/firebaseConfig';
+import { Alert, FlatList, SafeAreaView, Text, TextInput } from 'react-native';
 import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
+import { collection } from 'firebase/firestore';
 //Importação de componentes personalizados (React + Firebase).
 
 export default function TransacoesScreen() {
@@ -16,9 +18,22 @@ export default function TransacoesScreen() {
     //Estado para controlar a visibilidade do menu lateral(drawer)
 
     useEffect(() => {
-        carregarTransacoes();
+        importarTransacoes();
     }, []);
     //Carrega as transações
+
+    const importarTransacoes = async() =>{
+    try{
+        await (collection(db,'transacoes'),{
+            descricao, valor: parseFloat(valor)
+        });
+        setDescricao('')
+        setValor('')
+        importarTransacoes();
+    } catch (error){
+        Alert.alert('Erro', 'Não foi possível importar a transação');
+    }
+    };
 
     return (
         <SafeAreaView style={{ flex: 1, padding: 16 }}>
