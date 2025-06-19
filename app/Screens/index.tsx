@@ -1,10 +1,11 @@
-{/*Tela inicial do aplicativo*/}
+//Tela inicial do aplicativo
 
-import { useRouter } from 'expo-router'; {/*Importa o hook de navegação do Expo (Emulador)*/}
-import React from 'react'; {/*Importa o React*/}
+import { useRouter } from 'expo-router';
 import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Defs, FeBlend, FeColorMatrix, FeComposite, FeFlood, FeGaussianBlur, FeOffset, Filter, G, Path, Svg } from 'react-native-svg';
-{/*Importação de componentes personalizados + componentes visuais e gráficos SVG*/}
+{/*Importa o hook de navegação do Expo (Emulador)
+import React from 'react'; {/*Importa o React*/}
+//Importação de componentes personalizados + componentes visuais e gráficos SVG
 
 function Mensagemdeboasvindas() {
     return (
@@ -13,10 +14,10 @@ function Mensagemdeboasvindas() {
             <Text style={styles.ao}>ao</Text>
         </>
     );
-} {/*Saudação inicial*/}
+} //Saudação inicial
 
 function TelaInicial() {
-    const router = useRouter(); {/*Navegação entre telas*/}
+    const router = useRouter(); //Navegação entre telas
 
     return (
         <SafeAreaView style={styles.container}> {/*Garante que o conteúdo fique dentro da área segura da tela*/}
@@ -166,8 +167,8 @@ function TelaInicial() {
             </ScrollView>
         </SafeAreaView>
     );
-} 
-{/*SVG decorativo final colorido*/}
+} //SVG decorativo final colorido
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -341,4 +342,4 @@ const styles = StyleSheet.create({
 });
 
 export default TelaInicial;
-{/*Estilos e layout dos campos*/}
+//Estilos e layout dos campos

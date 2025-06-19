@@ -1,10 +1,10 @@
+import { collection } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { db } from 'src/services/firebaseConfig';
 import { Alert, FlatList, SafeAreaView, Text, TextInput } from 'react-native';
+import { db } from 'src/services/firebaseConfig';
 import Header from '../../../src/components/Header';
 import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
-import { collection } from 'firebase/firestore';
 //Importação de componentes personalizados (React + Firebase).
 
 export default function TransacoesScreen() {
@@ -22,17 +22,16 @@ export default function TransacoesScreen() {
     }, []);
     //Carrega as transações
 
-    const importarTransacoes = async() =>{
+    const importarTransacoes = async() =>{ //Função assíncrona responsável por importar (salvar) uma nova transação no Firestore
     try{
         await (collection(db,'transacoes'),{
-            descricao, valor: parseFloat(valor)
+            descricao, valor: parseFloat(valor) //Converte o valor (string) para número decimal
         });
         setDescricao('')
-        setValor('')
+        setValor('') //Após salvar, limpa os campos do formulário
         importarTransacoes();
     } catch (error){
-        Alert.alert('Erro', 'Não foi possível importar a transação');
-    }
+        Alert.alert('Erro', 'Não foi possível importar a transação');  //Caso ocorra algum erro durante a importação, exibe um alerta para o usuário
     };
 
     return (
@@ -73,4 +72,4 @@ export default function TransacoesScreen() {
             <MenuFechado />
         </SafeAreaView>
     );
-}
+}}
