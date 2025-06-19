@@ -1,3 +1,8 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas à gestão de configurações do sistema,
+//como obter todas as configurações, criar, atualizar, deletar e buscar configurações por chave ou categoria.
+//Essas funções são chamadas pelas rotas do sistema quando o cliente faz requisições do tipo GET /settings,
+//POST /settings, PUT /settings, DELETE /settings/:key, entre outras.
+
 const settingsService = require('../services/settingsService');
 
 /**

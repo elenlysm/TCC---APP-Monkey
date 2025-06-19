@@ -1,3 +1,8 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas a relatórios e orçamentos do usuário,
+//incluindo geração de relatório mensal de transações, resumo de transações agrupadas por categoria e listagem de orçamentos.
+//Essas funções são chamadas pelas rotas do sistema quando o cliente faz requisições do tipo GET /reports/monthly,
+//GET /reports/category-summary e GET /budgets, respectivamente.
+
 // Importa o Firestore Admin SDK e utilitários
 const { db } = require('../firebaseAdmin');
 const { groupByCategory, fetchUserTransactions } = require('../utils/transactionUtils');

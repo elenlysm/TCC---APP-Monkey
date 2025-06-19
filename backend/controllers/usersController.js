@@ -1,3 +1,8 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas a usuários,
+//incluindo criação, listagem, atualização, exclusão e busca por filtros como status, papel (role) e data de criação.
+//Essas funções são chamadas pelas rotas do sistema quando o cliente faz requisições do tipo
+//POST /users, GET /users, PUT /users/:id, DELETE /users/:id, entre outras.
+
 const firestoreService = require('../services/firestoreService');
 const COLLECTION = 'users';
 

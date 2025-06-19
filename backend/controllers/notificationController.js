@@ -1,3 +1,8 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas ao sistema de notificações,
+//como envio, listagem, leitura, deleção e filtragem por diferentes critérios (usuário, status, data,
+//tipo, prioridade, canal e grupo). Essas funções são chamadas pelas rotas do sistema quando o cliente
+//(ex: frontend) faz requisições do tipo POST /notifications, GET /notifications/:userId, etc.
+
 const notificationService = require('../services/notificationService');
 
 /**

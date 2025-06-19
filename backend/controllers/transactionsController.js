@@ -1,3 +1,8 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas a transações financeiras,
+//incluindo criação, listagem, atualização, exclusão e busca por filtros como categoria, usuário, período,
+//status, prioridade e tipo. Essas funções são chamadas pelas rotas do sistema quando o cliente faz requisições
+//do tipo POST /transactions, GET /transactions, PUT /transactions/:id, DELETE /transactions/:id, entre outras.
+
 const firestoreService = require('../services/firestoreService');
 const COLLECTION = 'transactions';
 
