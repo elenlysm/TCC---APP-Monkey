@@ -41,7 +41,7 @@ export default function RegisterScreen() {
             const user = userCredential.user;
             console.log('Usuário criado no Firebase:', user.uid);
 
-            const response = await fetch('http://192.168.56.1:8081/users', {
+            const response = await fetch('http://192.168.56.1:8081', {
                 method: 'POST',
                 headers: {
                     'content-Type': 'application/json',
