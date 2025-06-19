@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { colors, fonts, fontSizes } from '../../app/theme';
+import { colors, fonts, fontSizes } from '../constants/theme';
 import Button from './Button';
 import Container from './Container';
 

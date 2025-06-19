@@ -6,7 +6,7 @@ import MenuFechado from '../../src/components/MenuFechado';
 import NavigationDrawer from '\../../src/components/NavigationDrawer';
 //Importação de componentes personalizados + componentes visuais e gráficos SVG
 
-export default function Config() {
+export default function SettingsScreen() {
     const [drawerOpen, setDrawerOpen] = useState(false);
 //Estado para controlar se o menu lateral está aberto ou fechado
 

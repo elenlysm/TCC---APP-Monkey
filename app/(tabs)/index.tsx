@@ -108,7 +108,7 @@ function TelaInicial() {
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flex: 1 }}
-                            onPress={() => router.push('/auth/login')}>
+                            onPress={() => router.push('/(tabs)/auth/login')}>
                             {/*Navega para tela de login ao clicar*/}
                             <Text style={styles.button}>Login</Text>
                             <Svg width={20} height={20} viewBox="0 0 20 20" style={{ marginLeft: 8 }}>
@@ -144,7 +144,7 @@ function TelaInicial() {
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flex: 1 }}
-                            onPress={() => router.push('/auth/cadastro')}>
+                            onPress={() => router.push('/(tabs)/auth/cadastro')}>
                                 {/*Navega para tela de cadastro ao clicar */}
                             <Text style={styles.button}>Cadastre-se</Text>
                             <Svg width={20} height={20} viewBox="0 0 20 20" style={{ marginLeft: 8 }}>

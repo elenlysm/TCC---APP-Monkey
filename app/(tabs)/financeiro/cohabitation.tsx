@@ -6,7 +6,7 @@ import MenuFechado from '../../../src/components/MenuFechado';
 import NavigationDrawer from '../../../src/components/NavigationDrawer';
 import { db } from 'src/services/firebaseConfig';
 
-export default function CoabitacaoScreen() { //Tela para criação e listagem de grupos de coabitação
+export default function CohabitationScreen() { //Tela para criação e listagem de grupos de coabitação
 
     const [grupo, setGrupo] = useState('');
     //Estado para o nome do grupo digitado.

@@ -3,10 +3,10 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
-import { colors, fonts, fontSizes } from '../../theme';
+import { colors, fonts, fontSizes } from '../../../src/constants/theme';
 //Importação de componentes personalizados + tema da aplicação
 
-export default function ForgotPasswordScreen() {
+export default function ResetPasswordScreen() {
     const [email, setEmail] = useState('');
 //Estado para armazenamento de email digitado
 

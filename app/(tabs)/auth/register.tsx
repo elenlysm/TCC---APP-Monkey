@@ -6,7 +6,7 @@ import { auth } from 'src/services/firebaseConfig';
 import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
-import { colors, fonts, fontSizes } from '../../theme';
+import { colors, fonts, fontSizes } from '../../../src/constants/theme';
 //Importação do tema e componentes personalizados: cores, fontes e tamanhos
 
 
@@ -41,7 +41,7 @@ export default function RegisterScreen() {
             const user = userCredential.user;
             console.log('Usuário criado no Firebase:', user.uid);
 
-            const response = await fetch('http://192.168.56.1:8081/users', {
+            const response = await fetch('http://192.168.56.1:8081', {
                 method: 'POST',
                 headers: {
                     'content-Type': 'application/json',

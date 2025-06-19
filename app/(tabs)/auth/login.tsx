@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import Button from '../../../src/components/Button';
 import Container from '../../../src/components/Container';
 import AuthBackground from '../../../src/components/ui/AuthBackground';
-import { colors, fonts, fontSizes } from '../../theme';
+import { colors, fonts, fontSizes } from '../../../src/constants/theme';
 //Importação de componentes personalizados + tema da aplicação
 
 export default function LoginScreen({ navigation }: any) //Navegação entre telas
