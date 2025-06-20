@@ -1,3 +1,9 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas à listagem de orçamentos,
+//aplicando diferentes filtros como categoria, usuário, datas (criação, atualização, vencimento, pagamento),
+//valor, status, prioridade, tipo, descrição, localização, moeda, método de pagamento, frequência,
+//recorrência e tags. Essas funções são chamadas pelas rotas do sistema quando o cliente (ex: frontend)
+//faz requisições do tipo GET /budgets/:filtro, retornando os dados filtrados a partir do Firestore.
+
 const budgetsValidator = require('../validators/budgetsValidator'); //Importa o validador Joi para orçamentos
 const firestoreService = require('../services/firestoreService'); //Importa o serviço responsável pela comunicação com o Firestore
 const COLLECTION = 'budgets'; //Define o nome da coleção usada no Firestore para armazenar orçamentos
@@ -117,14 +123,14 @@ const getBudgetsByCreationDate = async (req, res, next) => {
  * @route   GET /budgets/category/:category
  */
 const getBudgetsByCategory = async (req, res, next) => {
-    const { category } = req.params;
+    const { category } = req.params; //Extrai o parâmetro da URL
     try {
-        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'category', category);
-        res.status(200).json(budgets);
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'category', category);  //Busca documentos na coleção filtrando pelo campo "category"
+        res.status(200).json(budgets); //Retorna os orçamentos encontrados, com status 200 de sucesso
     } catch (error) {
         console.error('Erro ao listar orçamentos por categoria:', error);
-        next(error);
-    }
+        next(error); //Encaminha o erro para o middleware de tratamento
+    } 
 };
 
 /**
@@ -133,7 +139,7 @@ const getBudgetsByCategory = async (req, res, next) => {
  */
 const getBudgetsByUser = async (req, res, next) => {
     const { userId } = req.params;
-    try {
+    try { //Busca orçamentos que pertençam a um usuário específico
         const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'userId', userId);
         res.status(200).json(budgets);
     } catch (error) {
@@ -148,11 +154,11 @@ const getBudgetsByUser = async (req, res, next) => {
  */
 const getBudgetsByPeriod = async (req, res, next) => {
     const { startDate, endDate } = req.params;
-    // Validação de datas
+    //Validação para garantir formato correto da data
     if (!isValidDate(startDate) || !isValidDate(endDate)) {
         return res.status(400).json({ error: 'As datas devem estar no formato YYYY-MM-DD.' });
     }
-    try {
+    try { //Busca orçamentos dentro de um intervalo de datas
         const budgets = await firestoreService.getDocumentsByDateRange(COLLECTION, 'date', startDate, endDate);
         res.status(200).json(budgets);
     } catch (error) {
@@ -167,7 +173,7 @@ const getBudgetsByPeriod = async (req, res, next) => {
  */
 const getBudgetsByStatus = async (req, res, next) => {
     const { status } = req.params;
-    try {
+    try { //Busca orçamentos com determinado status (ex: "pendente", "aprovado")
         const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'status', status);
         res.status(200).json(budgets);
     } catch (error) {
@@ -182,7 +188,7 @@ const getBudgetsByStatus = async (req, res, next) => {
  */
 const getBudgetsByPriority = async (req, res, next) => {
     const { priority } = req.params;
-    try {
+    try { //Busca orçamentos com determinada prioridade
         const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'priority', priority);
         res.status(200).json(budgets);
     } catch (error) {
@@ -197,7 +203,7 @@ const getBudgetsByPriority = async (req, res, next) => {
  */
 const getBudgetsByType = async (req, res, next) => {
     const { type } = req.params;
-    try {
+    try { //Busca orçamentos com um tipo específico (ex: "mensal", "pontual")
         const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'type', type);
         res.status(200).json(budgets);
     } catch (error) {
@@ -212,7 +218,7 @@ const getBudgetsByType = async (req, res, next) => {
  */
 const getBudgetsByDescription = async (req, res, next) => {
     const { description } = req.params;
-    try {
+    try { //Busca orçamentos com uma descrição exata (semelhante à string passada)
         const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'description', description);
         res.status(200).json(budgets);
     } catch (error) {
@@ -227,7 +233,7 @@ const getBudgetsByDescription = async (req, res, next) => {
  */
 const getBudgetsByUpdateDate = async (req, res, next) => {
     const { date } = req.params;
-    if (!isValidDate(date)) {
+    if (!isValidDate(date)) { //Validação da data no formato correto
         return res.status(400).json({ error: 'A data deve estar no formato YYYY-MM-DD.' });
     }
     try {
@@ -244,6 +250,7 @@ const getBudgetsByUpdateDate = async (req, res, next) => {
  * @route   GET /budgets/user-created-at
  */
 const getBudgetsByUserCreatedAt = (req, res) => {
+    //Função ainda não implementada
     res.status(501).json({ error: 'Not implemented' });
 };
 
@@ -254,15 +261,15 @@ const getBudgetsByUserCreatedAt = (req, res) => {
 const getBudgetsByDate = async (req, res, next) => {
     try {
         const { date } = req.params;
-        // Validação simples de data
+        //Validação simples do formato da data
         if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
             return res.status(400).json({ error: 'Data inválida. Use o formato YYYY-MM-DD.' });
         }
-        // Busca usando o service
+        //Busca por orçamentos com data exata
         const budgets = await firestoreService.getDocuments(COLLECTION, [['date', '==', date]]);
         res.json(budgets);
     } catch (error) {
-        next(error); // Isso envia o erro para o errorHandler
+        next(error); //Isso envia o erro para o errorHandler
     }
 };
 
@@ -272,8 +279,8 @@ const getBudgetsByDate = async (req, res, next) => {
  */
 const getBudgetsByAmount = async (req, res, next) => {
     const { amount } = req.params;
-    try {
-        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'amount', parseFloat(amount));
+    try { 
+        const budgets = await firestoreService.getDocumentsByField(COLLECTION, 'amount', parseFloat(amount)); //Converte o valor para float antes de comparar
         res.status(200).json(budgets);
     } catch (error) {
         console.error('Erro ao listar orçamentos por quantidade:', error);

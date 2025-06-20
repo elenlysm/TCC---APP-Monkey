@@ -1,3 +1,8 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas ao perfil do usuário autenticado,
+//incluindo obtenção dos dados do perfil, atualização do perfil e atualização da senha.
+//Essas funções são chamadas pelas rotas do sistema quando o cliente faz requisições do tipo GET /profile,
+//PUT /profile e PUT /profile/password, respectivamente.
+
 const profileService = require('../services/profileService');
 
 /**

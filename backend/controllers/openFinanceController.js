@@ -1,3 +1,8 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas à integração com Open Finance,
+//incluindo autorização do usuário (troca código por token), e coleta de dados financeiros como extratos,
+//transações e orçamentos. Essas funções são acionadas pelas rotas POST /openfinance/authorize, /statements,
+//transactions e /budgets, para que o frontend ou outro cliente possa interagir com os serviços Open Finance.
+
 const openFinanceService = require('../services/openFinanceService');
 const tokenService = require('../services/tokenService');
 

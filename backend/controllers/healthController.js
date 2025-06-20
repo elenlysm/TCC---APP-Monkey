@@ -1,3 +1,9 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas à verificação de saúde do sistema,
+//incluindo status geral da aplicação, conexão com o banco de dados, tempo de atividade, cache, fila de tarefas,
+//serviços externos, latência, desempenho e métricas gerais. Também permite listar todos os orçamentos do banco.
+//Essas funções são chamadas pelas rotas do sistema quando o cliente (ex: frontend) faz requisições do tipo
+//GET /health, /health/db, /orcamentos, etc., retornando informações úteis para monitoramento e diagnóstico.
+
 const firestoreService = require('../services/firestoreService');
 
 /**

@@ -1,3 +1,9 @@
+//Esse arquivo define funções que lidam com requisições HTTP relacionadas à gestão de coabitações,
+//como criação, listagem, atualização, exclusão, adição e remoção de membros, além da alteração de responsabilidades.
+//Também permite aplicar diversos filtros, como por nome, tipo, categoria, status, localização, descrição,
+//prioridade, membro, datas e períodos. Essas funções são chamadas pelas rotas do sistema quando o cliente
+//(ex: frontend) faz requisições do tipo GET, POST, PUT ou DELETE para /cohabitation e seus subcaminhos.
+
 const firestoreService = require('../services/firestoreService');
 const COLLECTION = 'cohabitation';
 
