@@ -27,7 +27,7 @@
     "backend",
     "babel.config.js",
     "eslint.config.js",
-    "src/services/app.config.js",
+    "app.config.js",
     "functions/eslint.config.js",
     "scripts",
     "functions"
