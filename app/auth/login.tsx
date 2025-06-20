@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useRouter } from 'expo-router';
 import Button from '../../src/components/Button';
 import Container from '../../src/components/Container';
 import AuthBackground from '../../src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '../../src/constants/theme';
 //Importação de componentes personalizados + tema da aplicação
 
-export default function LoginScreen({ navigation }: any) //Navegação entre telas
-{
+export default function LoginScreen() {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     //Armazenamento de e-mail e senha digitados
@@ -34,7 +35,7 @@ export default function LoginScreen({ navigation }: any) //Navegação entre tel
                     secureTextEntry //Oculta os caracteres da senha
                 /> {/*Campo de entrada de senha*/}
 
-                <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
+                <TouchableOpacity onPress={() => router.push('/auth/resetPassword')}>
                     <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
                 </TouchableOpacity>
                 {/*Link para a tela de "Esqueci minha senha"*/}

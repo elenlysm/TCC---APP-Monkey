@@ -9,7 +9,7 @@ export default function TabsLayout() {
     const colorScheme = useColorScheme();
 
     const [loaded] = useFonts({
-        AnonymousPro: require ('../../src/assets/fonts/AnonimousPro-Regular.ttf'),
+        AnonymousPro: require ('../../src/assets/fonts/AnonymousPro-Regular.ttf'),
     });
 
     if (!loaded){
