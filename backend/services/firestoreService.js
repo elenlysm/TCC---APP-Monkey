@@ -13,7 +13,7 @@ const createUserDocument = async (userId, userData) => {
     }
 };
 
-// Adiciona um novo documento à coleção 
+//Adiciona um novo documento à coleção 
 
 const addDocument = async(collection, data) => {
     const docRef = await db.collection(collection).add(data);
@@ -21,7 +21,7 @@ const addDocument = async(collection, data) => {
 };
 
 
-// Busca documentos de uma coleção
+//Busca documentos de uma coleção
 const getDocuments = async(collection, queries = []) => {
     try {
         let ref = db.collection(collection);

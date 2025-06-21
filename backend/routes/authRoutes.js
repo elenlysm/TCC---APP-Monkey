@@ -5,6 +5,7 @@ const validate = require('../middlewares/validate');
 const authMiddleware = rewuire('../middlewares/validate');
 const { registerSchema, loginSchema, resetPasswordSchema, updatePasswordSchema } = require('../validators/authValidator');
 const { sendPasswordChangeEmail } = require('../services/emailService');
+//Importação de middleware para validação de dados + requisições do controller 
 
 /**
  * @route   POST /auth/register
@@ -34,14 +35,15 @@ router.post('/reset-password', validate(resetPasswordSchema, 'body'), authContro
  */
 router.post('/update-password', validate(updatePasswordSchema, 'body'), authController.updatePassword);
 
-router.post('/notify-password-change', async (req, res) => {
+router.post('/notify-password-change', async (req, res) => //Envia um e-mail notificando que a senha foi alterada
+{
     const { email } = req.body;
 
-    if (!email) {
+    if (!email) { //Valida se o e-mail foi fornecido
         return res.status(400).json({ error: 'E-mail é obrigatório.' });
     }
 
-    try {
+    try { //Tenta enviar o e-mail de notificação
         await sendPasswordChangedEmail(email);
         console.log(`E-mail de confirmação de alteração de senha enviado para: ${email}`);
         res.status(200).json({ message: 'Notificação de alteração de senha enviada.' });

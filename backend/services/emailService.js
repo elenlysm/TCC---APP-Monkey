@@ -1,11 +1,11 @@
 const nodemailer = require('nodemailer');
 
-// Configuração exemplo com Gmail (recomendo criar uma conta só pra isso, ou usar serviço SMTP pago/seguro)
+//Configuração exemplo com Gmail (recomendo criar uma conta só pra isso, ou usar serviço SMTP pago/seguro)
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL_USER,       // Seu e-mail de envio
-        pass: process.env.EMAIL_PASS,       // Senha ou App Password do Gmail
+        user: process.env.EMAIL_USER,       //Seu e-mail de envio
+        pass: process.env.EMAIL_PASS,       //Senha ou App Password do Gmail
     },
 });
 

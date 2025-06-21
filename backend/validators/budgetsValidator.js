@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-// Schema para criação de um novo Budget
+//Schema para criação de um novo Budget
 const budgetSchema = Joi.object({
     name: Joi.string().required(),
     value: Joi.number().required(),
@@ -9,7 +9,7 @@ const budgetSchema = Joi.object({
     date: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
 });
 
-// Schema para atualização parcial de um Budget
+//Schema para atualização parcial de um Budget
 const updateBudgetSchema = Joi.object({
     name: Joi.string(),
     value: Joi.number(),
@@ -18,87 +18,87 @@ const updateBudgetSchema = Joi.object({
     date: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/)
 }).min(1);
 
-// Schema para parâmetros de ID
+//Schema para parâmetros de ID
 const idParamSchema = Joi.object({
     id: Joi.string().required()
 });
 
-// Schema para parâmetros de userId
+//Schema para parâmetros de userId
 const userIdParamSchema = Joi.object({
     userId: Joi.string().required()
 });
 
-// Schema para filtro por status
+//Schema para filtro por status
 const statusParamSchema = Joi.object({
     status: Joi.string().required()
 });
 
-// Schema para filtro por type
+//Schema para filtro por type
 const typeParamSchema = Joi.object({
     type: Joi.string().required()
 });
 
-// Schema para filtro por priority
+//Schema para filtro por priority
 const priorityParamSchema = Joi.object({
     priority: Joi.string().required()
 });
 
-// Schema para filtro por category
+//Schema para filtro por category
 const categoryParamSchema = Joi.object({
     category: Joi.string().required()
 });
 
-// Schema para filtro por amount
+//Schema para filtro por amount
 const amountParamSchema = Joi.object({
     amount: Joi.number().required()
 });
 
-// Schema para filtro por tag
+//Schema para filtro por tag
 const tagParamSchema = Joi.object({
     tag: Joi.string().required()
 });
 
-// Schema para filtro por location
+//Schema para filtro por location
 const locationParamSchema = Joi.object({
     location: Joi.string().required()
 });
 
-// Schema para filtro por currency
+//Schema para filtro por currency
 const currencyParamSchema = Joi.object({
     currency: Joi.string().required()
 });
 
-// Schema para filtro por paymentMethod
+//Schema para filtro por paymentMethod
 const paymentMethodParamSchema = Joi.object({
     paymentMethod: Joi.string().required()
 });
 
-// Schema para filtro por frequency
+//Schema para filtro por frequency
 const frequencyParamSchema = Joi.object({
     frequency: Joi.string().required()
 });
 
-// Schema para filtro por recurrence
+//Schema para filtro por recurrence
 const recurrenceParamSchema = Joi.object({
     recurrence: Joi.string().required()
 });
 
-// Schema para filtro por paymentStatus
+//Schema para filtro por paymentStatus
 const paymentStatusParamSchema = Joi.object({
     paymentStatus: Joi.string().required()
 });
 
-// Schema para filtro por dueDate
+//Schema para filtro por dueDate
 const dueDateParamSchema = Joi.object({
     dueDate: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
 });
 
-// Schema para filtro por paymentDate
+//Schema para filtro por paymentDate
 const paymentDateParamSchema = Joi.object({
     paymentDate: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
 });
 
-// Schema para buscas por período (startDate e endDate)
+//Schema para buscas por período (startDate e endDate)
 const dateSchema = Joi.object({
     startDate: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
     endDate: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()

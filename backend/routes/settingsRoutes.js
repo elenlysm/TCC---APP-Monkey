@@ -26,5 +26,5 @@ router.post('/', authMiddleware, validate(createSettingSchema, 'body'), controll
  */
 router.put('/', authMiddleware, validate(updateSettingsSchema, 'body'), controller.updateSettings);
 
-// Exporta o roteador para ser usado em outros arquivos
+//Exporta o roteador para ser usado em outros arquivos
 module.exports = router;

@@ -44,12 +44,25 @@ export default function RegisterScreen() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
+<<<<<<< HEAD:app/(tabs)/auth/register.tsx
+            const response = await fetch('http://192.168.100.70:8081', {
+                method: 'POST',
+                headers: {
+                    'content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    createdAt: new Date().toISOString(),
+                }),
+=======
             console.log('Usuário criado no Firebase:', user.uid);
             
             await api.post('/users', {
                 uid: user.uid,
                 email: user.email,
                 createdAt: new Date().toISOString(),
+>>>>>>> 89184b5e3913511547969b4722bd9237c9a5b661:app/auth/register.tsx
             });
 
             console.log('Usuario salvo no backend com sucesso');

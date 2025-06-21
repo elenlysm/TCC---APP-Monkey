@@ -23,8 +23,8 @@ const customValidate = (validations) => {
     };
 };
 
-//  Adicionar orçamento
-// Cria um novo orçamento. Requer autenticação e validação dos campos obrigatórios.
+// Adicionar orçamento
+//Cria um novo orçamento. Requer autenticação e validação dos campos obrigatórios.
 router.post(
     '/',
     authMiddleware,
@@ -32,12 +32,12 @@ router.post(
     controller.addBudget
 );
 
-//  Listar orçamentos
-// Lista todos os orçamentos do usuário autenticado.
+// Listar orçamentos
+//Lista todos os orçamentos do usuário autenticado.
 router.get('/', authMiddleware, controller.getBudgets);
 
-//  Atualizar orçamento
-// Atualiza um orçamento existente pelo ID.
+// Atualizar orçamento
+//Atualiza um orçamento existente pelo ID.
 router.put(
     '/:id',
     authMiddleware,
@@ -45,23 +45,23 @@ router.put(
     controller.updateBudget
 );
 
-//  Deletar orçamento
-// Remove um orçamento pelo ID.
+//Deletar orçamento
+//Remove um orçamento pelo ID.
 router.delete('/:id', authMiddleware, controller.deleteBudget);
 
-//  Obter orçamentos por categoria
+//Obter orçamentos por categoria
 router.get('/category/:category', authMiddleware, controller.getBudgetsByCategory);
 
-//  Obter orçamentos por data (usa query params para intervalo de datas)
+//Obter orçamentos por data (usa query params para intervalo de datas)
 router.get('/date/:date', authMiddleware, controller.getBudgetsByDate);
 
-//  Obter orçamentos por status
+//Obter orçamentos por status
 router.get('/status/:status', authMiddleware, controller.getBudgetsByStatus);
 
-//  Obter orçamentos por usuário
+//Obter orçamentos por usuário
 router.get('/user/:userId', authMiddleware, controller.getBudgetsByUser);
 
-//  Obter orçamentos por valor (usa query params para min/max)
+//Obter orçamentos por valor (usa query params para min/max)
 router.get(
     '/amount',
     authMiddleware,
@@ -72,7 +72,7 @@ router.get(
     controller.getBudgetsByAmount
 );
 
-//  Obter orçamentos por descrição (usa query param)
+//Obter orçamentos por descrição (usa query param)
 router.get(
     '/description',
     authMiddleware,
@@ -82,7 +82,7 @@ router.get(
     controller.getBudgetsByDescription
 );
 
-//  Obter orçamentos por data de criação (usa query params)
+//Obter orçamentos por data de criação (usa query params)
 router.get(
     '/created-at',
     authMiddleware,
@@ -93,7 +93,7 @@ router.get(
     controller.getBudgetsByCreationDate
 );
 
-//  Obter orçamentos por data de atualização (usa query params)
+//Obter orçamentos por data de atualização (usa query params)
 router.get(
     '/updated-at',
     authMiddleware,
@@ -104,16 +104,16 @@ router.get(
     controller.getBudgetsByBudgetUpdatedAt
 );
 
-//  Obter orçamentos por tipo
+//Obter orçamentos por tipo
 router.get('/type/:type', authMiddleware, controller.getBudgetsByType);
 
-//  Obter orçamentos por prioridade
+//Obter orçamentos por prioridade
 router.get('/priority/:priority', authMiddleware, controller.getBudgetsByPriority);
 
-//  Obter orçamentos por tags
+//Obter orçamentos por tags
 router.get('/tags/:tag', authMiddleware, controller.getBudgetsByTag);
 
-//  Obter orçamentos por localização (usa query params)
+//Obter orçamentos por localização (usa query params)
 router.get(
     '/location',
     authMiddleware,
@@ -124,22 +124,22 @@ router.get(
     controller.getBudgetsByLocation
 );
 
-//  Obter orçamentos por moeda
+//Obter orçamentos por moeda
 router.get('/currency/:currency', authMiddleware, controller.getBudgetsByCurrency);
 
-//  Obter orçamentos por método de pagamento
+//Obter orçamentos por método de pagamento
 router.get('/payment-method/:method', authMiddleware, controller.getBudgetsByPaymentMethod);
 
-//  Obter orçamentos por frequência
+//Obter orçamentos por frequência
 router.get('/frequency/:frequency', authMiddleware, controller.getBudgetsByFrequency);
 
-//  Obter orçamentos por recorrência
+//Obter orçamentos por recorrência
 router.get('/recurrence/:recurrence', authMiddleware, controller.getBudgetsByRecurrence);
 
-//  Obter orçamentos por status de pagamento
+//Obter orçamentos por status de pagamento
 router.get('/payment-status/:status', authMiddleware, controller.getBudgetsByPaymentStatus);
 
-//  Obter orçamentos por data de vencimento (usa query params)
+//Obter orçamentos por data de vencimento (usa query params)
 router.get(
     '/due-date',
     authMiddleware,
@@ -150,7 +150,7 @@ router.get(
     controller.getBudgetsByDueDate
 );
 
-//  Obter orçamentos por data de pagamento (usa query params)
+//Obter orçamentos por data de pagamento (usa query params)
 router.get(
     '/payment-date',
     authMiddleware,
@@ -161,7 +161,7 @@ router.get(
     controller.getBudgetsByPaymentDate
 );
 
-//  Obter orçamentos por data de criação do orçamento (usa query params)
+//Obter orçamentos por data de criação do orçamento (usa query params)
 router.get(
     '/budget-created-at',
     authMiddleware,
@@ -172,7 +172,7 @@ router.get(
     controller.getBudgetsByBudgetCreatedAt
 );
 
-//  Obter orçamentos por data de atualização do orçamento (usa query params)
+//Obter orçamentos por data de atualização do orçamento (usa query params)
 router.get(
     '/budget-updated-at',
     authMiddleware,
