@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -7,6 +7,7 @@ import Button from '../../src/components/Button';
 import Container from '../../src/components/Container';
 import AuthBackground from '../../src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '../../src/constants/theme';
+import { useRouter } from 'expo-router';
 import api from '../services/api';
 //Importação do tema e componentes personalizados: cores, fontes e tamanhos
 
@@ -18,8 +19,11 @@ export default function RegisterScreen() {
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false); //Controle de visibilidade da senha
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); //Visibilidade da confirmação de senha
+    const router = useRouter();
 
     const handleSignUp = async () => {
+        setError('')
+
         if (!email || !password || !confirmPassword) {
             setError('Preencha todos os campos.');
             return;
@@ -36,25 +40,33 @@ export default function RegisterScreen() {
             setError('As senhas não coincidem.');
             return;
         }
-        setError('');
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            console.log('Usuário criado no Firebase:', user.uid);
 
+            console.log('Usuário criado no Firebase:', user.uid);
+            
             await api.post('/users', {
                 uid: user.uid,
                 email: user.email,
                 createdAt: new Date().toISOString(),
             });
 
-            alert('Usuário cadastrado com sucesso!')
+            console.log('Usuario salvo no backend com sucesso');
+
+            await sendEmailVerification(userCredential.user);
+            alert('Cadastro realizado! Um e-mail de verificação foi enviado para sua caixa de entrada.');
+
+            router.replace('/auth/login');
+
             setEmail('');
             setPassword('');
             setConfirmPassword('');
+
         } catch (error: any) {
             console.error('Erro ao cadastrar:', error);
-            if (error.code === 'auth/email-already in use') {
+            
+            if (error.code === 'auth/email-already-in-use') {
                 setError('Este e-mail já está sendo utilizado!');
             } else if (error.code === 'auth/invalid-email') {
                 setError('E-mail inválido!');
