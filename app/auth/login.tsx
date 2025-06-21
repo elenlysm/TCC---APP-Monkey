@@ -22,9 +22,10 @@ export default function LoginScreen() {
                     placeholder="Digite seu e-mail"
                     value={email}
                     onChangeText={setEmail}
-                    keyboardType="email-address" //Usa teclado com "@" no celular
-                    autoCapitalize="none" //Não coloca a primeira letra em maiúsculo
-                /> {/*Campo de entrada email*/}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
+                {/*Campo de entrada email*/}
 
                 <Text style={styles.label}>Senha:</Text>
                 <TextInput
@@ -32,8 +33,9 @@ export default function LoginScreen() {
                     placeholder="Digite sua senha"
                     value={password}
                     onChangeText={setPassword}
-                    secureTextEntry //Oculta os caracteres da senha
-                /> {/*Campo de entrada de senha*/}
+                    secureTextEntry
+                />
+                {/*Campo de entrada de senha*/}
 
                 <TouchableOpacity onPress={() => router.push('/auth/resetPassword')}>
                     <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
@@ -41,7 +43,7 @@ export default function LoginScreen() {
                 {/*Link para a tela de "Esqueci minha senha"*/}
                 <View style={styles.buttonGroup}>
                     <Button title="Entrar" onPress={() => console.log('Entrar')} />
-                {/*Botão de login + chamada de lógica de autenticação*/}
+                    {/*Botão de login + chamada de lógica de autenticação*/}
                 </View>
             </Container>
         </AuthBackground>

@@ -2,7 +2,7 @@ Estrutura - Monkey
 
 
 APP-GESTAO-FINANCEIRA/ 
-├── .expo/
+├── ┬ .expo/
 │   ├── types/
 │   │   └── router.d.ts
 │   ├── web/...
@@ -13,7 +13,7 @@ APP-GESTAO-FINANCEIRA/
 │   └── settings.json
 ├── .firebase/ logs/
 │               └── vsce-debug.log
-├── .idea/ 
+├── ┬ .idea/ 
 │   ├── caches/
 │   │   └── deviceStreaming.xml
 │   ├── .gitignore 
@@ -24,166 +24,172 @@ APP-GESTAO-FINANCEIRA/
 │   ├── modules.xml
 │   ├── vcs.xml
 │   └── workspace.xml
-├── .vscode/
-│       ├── launch.json
-│       └── settings.json
-├── app/
-│   ├── (tabs)/
-│   │   ├── financeiro/
-│   │   │     ├── coabitacao.tsx
-│   │   │     ├── home.tsx
-│   │   │     ├── orcamentos-e-metas.tsx
-│   │   │     ├── relatorios-e-analises.tsx
-│   │   │     └── transacoes.tsx
-│   │   ├── config.tsx
+├── ┬ .vscode/
+│   ├── launch.json
+│   └── settings.json
+├── ┬ app/
+│   ├── ┬ (tabs)/
+│   │   ├── ┬ financeiro/
+│   │   │   ├── budget.tsx
+│   │   │   ├── cohabitation.tsx
+│   │   │   ├── home.tsx
+│   │   │   ├── reports.tsx
+│   │   │   └── transactions.tsx
+│   │   ├── _layout.tsx
 │   │   ├── index.tsx
-│   │   └── modal.tsx
-│   ├── auth/
-│   │   ├── cadastro.tsx
-│   │   ├── esqueceu-a-senha.tsx
-│   │   └── login.tsx
-│   ├── services/
+│   │   ├── modal.tsx
+│   │   └── settings.tsx
+│   ├── ┬ auth/
+│   │   ├─ _layout.tsx
+│   │   ├── changePassword.tsx
+│   │   ├── login.tsx
+│   │   ├── register.tsx
+│   │   └── resetPassword.tsx
+│   ├── ┬ services/
 │   │   └── api.ts
 │   └── _layout.tsx
-├── backend/
-│    ├── _tests_/
-│    │   └── auth.test.js
-│    ├── controllers/
-│    │   ├── auditController.js
-│    │   ├── authController.js
-│    │   ├── budgetsController.js
-│    │   ├── cohabitationController.js
-│    │   ├── healthController.js
-│    │   ├── notificationController.js
-│    │   ├── openFinanceController.js
-│    │   ├── profileController.js
-│    │   ├── reportsController.js
-│    │   ├── settingsController.js
-│    │   ├── transactionsController.js
-│    │   └── usersController.js
-│    ├── dist/
-│    │   └── index.js
-│    ├── logs/
-│    │   ├── combined.log
-│    │   ├── error.log
-│    │   ├── exeptions.log
-│    │   └── rejections.log
-│    ├── middlewares/
-│    │   ├── authMiddleware.js
-│    │   ├── errorHandler.js
-│    │   └── validate.js
-│    ├── node_modules/...
-│    ├── routes/
-│    │   ├── api.js
-│    │   ├── auditRoutes.js
-│    │   ├── authRoutes.js
-│    │   ├── budgetsRoutes.js
-│    │   ├── cohabitationRoutes.js
-│    │   ├── healthRoutes.js
-│    │   ├── notificationRoutes.js
-│    │   ├── openFinanceRoutes.js
-│    │   ├── profileRoutes.js
-│    │   ├── reportsRoutes.js
-│    │   ├── settingsRoutes.js
-│    │   ├── transactionsRoutes.js
-│    │   └── usersRoutes.js
-│    ├── services/
-│    │   ├── auditService.js
-│    │   ├── authService.js
-│    │   ├── budgetsService.js
-│    │   ├── firestoreService.js
-│    │   ├── notificationService.js
-│    │   ├── openFinanceService.js
-│    │   ├── settingsService.js
-│    │   └── tokenService.js
-│    ├── utils/
-│    │   ├── errorHandler.js
-│    │   └── transactionUtils.js
-│    ├── validators/
-│    │   ├── auditValidator.js
-│    │   ├── authValidator.js
-│    │   ├── budgetsValidator.js
-│    │   ├── cohabitationValidator.js
-│    │   ├── healthValidator.js
-│    │   ├── notificationValidator.js
-│    │   ├── openFinanceValidator.js
-│    │   ├── reportsValidator.js
-│    │   ├── transactionValidator.js
-│    │   └── userValidator.js
-│    ├── firebaseAdmin.js
-│    ├── jest.config.js
-│    ├── package-lock.json
-│    ├── package.json
-│    ├── server.js
-│    ├── start.js
-│    └── tsconfig.json
+├── ┬ backend/
+│   ├── ┬ _tests_/
+│   │   └── auth.test.js
+│   ├── ┬ controllers/
+│   │   ├── auditController.js
+│   │   ├── authController.js
+│   │   ├── budgetsController.js
+│   │   ├── cohabitationController.js
+│   │   ├── healthController.js
+│   │   ├── notificationController.js
+│   │   ├── openFinanceController.js
+│   │   ├── profileController.js
+│   │   ├── reportsController.js
+│   │   ├── settingsController.js
+│   │   ├── transactionsController.js
+│   │   └── usersController.js
+│   ├── ┬ dist/
+│   │   └── index.js
+│   ├── ┬ logs/
+│   │   ├── combined.log
+│   │   ├── error.log
+│   │   ├── exeptions.log
+│   │   └── rejections.log
+│   ├── ┬ middlewares/
+│   │   ├── authMiddleware.js
+│   │   ├── errorHandler.js
+│   │   └── validate.js
+│   ├── node_modules/...
+│   ├── ┬ routes/
+│   │   ├── api.js
+│   │   ├── auditRoutes.js
+│   │   ├── authRoutes.js
+│   │   ├── budgetsRoutes.js
+│   │   ├── cohabitationRoutes.js
+│   │   ├── healthRoutes.js
+│   │   ├── notificationRoutes.js
+│   │   ├── openFinanceRoutes.js
+│   │   ├── profileRoutes.js
+│   │   ├── reportsRoutes.js
+│   │   ├── settingsRoutes.js
+│   │   ├── transactionsRoutes.js
+│   │   └── usersRoutes.js
+│   ├── ┬ services/
+│   │   ├── auditService.js
+│   │   ├── authService.js
+│   │   ├── budgetsService.js
+│   │   ├── emailService.js
+│   │   ├── firestoreService.js
+│   │   ├── notificationService.js
+│   │   ├── openFinanceService.js
+│   │   ├── settingsService.js
+│   │   └── tokenService.js
+│   ├── ┬ utils/
+│   │   ├── errorHandler.js
+│   │   └── transactionUtils.js
+│   ├── ┬ validators/
+│   │   ├── auditValidator.js
+│   │   ├── authValidator.js
+│   │   ├── budgetsValidator.js
+│   │   ├── cohabitationValidator.js
+│   │   ├── healthValidator.js
+│   │   ├── notificationValidator.js
+│   │   ├── openFinanceValidator.js
+│   │   ├── reportsValidator.js
+│   │   ├── transactionValidator.js
+│   │   └── userValidator.js
+│   ├── firebaseAdmin.js
+│   ├── jest.config.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── server.js
+│   ├── start.js
+│   └── tsconfig.json
 ├── design/ ...
-├── docs/
-│    ├── Estrutura - Monkey.txt
-│    └── requisitos.md
-├── functions/
-│    ├── .eslintrc.js
-│    ├── .eslintrc.config.js
-│    ├── index.js
-│    ├── package-lock.json
-│    └── package.json
+├── ┬ docs/
+│   ├── Estrutura - Monkey.txt
+│   └── requisitos.md
+├── ┬ functions/
+│   ├── node_modules/...
+│   ├── .eslintrc.js
+│   ├── .eslintrc.config.mjs
+│   ├── index.js
+│   ├── package-lock.json
+│   └── package.json
 ├── node_modules/ ...
-├── scripts/
+├── ┬ scripts/
 │   ├── README.md
 │   └── reset-project.js
-├── src/
-│   ├── assets/
-│   │   ├── fonts/
-│   │   │   ├── AnonymousPro-Bold.ttf
-│   │   │   ├── AnonymousPro-Regular.ttf
-│   │   │   ├── Roboto-VariableFont_wdth,wght.ttf
-│   │   │   └── SpaceMono-Regular.ttf
-│   │   ├── images/
-│   │   │     ├── adaptive-icon.png
-│   │   │     ├── banco.png
-│   │   │     ├── carteira.png
-│   │   │     ├── conta.png
-│   │   │     ├── deep-unsplash.png
-│   │   │     ├── favicon.png
-│   │   │     ├── icon.png
-│   │   │     ├── logo_icon.png
-│   │   │     ├── logo.png
-│   │   │     ├── partial-react-logo.png
-│   │   │     ├── react-logo.png
-│   │   │     ├── react-logo@2x.png
-│   │   │     ├── react-logo@3x.png
-│   │   │     └── splash-icon.png
-│   │   ├── declarations.d.ts
-│   │   └── react-native-vector-icons.d.ts
-│   ├── components/
-│   │       ├── ui/
-│   │       │   ├── AuthBackground.tsx
-│   │       │   ├── IconSymbol.ios.tsx
-│   │       │   ├── IconSymbol.tsx
-│   │       │   ├── TabBarBackground.ios.tsx
-│   │       │   └── TabBarBackground.tsx 
-│   │       ├── Button.tsx
-│   │       ├── Collapsible.tsx
-│   │       ├── Container.tsx
-│   │       ├── ExternalLink.tsx
-│   │       ├── HapticTab.tsx
-│   │       ├── Header.tsx
-│   │       ├── HelloWave.tsx
-│   │       ├── MenuFechado.tsx
-│   │       └── NavigationDrawer.tsx
-│   ├── constants/
-│   │   ├── Colors.ts
-│   │   └── theme.ts
-│   ├── context/
-│   │   └── AuthContext.tsx
-│   ├── hooks/
-│   │   ├── useColorScheme.ts
-│   │   ├── useColorScheme.web.ts
-│   │   └── useThemeColor.ts 
-│   ├── services/
-│   │   └── firebaseConfig.ts
-│   └── utils/
-│       └── security.ts
+├── ┬ src/
+│   ├──┬ assets/
+│   │  ├──┬ fonts/
+│   │  │  ├── AnonymousPro-Bold.ttf
+│   │  │  ├── AnonymousPro-Regular.ttf
+│   │  │  ├── Roboto-VariableFont_wdth,wght.ttf
+│   │  │  └── SpaceMono-Regular.ttf
+│   │  ├──┬ images/
+│   │  │  ├── adaptive-icon.png
+│   │  │  ├── banco.png
+│   │  │  ├── carteira.png
+│   │  │  ├── conta.png
+│   │  │  ├── deep-unsplash.png
+│   │  │  ├── favicon.png
+│   │  │  ├── icon.png
+│   │  │  ├── logo_icon.png
+│   │  │  ├── logo.png
+│   │  │  ├── partial-react-logo.png
+│   │  │  ├── react-logo.png
+│   │  │  ├── react-logo@2x.png
+│   │  │  ├── react-logo@3x.png
+│   │  │  └── splash-icon.png
+│   │  ├── declarations.d.ts
+│   │  └── react-native-vector-icons.d.ts
+│   ├──┬ components/
+│   │  ├──┬ ui/
+│   │  │  ├── AuthBackground.tsx
+│   │  │  ├── IconSymbol.ios.tsx
+│   │  │  ├── IconSymbol.tsx
+│   │  │  ├── TabBarBackground.ios.tsx
+│   │  │  └── TabBarBackground.tsx 
+│   │  ├── Button.tsx
+│   │  ├── Collapsible.tsx
+│   │  ├── Container.tsx
+│   │  ├── ExternalLink.tsx
+│   │  ├── HapticTab.tsx
+│   │  ├── Header.tsx
+│   │  ├── HelloWave.tsx
+│   │  ├── MenuFechado.tsx
+│   │  └── NavigationDrawer.tsx
+│   ├──┬ constants/
+│  │  ├── Colors.ts
+│  │  └── theme.ts
+│  ├──┬ context/
+│  │  └── AuthContext.tsx
+│  ├──┬ hooks/
+│  │  ├── useColorScheme.ts
+│  │  ├── useColorScheme.web.ts
+│  │  └── useThemeColor.ts 
+│  ├──┬ services/
+│  │  └── firebaseConfig.ts
+│  ├──┬ utils/
+│  │  └── security.ts
+│  └── README.md
 ├── .env
 ├── .env.example
 ├── .firebaserc
