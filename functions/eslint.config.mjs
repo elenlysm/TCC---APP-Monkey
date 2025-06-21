@@ -1,7 +1,10 @@
-const { defineConfig } = require('eslint/config'); // Função moderna para configs
-const expoConfig = require('eslint-config-expo/flat'); // Configuração padrão do Expo
+import { defineConfig } from 'eslint/config';
+import expoConfig from 'eslint-config-expo/flat';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+import securityPlugin from 'eslint-plugin-security';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-module.exports = defineConfig([
+export default defineConfig([
   expoConfig,
   {
     // Ignora diretórios de build
@@ -20,16 +23,16 @@ module.exports = defineConfig([
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: './tsconfig.json',
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: new URL('.', import.meta.url).pathname,
       },
     },
 
     // Plugins adicionais
-    plugins: [
-      '@typescript-eslint', // Para regras específicas do TS
-      'security',           // Para evitar vulnerabilidades comuns
-      'prettier',           // Integração de formatação
-    ],
+    plugins: {
+      '@typescript-eslint': typescriptPlugin, // Para regras específicas do TS
+      security: securityPlugin,           // Para evitar vulnerabilidades comuns
+      prettier: prettierPlugin,           // Integração de formatação
+    },
 
     // Extensões recomendadas
     extends: [

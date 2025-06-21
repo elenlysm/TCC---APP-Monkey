@@ -28,7 +28,7 @@
     "babel.config.js",
     "eslint.config.js",
     "app.config.js",
-    "functions/eslint.config.js",
+    "functions/eslint.config.mjs",
     "scripts",
     "functions"
   ]
