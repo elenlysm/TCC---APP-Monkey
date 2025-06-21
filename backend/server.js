@@ -13,12 +13,12 @@ const winston = require('winston');
 
 const app = express();
 
-// Configuração de CORS — restringe as origens permitidas
+//Configuração de CORS — restringe as origens permitidas
 const allowedOrigins = [process.env.FRONTEND_URL || 'http://192.168.100.70:8081'];
 
 const corsOptions = {
     origin: function (origin, callback) {
-        if (!origin) return callback(null, true); // Permite requisições sem origem (ex.: Postman)
+        if (!origin) return callback(null, true); //Permite requisições sem origem (ex.: Postman)
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
@@ -27,52 +27,52 @@ const corsOptions = {
     },
 };
 
-// Aplica o middleware de CORS
+//Aplica o middleware de CORS
 app.use(cors(corsOptions));
 app.use(helmet());
 
-// Middlewares para interpretar o corpo das requisições
-app.use(bodyParser.json()); // JSON
-app.use(bodyParser.urlencoded({ extended: true })); // Formulários
+//Middlewares para interpretar o corpo das requisições
+app.use(bodyParser.json()); //JSON
+app.use(bodyParser.urlencoded({ extended: true })); //Formulários
 
-// === ROTAS ===
+//=== ROTAS ===
 
-// Autenticação
+//Autenticação
 app.use('/auth', require('./routes/authRoutes'));
 
-// Transações financeiras
+//Transações financeiras
 app.use('/transactions', require('./routes/transactionsRoutes'));
 
-// Orçamentos
+//Orçamentos
 const budgetsRoutes = require('./routes/budgetsRoutes');
 app.use('/api/budgets', budgetsRoutes);
 
-// Usuários
+//Usuários
 app.use('/users', require('./routes/usersRoutes'));
 
-// Compartilhamento e convivência
+//Compartilhamento e convivência
 app.use('/cohabitation', require('./routes/cohabitationRoutes'));
 
-// Integração com Open Finance Brasil
+//Integração com Open Finance Brasil
 app.use('/openfinance', require('./routes/openFinanceRoutes'));
 
-// Notificações
+//Notificações
 app.use('/notifications', require('./routes/notificationRoutes'));
 
-// Relatórios financeiros
+//Relatórios financeiros
 app.use('/reports', require('./routes/reportsRoutes'));
 
-// Outras rotas da API
+//Outras rotas da API
 app.use('/api', require('./routes/api'));
 
-// Rota raiz apenas para teste rápido
+//Rota raiz apenas para teste rápido
 app.get('/', (req, res) => {
     res.send('Servidor rodando com CORS restrito!');
 });
 
-// === CONFIGURAÇÕES ===
+//=== CONFIGURAÇÕES ===
 
-// Configuração do Swagger para documentação da API
+//Configuração do Swagger para documentação da API
 const swaggerSpec = swaggerJsdoc({
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -87,34 +87,34 @@ const swaggerSpec = swaggerJsdoc({
             },
         ],
     },
-    apis: ['./routes/*.js'], // Caminho para os arquivos de rotas
+    apis: ['./routes/*.js'], //Caminho para os arquivos de rotas
 });
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-// Middleware de autenticação — deve ser aplicado antes das rotas que requerem autenticação
+//Middleware de autenticação — deve ser aplicado antes das rotas que requerem autenticação
 const authMiddleware = require('./middlewares/authMiddleware');
 app.use('/api', authMiddleware);
-// Middleware de validação — deve ser aplicado antes das rotas que requerem validação
+//Middleware de validação — deve ser aplicado antes das rotas que requerem validação
 const validate = require('./middlewares/validate');
 app.use('/api', validate);
-// Middleware de rate limiting para proteger a API contra abusos
-app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, max: 100 })); // Limite de 100 requisições por 15 minutos
+//Middleware de rate limiting para proteger a API contra abusos
+app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, max: 100 })); //Limite de 100 requisições por 15 minutos
 
-// Limite de taxa para a rota de login
+//Limite de taxa para a rota de login
 app.use('/auth/login', rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }));
 
-// Middleware de tratamento global de erros — deve ser sempre o último
+//Middleware de tratamento global de erros — deve ser sempre o último
 const errorHandler = require('./middlewares/errorHandler');
 
-// Middleware de erro (sempre por último)
+//Middleware de erro (sempre por último)
 app.use(errorHandler);
 
-// Define a porta do servidor
+//Define a porta do servidor
 const PORT = process.env.PORT || 5000;
 
-// Inicializa o servidor
+//Inicializa o servidor
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
 
-// Configuração do Winston para logs
+//Configuração do Winston para logs
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.combine(
@@ -133,7 +133,7 @@ const logger = winston.createLogger({
         new winston.transports.File({ filename: 'logs/rejections.log' })
     ]
 });
-// Middleware de logging
+//Middleware de logging
 app.use((req, res, next) => {
     logger.info({
         method: req.method,
@@ -143,7 +143,7 @@ app.use((req, res, next) => {
     });
     next();
 });
-// Middleware de logging para erros
+//Middleware de logging para erros
 app.use((err, req, res, next) => {
     logger.error({
         message: err.message,
@@ -153,9 +153,9 @@ app.use((err, req, res, next) => {
         status: res.statusCode,
         timestamp: new Date().toISOString()
     });
-    next(err); // Passa o erro para o próximo middleware
+    next(err); //Passa o erro para o próximo middleware
 });
-// Middleware de validação de campos
+//Middleware de validação de campos
 const { validationResult } = require('express-validator');
 app.use((req, res, next) => {
     const errors = validationResult(req);
@@ -164,7 +164,7 @@ app.use((req, res, next) => {
     }
     next();
 });
-// Middleware de tratamento de erros genérico
+//Middleware de tratamento de erros genérico
 app.use((err, req, res, next) => {
     // Responde com erro genérico
     res.status(500).json({
