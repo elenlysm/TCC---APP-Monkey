@@ -17,11 +17,12 @@ export default function ChangePasswordScreen() {
     const [error, setError] = useState('');
     const [showCurrent, setShowCurrent] = useState(false);
     const [showNew, setShowNew] = useState(false);
-    const [showConfirm, setShowConfirm] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false); 
+    //Estados dos campos de senha + visibilidade senha + erros
 
     const router = useRouter();
 
-    const handleChangePassword = async () => {
+    const handleChangePassword = async () => { //Função principal para alterar a senha do usuário
         setError('');
 
         if (!currentPassword || !newPassword || !confirmPassword) {
@@ -45,7 +46,7 @@ export default function ChangePasswordScreen() {
             if (!user || !user.email) {
                 setError('Usuário não autenticado.');
                 return;
-            }
+            } //Validação dos campos obrigatórios
 
             const credential = EmailAuthProvider.credential(user.email, currentPassword);
 
@@ -65,7 +66,7 @@ export default function ChangePasswordScreen() {
 
         } catch (err: any) {
             console.error('Erro ao alterar senha:', err);
-            if (err.code === 'auth/wrong-password') {
+            if (err.code === 'auth/wrong-password') { //Tratamento de erro específico do Firebase
                 setError('Senha atual incorreta.');
             } else {
                 setError('Erro ao alterar senha, tente novamente.');
@@ -84,15 +85,15 @@ export default function ChangePasswordScreen() {
                         value={currentPassword}
                         onChangeText={setCurrentPassword}
                         secureTextEntry={!showCurrent}
-                    />
+                    /> 
                     <TouchableOpacity
                         style={styles.icon}
                         onPress={() => setShowCurrent(!showCurrent)}
                         activeOpacity={0.7}
-                    >
+                    > 
                         <Icon name={showCurrent ? 'eye' : 'eye-off'} size={22} color={colors.primary} />
                     </TouchableOpacity>
-                </View>
+                </View> {/*Campo: Senha Atual*/}
 
                 <Text style={styles.label}>Nova Senha:</Text>
                 <View style={styles.passwordContainer}>
@@ -110,7 +111,7 @@ export default function ChangePasswordScreen() {
                     >
                         <Icon name={showNew ? 'eye' : 'eye-off'} size={22} color={colors.primary} />
                     </TouchableOpacity>
-                </View>
+                </View> {/*Campo: Nova Senha*/}
 
                 <Text style={styles.label}>Confirme a Nova Senha:</Text>
                 <View style={styles.passwordContainer}>
@@ -136,8 +137,8 @@ export default function ChangePasswordScreen() {
                     <Button title="Alterar Senha" onPress={handleChangePassword} />
                 </View>
             </Container>
-        </AuthBackground>
-    );
+        </AuthBackground> 
+    ); {/*Campo: Confirmação da Nova Senha*/}
 }
 
 const styles = StyleSheet.create({
