@@ -4,7 +4,7 @@ const firestoreService = require('./firestoreService');
 
 async function register({ email, password }) {
     try {
-        // Cria o usuário no Firebase Auth
+        //Cria o usuário no Firebase Auth
         const userRecord = await admin.auth().createUser({
             email,
             password,
@@ -48,7 +48,7 @@ async function resetPassword(token, newPassword) {
     throw new Error('Redefinição de senha deve ser feita no cliente com Firebase SDK.');
 }
 
-// Exporta as funções do serviço de autenticação
+//Exporta as funções do serviço de autenticação
 module.exports = {
     register,
     login,

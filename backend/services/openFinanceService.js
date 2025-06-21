@@ -1,15 +1,15 @@
 const axios = require('axios');
 const { db } = require('../firebaseAdmin');
-const tokenService = require('./tokenService'); // lembre de importar, pois usa tokenService
+const tokenService = require('./tokenService');
 
-// Config base da API Open Finance (ajuste para mock-api no Docker)
+//Config base da API Open Finance (ajuste para mock-api no Docker)
 const api = axios.create({
     baseURL: process.env.OPEN_FINANCE_API_URL || 'http://mockapi:3000', // Use variável de ambiente para flexibilidade
     timeout: 5000,
     headers: { 'Content-Type': 'application/json' }
 });
 
-// Função para trocar código (authorization code) por access token
+//Função para trocar código (authorization code) por access token
 const exchangeCodeForToken = async (code) => {
     try {
         const response = await api.post('/oauth/token', {
@@ -26,7 +26,7 @@ const exchangeCodeForToken = async (code) => {
     }
 };
 
-// Função para atualizar token usando refresh token
+//Função para atualizar token usando refresh token
 const refreshAccessToken = async (userId) => {
     try {
         const tokens = await tokenService.getToken(userId);
@@ -45,7 +45,7 @@ const refreshAccessToken = async (userId) => {
     }
 };
 
-// Coletar extratos bancários
+//Coletar extratos bancários
 const fetchBankStatements = async (accessToken) => {
     try {
         const response = await api.get('/bank/statements', {
@@ -58,7 +58,7 @@ const fetchBankStatements = async (accessToken) => {
     }
 };
 
-// Atualizar transações no Firestore
+//Atualizar transações no Firestore
 const updateTransactions = async (userId, transactions) => {
     if (!Array.isArray(transactions)) throw new Error('Transações inválidas');
     const batch = db.batch();

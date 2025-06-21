@@ -19,7 +19,7 @@ function getSettings() {
         fontsize: 'medium',
         resetPassword: resetPassword,
         updateEmail: async (newEmail) => {
-            // Simula uma chamada para atualizar o email
+            //Simula uma chamada para atualizar o email
             return new Promise((resolve, reject) => {
                 if (newEmail && typeof newEmail === 'string') {
                     resolve({ success: true, message: 'Email atualizado com sucesso.' });
