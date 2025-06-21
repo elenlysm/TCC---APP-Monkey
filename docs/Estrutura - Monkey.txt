@@ -28,11 +28,7 @@ APP-GESTAO-FINANCEIRA/
 │       ├── launch.json
 │       └── settings.json
 ├── app/
-│   ├── (tabs)
-│   │   ├── auth/
-│   │   │     ├── cadastro.tsx
-│   │   │     ├── esqueceu-a-senha.tsx
-│   │   │     └── login.tsx
+│   ├── (tabs)/
 │   │   ├── financeiro/
 │   │   │     ├── coabitacao.tsx
 │   │   │     ├── home.tsx
@@ -42,6 +38,12 @@ APP-GESTAO-FINANCEIRA/
 │   │   ├── config.tsx
 │   │   ├── index.tsx
 │   │   └── modal.tsx
+│   ├── auth/
+│   │   ├── cadastro.tsx
+│   │   ├── esqueceu-a-senha.tsx
+│   │   └── login.tsx
+│   ├── services/
+│   │   └── api.ts
 │   └── _layout.tsx
 ├── backend/
 │    ├── _tests_/

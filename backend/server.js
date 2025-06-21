@@ -174,5 +174,8 @@ app.use((err, req, res, next) => {
     });
 });
 
+const authRoutes = require('./routes/authRoutes');
+app.use('/api', authRoutes);
+
 
 module.exports = app;

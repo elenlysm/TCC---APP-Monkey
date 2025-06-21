@@ -3,9 +3,9 @@
 import { useRouter } from 'expo-router';
 import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Defs, FeBlend, FeColorMatrix, FeComposite, FeFlood, FeGaussianBlur, FeOffset, Filter, G, Path, Svg } from 'react-native-svg';
-{/*Importa o hook de navegação do Expo (Emulador)
-import React from 'react'; {/*Importa o React*/}
+//Importa o hook de navegação do Expo (Emulator)
 //Importação de componentes personalizados + componentes visuais e gráficos SVG
+import React from 'react';
 
 function Mensagemdeboasvindas() {
     return (
@@ -14,25 +14,29 @@ function Mensagemdeboasvindas() {
             <Text style={styles.ao}>ao</Text>
         </>
     );
-} //Saudação inicial
+} 
 
 function TelaInicial() {
-    const router = useRouter(); //Navegação entre telas
+    const router = useRouter();
 
+    {/* Garante que o conteúdo fique dentro da área segura da tela */}
     return (
-        <SafeAreaView style={styles.container}> {/*Garante que o conteúdo fique dentro da área segura da tela*/}
-            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1 }}> {/*ScrollView permite rolar o conteúdo caso ultrapasse a tela*/}
+        <SafeAreaView style={styles.container}>
+            {/* ScrollView permite rolar o conteúdo caso ultrapasse a tela */}
+            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1 }}>
                 <View style={styles.telainicialContainer}>
                     <View style={styles.vectorContainer}>
+                        {/* Imagem de fundo da parte superior da tela */}
                         <ImageBackground
                             source={require('../../src/assets/images/deep-unsplash.png')}
                             style={styles.mensagemdeboasvindasContainer}
                             resizeMode="cover"
-                        > {/*Imagem de fundo da parte superior da tela*/}
+                        >
                             <Svg style={styles.vector} width="412" height="361" viewBox="0 0 412 361" fill="none" >
                                 <G filter="url(#filter0_d_17_2)">
                                     <Path fillRule="evenodd" clipRule="evenodd" d="M214.68 0.895523C255.691 -3.33057 297.606 7.79967 332.057 25.8761C366.223 43.8028 392.283 70.6122 405.832 101.193C418.728 130.3 407.738 161.042 405.585 191.833C403.197 225.996 416.541 263.405 392.5 291.866C367.863 321.033 321.705 333.733 278.614 342.15C236.765 350.325 192.455 350.556 151.972 338.849C112.925 327.558 80.0511 305.415 57.0144 278.07C35.6064 252.658 36.0833 221.187 27.7399 191.383C18.6099 158.769 -12.7202 124.828 5.69944 94.7619C24.1642 64.6218 78.6126 64.7466 115.461 48.1958C149.735 32.801 175.583 4.92431 214.68 0.895523Z" fill="#97A08E" />
-                                </G> {/*SVG decorativo*/}
+                                </G>
+                                {/* SVG decorativo */}
                                 <Defs>
                                     <Filter id="filter0_d_17_2" x="-13" y="0" width="425" height="361" filterUnits="userSpaceOnUse">
                                         <FeFlood floodOpacity="0" result="BackgroundImageFix" />
@@ -43,20 +47,25 @@ function TelaInicial() {
                                         <FeBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_17_2" />
                                         <FeBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_17_2" result="shape" />
                                     </Filter>
-                                </Defs> {/*Definição do filtro de sombra usado acima*/}
+                                </Defs>
+                                {/* Definição do filtro de sombra usado acima */}
                             </Svg>
+
                             <Mensagemdeboasvindas />
+
+                            {/* Logo da aplicação centralizada sobre a imagem */}
                             <Image
                                 source={require('../../src/assets/images/logo.png')}
                                 style={styles.logo}
                                 resizeMode="contain"
                             />
-                        </ImageBackground> {/*Logo da aplicação centralizada sobre a imagem*/}
+                        </ImageBackground> 
                     </View>
                 </View>
 
                 <View style={styles.telainicialintroducaoContainer}>
                     <View style={styles.vectorContainer2}>
+                        {/* SVG decorativo */}
                         <Svg style={styles.vector2} width="640" height="640" viewBox="0 0 412 706" fill="none">
                             <G filter="url(#filter0_dddi_24_59)">
                                 <Path fillRule="evenodd" clipRule="evenodd" d="M168.105 34.9664C217.732 27.6977 262.161 63.2085 309.525 82.065C373.504 107.536 453.756 102.357 495.06 165.133C536.883 228.699 534.032 321.411 518.47 399.633C503.544 474.65 463.445 541.354 411.001 587.636C363.736 629.347 301.33 627.475 243.559 642.242C190.395 655.83 133.48 700.968 85.5026 670.833C36.2972 639.927 49.0497 548.303 13.5326 497.762C-20.5811 449.218 -98.6854 448.549 -113.266 387.984C-127.494 328.88 -83.0334 272.144 -52.858 221.976C-26.8279 178.7 11.0715 151.395 47.674 120.417C86.5108 87.5477 120.601 41.924 168.105 34.9664Z" fill="white" />
@@ -88,14 +97,18 @@ function TelaInicial() {
                                     <FeColorMatrix type="matrix" values="0 0 0 0 0.380392 0 0 0 0 0.745098 0 0 0 0 0.670588 0 0 0 1 0" />
                                     <FeBlend mode="normal" in2="shape" result="effect4_innerShadow_24_59" />
                                 </Filter>
-                            </Defs> {/*Outros filtros e sombreados adicionais*/}
+                            </Defs> 
                         </Svg>
+
+                         {/* Container para o texto posicionado sobre o SVG */}
                         <View style={styles.svgTextWrapper}>
                             <Text style={styles.svgText}>
                                 Organize sua vida{'\n'}financeira de forma inteligente!
                             </Text>
-                        </View> {/*Container para o texto posicionado sobre o SVG*/}
+                        </View> 
                     </View>
+
+                    {/* Imagem decorativa */}
                     <Image
                         source={require('../../src/assets/images/conta.png')}
                         style={{ width: 400, height: 300, alignSelf: 'center', marginVertical: 16, transform: [{ rotate: '-15deg' }] }}
@@ -103,26 +116,29 @@ function TelaInicial() {
                     />
                 </View>
 
-                <View style={{ alignItems: "center", width: "100%", marginTop: 32 }}> {/*Container centralizado para botões e elementos abaixo*/}
-
+                {/* Container centralizado para botões e elementos abaixo */}
+                <View style={{ alignItems: "center", width: "100%", marginTop: 32 }}> 
                     <View style={styles.buttonContainer}>
+                        {/* Navega para tela de login ao clicar */}
                         <TouchableOpacity
                             style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flex: 1 }}
-                            onPress={() => router.push('/(tabs)/auth/login')}>
-                            {/*Navega para tela de login ao clicar*/}
+                            onPress={() => router.push('/auth/login')}>
+                            
                             <Text style={styles.button}>Login</Text>
                             <Svg width={20} height={20} viewBox="0 0 20 20" style={{ marginLeft: 8 }}>
                                 <Path d="M5 10h10M10 5l5 5-5 5" stroke="#070000" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
                             </Svg>
-                        </TouchableOpacity> {/*Ícone SVG de seta para indicar ação de avançar*/}
+                        </TouchableOpacity> 
                     </View>
 
-                    <View style={[styles.line1Container, { marginVertical: 24, alignItems: 'center', height: 120, justifyContent: 'flex-end' }]}> {/*Ícone pequeno da logo*/}
+                    {/* Ícone pequeno da logo */}
+                    <View style={[styles.line1Container, { marginVertical: 24, alignItems: 'center', height: 120, justifyContent: 'flex-end' }]}> 
                         <Image
                             style={styles.logo_icon}
                             source={require('../../src/assets/images/logo_icon.png')}
                             resizeMode="contain"
                         />
+                        {/* Linha SVG decorativa abaixo da logo */}
                         <Svg style={styles.line1} width="270" height="18" viewBox="0 0 270 18" fill="none" >
                             <G filter="url(#filter0_d_17_43)">
                                 <Path d="M7 7H263" stroke="#241618" strokeWidth="14" strokeLinecap="round" />
@@ -139,19 +155,21 @@ function TelaInicial() {
                                 </Filter>
                             </Defs>
                         </Svg>
-                    </View> {/*Linha SVG decorativa abaixo da logo*/}
+                    </View> 
 
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flex: 1 }}
-                            onPress={() => router.push('/(tabs)/auth/cadastro')}>
-                                {/*Navega para tela de cadastro ao clicar */}
+                            onPress={() => router.push('/auth/register')}>
+                            
                             <Text style={styles.button}>Cadastre-se</Text>
                             <Svg width={20} height={20} viewBox="0 0 20 20" style={{ marginLeft: 8 }}>
                                 <Path d="M5 10h10M10 5l5 5-5 5" stroke="#070000" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
                             </Svg>
                         </TouchableOpacity>
                     </View>
+
+                    {/* Imagem final */}
                     <Image
                         source={require('../../src/assets/images/carteira.png')}
                         style={{ width: 300, height: 200, alignSelf: 'center', marginVertical: 16, transform: [{ rotate: '20deg' }] }}
@@ -167,7 +185,7 @@ function TelaInicial() {
             </ScrollView>
         </SafeAreaView>
     );
-} //SVG decorativo final colorido
+} 
 
 const styles = StyleSheet.create({
     container: {
