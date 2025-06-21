@@ -67,5 +67,5 @@ router.get('/performance', authMiddleware, controller.performanceCheck);
  */
 router.get('/metrics', authMiddleware, controller.metricsCheck);
 
-// Exporta o roteador para ser usado em outros arquivos
+//Exporta o roteador para ser usado em outros arquivos
 module.exports = router;

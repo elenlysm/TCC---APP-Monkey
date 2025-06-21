@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-// Importa o controller responsável pelas operações de coabitação
+//Importa o controller responsável pelas operações de coabitação
 const controller = require('../controllers/cohabitationController');
-// Importa o middleware de autenticação
+//Importa o middleware de autenticação
 const authMiddleware = require('../middlewares/authMiddleware');
-// Importa o middleware de validação
+//Importa o middleware de validação
 const validate = require('../middlewares/validate');
-// Importa os esquemas de validação
+//Importa os esquemas de validação
 const {
     cohabitationSchema,
     updateCohabitationSchema,
@@ -19,7 +19,7 @@ const {
  * Rotas principais de coabitação
  */
 
-// Rota para adicionar uma nova coabitação (POST /)
+//Rota para adicionar uma nova coabitação (POST /)
 router.post(
     '/',
     authMiddleware,
@@ -27,13 +27,13 @@ router.post(
     controller.addCohabitation
 );
 
-// Rota para obter todas as coabitações do usuário autenticado (GET /)
+//Rota para obter todas as coabitações do usuário autenticado (GET /)
 router.get('/', authMiddleware, controller.getCohabitations);
 
-// Rota para obter uma coabitação específica pelo ID (GET /:id)
+//Rota para obter uma coabitação específica pelo ID (GET /:id)
 router.get('/:id', authMiddleware, controller.getCohabitationById);
 
-// Rota para atualizar uma coabitação pelo ID (PUT /:id)
+//Rota para atualizar uma coabitação pelo ID (PUT /:id)
 router.put(
     '/:id',
     authMiddleware,
@@ -41,14 +41,14 @@ router.put(
     controller.updateCohabitation
 );
 
-// Rota para deletar uma coabitação pelo ID (DELETE /:id)
+//Rota para deletar uma coabitação pelo ID (DELETE /:id)
 router.delete('/:id', authMiddleware, controller.deleteCohabitation);
 
 /**
  * Rotas para gerenciamento de membros e responsabilidades
  */
 
-// Adiciona membro à coabitação
+//Adiciona membro à coabitação
 router.post(
     '/:id/member',
     authMiddleware,
@@ -56,7 +56,7 @@ router.post(
     controller.addMember
 );
 
-// Remove membro da coabitação
+//Remove membro da coabitação
 router.delete(
     '/:id/member',
     authMiddleware,
@@ -64,7 +64,7 @@ router.delete(
     controller.removeMember
 );
 
-// Atualiza responsabilidade de membro
+//Atualiza responsabilidade de membro
 router.put(
     '/:id/responsibility',
     authMiddleware,
@@ -76,34 +76,34 @@ router.put(
  * Rotas de filtros e buscas
  */
 
-// Busca coabitações por categoria
+//Busca coabitações por categoria
 router.get('/category/:category', authMiddleware, controller.getCohabitationsByCategory);
 
-// Busca coabitações por status
+//Busca coabitações por status
 router.get('/status/:status', authMiddleware, controller.getCohabitationsByStatus);
 
-// Busca coabitações por período (exemplo: ?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD)
+//Busca coabitações por período (exemplo: ?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD)
 router.get('/period', authMiddleware, controller.getCohabitationsByPeriod);
 
-// Busca coabitações por prioridade
+//Busca coabitações por prioridade
 router.get('/priority/:priority', authMiddleware, controller.getCohabitationsByPriority);
 
-// Busca coabitações por tipo
+//Busca coabitações por tipo
 router.get('/type/:type', authMiddleware, controller.getCohabitationsByType);
 
-// Busca coabitações por descrição
+//Busca coabitações por descrição
 router.get('/description/:description', authMiddleware, controller.getCohabitationsByDescription);
 
-// Busca coabitações por nome
+//Busca coabitações por nome
 router.get('/name/:name', authMiddleware, controller.getCohabitationsByName);
 
-// Busca coabitações por localização
+//Busca coabitações por localização
 router.get('/location/:location', authMiddleware, controller.getCohabitationsByLocation);
 
-// Busca coabitações por membro
+//Busca coabitações por membro
 router.get('/member/:memberId', authMiddleware, controller.getCohabitationsByMember);
 
-// Busca coabitações por data de criação
+//Busca coabitações por data de criação
 router.get('/createdAt/:date', authMiddleware, controller.getCohabitationsByCreationDate);
 
 /**

@@ -14,43 +14,43 @@ const {
     dateQuerySchema
 } = require('../validators/notificationValidator');
 
-// Enviar notificação
+//Enviar notificação
 router.post('/', validate(sendNotificationSchema, 'body'), controller.sendNotification);
 
-// Listar notificações do usuário
+//Listar notificações do usuário
 router.get('/:userId', validate(userIdParamSchema, 'params'), controller.listNotifications);
 
-// Marcar como lida
+//Marcar como lida
 router.put('/:id/read', validate(idParamSchema, 'params'), controller.markAsRead);
 
-// Marcar como não lida
+//Marcar como não lida
 router.put('/:id/unread', validate(idParamSchema, 'params'), controller.markAsUnread);
 
-// Deletar notificação
+//Deletar notificação
 router.delete('/:id', validate(idParamSchema, 'params'), controller.deleteNotification);
 
-// Obter notificação por ID
+//Obter notificação por ID
 router.get('/id/:id', validate(idParamSchema, 'params'), controller.getNotificationById);
 
-// Por status
+//Por status
 router.get('/status/:status', validate(statusParamSchema, 'params'), controller.getNotificationsByStatus);
 
-// Por data
+//Por data
 router.get('/date', validate(dateQuerySchema, 'query'), controller.getNotificationsByDate);
 
-// Por tipo
+//Por tipo
 router.get('/type/:type', validate(typeParamSchema, 'params'), controller.getNotificationsByType);
 
-// Por usuário
+//Por usuário
 router.get('/user/:userId', validate(userIdParamSchema, 'params'), controller.getNotificationsByUser);
 
-// Por prioridade
+//Por prioridade
 router.get('/priority/:priority', validate(priorityParamSchema, 'params'), controller.getNotificationsByPriority);
 
-// Por canal
+//Por canal
 router.get('/channel/:channel', validate(channelParamSchema, 'params'), controller.getNotificationsByChannel);
 
-// Por grupo
+//Por grupo
 router.get('/group/:groupId', validate(groupIdParamSchema, 'params'), controller.getNotificationsByGroup);
 
 module.exports = router;

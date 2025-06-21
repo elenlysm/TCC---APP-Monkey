@@ -40,6 +40,6 @@ router.delete('/:id', authMiddleware, controller.deleteUser);
  */
 router.get('/creation', authMiddleware, validate(creationDateSchema, 'query'), controller.getUsersByCreationDate);
 
-// Exporta o roteador para ser usado em outros arquivos
+//Exporta o roteador para ser usado em outros arquivos
 module.exports = router;
 

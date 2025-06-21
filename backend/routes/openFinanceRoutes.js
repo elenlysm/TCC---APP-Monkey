@@ -1,11 +1,11 @@
-// Importa o framework Express
+//Importa o framework Express
 const express = require('express');
 const router = express.Router();
 
-// Importa o controller responsável pelas operações de Open Finance
+//Importa o controller responsável pelas operações de Open Finance
 const controller = require('../controllers/openFinanceController');
 
-// Importa o middleware de validação e o schema de validação
+//Importa o middleware de validação e o schema de validação
 const validate = require('../middlewares/validate');
 const { authorizeSchema, collectSchema } = require('../validators/openFinanceValidator');
 
@@ -37,5 +37,5 @@ router.post('/transactions', validate(collectSchema, 'body'), controller.getTran
  */
 router.post('/budgets', validate(collectSchema, 'body'), controller.getBudgets);
 
-// Exporta o roteador para ser usado em outros arquivos
+//Exporta o roteador para ser usado em outros arquivos
 module.exports = router;

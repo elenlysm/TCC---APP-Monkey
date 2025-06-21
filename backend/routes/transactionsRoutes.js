@@ -40,5 +40,5 @@ router.delete('/:id', authMiddleware, controller.deleteTransaction);
  */
 router.get('/period', validate(periodSchema, 'query'), controller.getTransactionsByPeriod);
 
-// Exporta o roteador para ser usado em outros arquivos
+//Exporta o roteador para ser usado em outros arquivos
 module.exports = router;
