@@ -1,10 +1,7 @@
-import typescriptPlugin from '@typescript-eslint/eslint-plugin';
-import expoConfig from 'eslint-config-expo/flat';
-import prettierPlugin from 'eslint-plugin-prettier';
-import securityPlugin from 'eslint-plugin-security';
-import { defineConfig } from 'eslint/config';
+const { defineConfig } = require('eslint/config'); //Função moderna para configs
+const expoConfig = require('eslint-config-expo/flat'); //Configuração padrão do Expo
 
-export default defineConfig([
+module.exports = defineConfig([
   expoConfig,
   {
     //Ignora diretórios de build
@@ -16,23 +13,23 @@ export default defineConfig([
     ],
 
     //Arquivos a serem analisados
-    files: ['**/*.{ts,tsx}'], // Se quiser incluir JS, adicione: '{js,jsx,ts,tsx}'
+    files: ['**/*.{ts,tsx}'], //Se quiser incluir JS, adicione: '{js,jsx,ts,tsx}'
 
     //Configuração de parser para TypeScript
     languageOptions: {
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: './tsconfig.json',
-        tsconfigRootDir: new URL('.', import.meta.url).pathname,
+        tsconfigRootDir: __dirname,
       },
     },
 
     //Plugins adicionais
-    plugins: {
-      '@typescript-eslint': typescriptPlugin, // Para regras específicas do TS
-      security: securityPlugin,           // Para evitar vulnerabilidades comuns
-      prettier: prettierPlugin,           // Integração de formatação
-    },
+    plugins: [
+      '@typescript-eslint', //Para regras específicas do TS
+      'security',           //Para evitar vulnerabilidades comuns
+      'prettier',           //Integração de formatação
+    ],
 
     //Extensões recomendadas
     extends: [

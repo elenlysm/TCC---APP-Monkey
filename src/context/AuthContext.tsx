@@ -1,5 +1,5 @@
-import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
 interface AuthContextData {
     user: string | null;
@@ -21,7 +21,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Tentar recuperar token e usuário ao iniciar o app
+        //Tentar recuperar token e usuário ao iniciar o app
         const loadStorageData = async () => {
             try {
                 const storedToken = await AsyncStorage.getItem('@openfinance:token');
@@ -43,7 +43,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     async function signIn(email: string, password: string) {
         setLoading(true);
         try {
-            // Simulação chamada à API OpenFinance 
+            //Simulação chamada à API OpenFinance 
             const response = await fetch('https://api.openfinance.com.br/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -55,7 +55,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             }
 
             const data = await response.json();
-            // supondo que o token e usuário venham assim
+            //supondo que o token e usuário venham assim
             const { token, user } = data;
 
             setToken(token);

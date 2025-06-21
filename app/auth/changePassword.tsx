@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
-import { auth } from 'src/services/firebaseConfig';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import Button from 'src/components/Button';
 import Container from 'src/components/Container';
 import AuthBackground from 'src/components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from 'src/constants/theme';
-import Icon from 'react-native-vector-icons/Feather';
+import { auth } from 'src/services/firebaseConfig';
 import api from '../services/api';
-import { useRouter } from 'expo-router';
 
 export default function ChangePasswordScreen() {
     const [currentPassword, setCurrentPassword] = useState('');
@@ -49,19 +49,19 @@ export default function ChangePasswordScreen() {
 
             const credential = EmailAuthProvider.credential(user.email, currentPassword);
 
-            // Reautenticar
+            //Reautenticar
             await reauthenticateWithCredential(user, credential);
 
-            // Atualizar senha
+            //Atualizar senha
             await updatePassword(user, newPassword);
 
-            // Chamar o backend para enviar e-mail de notificação
+            //Chamar o backend para enviar e-mail de notificação
             await api.post('/notify-password-change', {
                 email: user.email,
             });
 
             alert('Senha alterada com sucesso! Um e-mail de confirmação foi enviado.');
-            router.replace('../(tabs)/financeiro/home'); // Ou a tela que desejar
+            router.replace('../(tabs)/financeiro/home'); //Ou a tela que desejar
 
         } catch (err: any) {
             console.error('Erro ao alterar senha:', err);
