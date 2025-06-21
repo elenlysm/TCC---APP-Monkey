@@ -10,9 +10,8 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "paths": {
-      "@/*": [
-        "app/*"
-      ]
+      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"],
+      "@/*": ["app/*"]
     }
   },
   "include": [
@@ -20,8 +19,10 @@
     "app/**/*.tsx",
     "env.d.ts",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "src/assets/declarations.d.ts", "src/constants/theme.ts"  ],
+    "expo-env.d.ts",
+    "src/assets/declarations.d.ts",
+    "src/constants/theme.ts"
+  ],
   "exclude": [
     "node_modules",
     "backend",

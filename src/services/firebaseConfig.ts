@@ -1,6 +1,7 @@
 //app/firebaseConfig.ts
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { initializeAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 //Configurações sensíveis - Credenciais do APP
@@ -17,7 +18,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 //Exporta os serviços do Firebase
-const auth = getAuth(app,) ;
+const auth = initializeAuth(app,{
+  persistence: (initializeAuth as any).getReactNativePersistence(ReactNativeAsyncStorage)
+}) ;
 const db = getFirestore(app);
 
 export { app, auth, db };
