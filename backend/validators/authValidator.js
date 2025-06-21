@@ -1,4 +1,5 @@
 const Joi = require('joi');
+//Importa a biblioteca Joi, usada para validação de dados
 
 const registerSchema = Joi.object({
     email: Joi.string().email().required(),
@@ -14,8 +15,8 @@ const registerSchema = Joi.object({
         .required()
         .messages({
             'any.only': 'A confirmação de senha não corresponde à senha informada.'
-        })
-});
+        }) 
+}); //Schema de validação para o registro de um novo usuário
 const loginSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required()
@@ -23,7 +24,8 @@ const loginSchema = Joi.object({
 
 const resetPasswordSchema = Joi.object({
     email: Joi.string().email().required()
-});
+}); //Schema de validação para login
+
 const updatePasswordSchema = Joi.object({
     oldPassword: Joi.string().valid(Joi.ref('Password')).required(),
     newPassword: Joi.string()
@@ -39,11 +41,11 @@ const updatePasswordSchema = Joi.object({
         .messages({
             'any.only': 'A confirmação de senha não corresponde à senha informada.'
         })
-});
+}); //Schema de validação para solicitação de redefinição de senha (esqueci minha senha)
 
 module.exports = {
     registerSchema,
     loginSchema,
     resetPasswordSchema,
     updatePasswordSchema
-};
+}; //Exporta os schemas para serem utilizados em outras partes da aplicação
