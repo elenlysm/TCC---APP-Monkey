@@ -5,8 +5,6 @@ APP-GESTAO-FINANCEIRA/
 ├──┬ .expo/
 │  ├──┬types/
 │  │  └── router.d.ts
-│  ├── web/...
-│  ├── .gitignore
 │  ├── devices.json
 │  ├── packager-info.json
 │  ├── README.md
@@ -46,7 +44,6 @@ APP-GESTAO-FINANCEIRA/
 │  │  ├── register.tsx
 │  │  └── resetPassword.tsx
 │  ├──┬ services/
-│  │  ├── tokenService.ts
 │  │  └── api.ts
 │  └── _layout.tsx
 ├──┬ backend/
@@ -76,7 +73,6 @@ APP-GESTAO-FINANCEIRA/
 │  │  ├── authMiddleware.js
 │  │  ├── errorHandler.js
 │  │  └── validate.js
-│  ├── node_modules/...
 │  ├──┬ routes/
 │  │  ├── api.js
 │  │  ├── auditRoutes.js
@@ -127,7 +123,6 @@ APP-GESTAO-FINANCEIRA/
 │  ├── Estrutura - Monkey.txt
 │  └── requisitos.md
 ├──┬ functions/
-│  ├── node_modules/...
 │  ├── .eslintrc.js
 │  ├── .eslintrc.config.mjs
 │  ├── index.js
@@ -187,7 +182,8 @@ APP-GESTAO-FINANCEIRA/
 │  │  ├── useColorScheme.web.ts
 │  │  └── useThemeColor.ts 
 │  ├──┬ services/
-│  │  └── firebaseConfig.ts
+│  │  ├── firebaseConfig.ts
+│  │  └── tokenService.ts
 │  ├──┬ utils/
 │  │  └── security.ts
 │  └── README.md
@@ -201,10 +197,11 @@ APP-GESTAO-FINANCEIRA/
 ├── babel.config.js
 ├── env.d.ts
 ├── eslint.config.js
+├── expo-env.d.ts
 ├── firebase.json
 ├── google-services.json
-├── metro.config.js
 ├── LICENSE 
+├── metro.config.js
 ├── package-lock.json   
 ├── package.json
 ├── README.md
