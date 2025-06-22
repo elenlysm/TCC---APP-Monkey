@@ -46,6 +46,7 @@ APP-GESTAO-FINANCEIRA/
 │  │  ├── register.tsx
 │  │  └── resetPassword.tsx
 │  ├──┬ services/
+│  │  ├── tokenService.ts
 │  │  └── api.ts
 │  └── _layout.tsx
 ├──┬ backend/

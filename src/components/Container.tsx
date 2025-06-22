@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { colors } from '../constants/theme';
+import { colors } from '@constants/theme';
 
 type ContainerProps = {
     children: ReactNode;

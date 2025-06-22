@@ -1,13 +1,13 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { auth } from 'src/services/firebaseConfig';
-import Button from '../../src/components/Button';
-import Container from '../../src/components/Container';
-import AuthBackground from '../../src/components/ui/AuthBackground';
-import { colors, fonts, fontSizes } from '../../src/constants/theme';
+import Button from '@components/Button';
+import Container from '@components/Container';
+import AuthBackground from '@components/ui/AuthBackground';
+import { colors, fonts, fontSizes } from '@constants/theme';
 import { useRouter } from 'expo-router';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { auth } from 'src/services/firebaseConfig';
 import api from '../services/api';
 //Importação do tema e componentes personalizados: cores, fontes e tamanhos
 
@@ -17,13 +17,14 @@ export default function RegisterScreen() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-    const [showPassword, setShowPassword] = useState(false); //Controle de visibilidade da senha
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false); //Visibilidade da confirmação de senha
+    const [showPassword, setShowPassword] = useState(false); //Controle de visibilidade 
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);//Controle de visibilidade 
     const router = useRouter();
 
     const handleSignUp = async () => {
         setError('')
 
+        // Validação simples de campos
         if (!email || !password || !confirmPassword) {
             setError('Preencha todos os campos.');
             return;
@@ -41,24 +42,25 @@ export default function RegisterScreen() {
             return;
         }
         try {
+            // Firebase Auth - Criação do usuário
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
             console.log('Usuário criado no Firebase:', user.uid);
             
-            await api.post('/users', {
-                uid: user.uid,
-                email: user.email,
-                createdAt: new Date().toISOString(),
-            });
-
             console.log('Usuario salvo no backend com sucesso');
-
+            
+            // Enviar e-mail de verificação
             await sendEmailVerification(userCredential.user);
-            alert('Cadastro realizado! Um e-mail de verificação foi enviado para sua caixa de entrada.');
+            Alert.alert(
+                'Cadastro realizado!',
+                'Um e-mail de verificação foi enviado para sua caixa de entrada.'
+            );
 
+            // Redirecionar para login
             router.replace('/auth/login');
 
+              // Resetar os campos
             setEmail('');
             setPassword('');
             setConfirmPassword('');
@@ -89,7 +91,8 @@ export default function RegisterScreen() {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
-                /> {/*Campo de e-mail*/}
+                /> 
+                {/*Campo de e-mail*/}
 
                 <Text style={styles.label}>Senha:</Text>
                 <View style={styles.passwordContainer}>
@@ -111,7 +114,8 @@ export default function RegisterScreen() {
                             color={colors.primary}
                         />
                     </TouchableOpacity>
-                </View> {/*Campo de senha com botão de mostrar/ocultar*/}
+                </View> 
+                {/*Campo de senha com botão de mostrar/ocultar*/}
 
                 <Text style={styles.label}>Confirme a Senha:</Text>
                 <View style={styles.passwordContainer}>
@@ -133,14 +137,16 @@ export default function RegisterScreen() {
                             color={colors.primary}
                         />
                     </TouchableOpacity>
-                </View> {/*Campo de confirmação de senha com botão de mostrar/ocultar*/}
+                </View> 
+                {/*Campo de confirmação de senha com botão de mostrar/ocultar*/}
 
                 {error ? <Text style={{ color: 'red', marginBottom: 8 }}>{error}</Text> : null}
                 {/*Exibe a mensagem de erro, se houver*/}
 
                 <View style={styles.buttonGroup}>
                     <Button title="Cadastrar" onPress={handleSignUp} />
-                </View> {/*Botão de cadastro*/}
+                </View> 
+                {/*Botão de cadastro*/}
             </Container>
         </AuthBackground>
     );

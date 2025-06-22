@@ -4,7 +4,7 @@ export default {
         slug: "Monkey",          //Identificador único do projeto, usado no build e deploy do Expo
         version: "1.0.0",        //Versão do app (seguindo semântica: MAJOR.MINOR.PATCH)
         orientation: "portrait", //O app só funcionará no modo retrato (vertical)
-        icon: "src/assets/images/icon.png", // Ícone do app (exibido no dispositivo)
+        icon: "./assets/images/icon.png", // Ícone do app (exibido no dispositivo)
         scheme: "monkey", //Esquema customizado para links do tipo deep linking (ex: monkey://rota)
         userInterfaceStyle: "automatic", //Adapta o tema (claro/escuro) com base nas configurações do dispositivo
         newArchEnabled: true, //Ativa a nova arquitetura do React Native (desempenho e modularização)
