@@ -7,9 +7,9 @@ import AuthBackground from '@components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '@constants/theme';
 import { useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { auth } from 'src/services/firebaseConfig';
-import api from '../services/api';
-//Importação do tema e componentes personalizados: cores, fontes e tamanhos
+import { auth } from '@services/firebaseConfig';
+
+//Importação 
 
 
 export default function RegisterScreen() {

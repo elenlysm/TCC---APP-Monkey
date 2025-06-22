@@ -1,6 +1,8 @@
 const joi = require('joi');
 //Importa a biblioteca Joi, utilizada para validação de dados
 
+const { transactionSchema } = require('./transactionValidator'); 
+
 const updateTransactionSchema = joi.object({
     transactionId: joi.string().required(),
     amount: joi.number().positive().optional(),

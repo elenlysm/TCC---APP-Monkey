@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Button from '@components/Button';
+import Container from '@components/Container';
+import AuthBackground from '@components/ui/AuthBackground';
+import { colors, fonts, fontSizes } from '@constants/theme';
 import { useRouter } from 'expo-router';
-import Button from '../../src/components/Button';
-import Container from '../../src/components/Container';
-import AuthBackground from '../../src/components/ui/AuthBackground';
-import { colors, fonts, fontSizes } from '../../src/constants/theme';
+import { auth } from '@services/firebaseConfig';
+
 //Importação de componentes personalizados + tema da aplicação
 
 export default function LoginScreen() {

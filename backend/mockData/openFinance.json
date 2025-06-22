@@ -1,0 +1,198 @@
+{
+    "data": {
+        "availability": {
+            "downtime": {
+                "endpoints": {
+                    "partialDowntime": 7,
+                    "url": "Et ipsum excepturi blanditiis quam. Rerum debitis alias. Aut dolore velit explicabo sunt et et cupiditate consectetur. Quisquam qui sint. Omnis aut quis est voluptatem pariatur modi."
+                },
+                "generalDowntime": 4,
+                "scheduledOutage": 2
+            },
+            "uptime": {
+                "endpoints": {
+                    "uptimeRate": "Adipisci. Facere. Est molestiae.",
+                    "url": "Quia blanditiis. Voluptates iusto. Illum itaque laboriosam."
+                },
+                "generalUptimeRate": "Quae. Vel et voluptatem atque quisquam tempora dolores id. Maiores. Vel. Sapiente repellat possimus."
+            }
+        },
+        "averageResponse": {
+            "highPriority": {
+                "currentDay": 1,
+                "previousDays": [
+                    10,
+                    1,
+                    5,
+                    2,
+                    6,
+                    10,
+                    1,
+                    1,
+                    1,
+                    4,
+                    4,
+                    1,
+                    1,
+                    5,
+                    6,
+                    3,
+                    6,
+                    4,
+                    9,
+                    5
+                ]
+            },
+            "mediumPriority": {
+                "currentDay": 6,
+                "previousDays": [
+                    9,
+                    5,
+                    3,
+                    10
+                ]
+            },
+            "unattended": {
+                "currentDay": 8,
+                "previousDays": [
+                    8,
+                    9
+                ]
+            },
+            "unauthenticated": {
+                "currentDay": 9,
+                "previousDays": [
+                    2,
+                    9,
+                    1,
+                    3
+                ]
+            }
+        },
+        "averageTps": {
+            "currentDay": 7,
+            "previousDays": [
+                2,
+                3,
+                7,
+                1,
+                2,
+                7,
+                8,
+                9,
+                2,
+                9
+            ]
+        },
+        "errors": {
+            "currentDay": 8,
+            "previousDays": [
+                1,
+                10,
+                6
+            ]
+        },
+        "invocations": {
+            "highPriority": {
+                "currentDay": 4,
+                "previousDays": [
+                    9,
+                    1,
+                    2,
+                    3,
+                    6,
+                    1
+                ]
+            },
+            "mediumPriority": {
+                "currentDay": 6,
+                "previousDays": [
+                    10,
+                    3,
+                    9,
+                    7,
+                    10,
+                    1,
+                    4,
+                    10
+                ]
+            },
+            "unattended": {
+                "currentDay": 2,
+                "previousDays": [
+                    4,
+                    10,
+                    10,
+                    1,
+                    3,
+                    8
+                ]
+            },
+            "unauthenticated": {
+                "currentDay": 9,
+                "previousDays": [
+                    3,
+                    8,
+                    6,
+                    9,
+                    10,
+                    8,
+                    7,
+                    1,
+                    7,
+                    1,
+                    8,
+                    6,
+                    3,
+                    10,
+                    4,
+                    10,
+                    6
+                ]
+            }
+        },
+        "peakTps": {
+            "currentDay": 3,
+            "previousDays": [
+                5,
+                6,
+                5,
+                8,
+                2,
+                1,
+                10,
+                5,
+                9
+            ]
+        },
+        "rejections": {
+            "currentDay": 8,
+            "previousDays": [
+                3,
+                1,
+                7,
+                10,
+                9,
+                6,
+                5,
+                9,
+                8,
+                1,
+                1,
+                7
+            ]
+        },
+        "requestTime": "1881-01-14T06:55:25Z"
+    },
+    "links": {
+        "first": "https://api.banco.com.br/open-banking/admin/v1/\u003Cresource\u003E",
+        "last": "https://api.banco.com.br/open-banking/admin/v1/\u003Cresource\u003E",
+        "next": "Porro. Ipsa. Aut. Laudantium.",
+        "prev": "Earum eaque. Atque quidem eius sit. Impedit id. Aliquam est et nemo est.",
+        "self": "https://api.banco.com.br/open-banking/admin/v1/\u003Cresource\u003E"
+    },
+    "meta": {
+        "totalPages": 1,
+        "totalRecords": 1
+    }
+}

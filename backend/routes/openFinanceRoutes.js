@@ -10,6 +10,13 @@ const validate = require('../middlewares/validate');
 const { authorizeSchema, collectSchema } = require('../validators/openFinanceValidator');
 
 /**
+ * @route   GET /openfinance/availability
+ * @desc    Retorna dados de disponibilidade do Open Finance
+ * @access  Público 
+ */
+router.get('/openFinance', controller.getOpenFinance);
+
+/**
  * @route   POST /openfinance/authorize
  * @desc    Autoriza o usuário a acessar dados do Open Finance
  * @access  Privado (requer autenticação)
@@ -36,6 +43,18 @@ router.post('/transactions', validate(collectSchema, 'body'), controller.getTran
  * @access  Privado (requer autenticação)
  */
 router.post('/budgets', validate(collectSchema, 'body'), controller.getBudgets);
+
+/**
+ * @swagger
+ * /openfinance/availability:
+ *   get:
+ *     summary: Retorna dados de disponibilidade da API Open Finance
+ *     tags:
+ *       - OpenFinance
+ *     responses:
+ *       200:
+ *         description: Dados de disponibilidade retornados com sucesso
+ */
 
 //Exporta o roteador para ser usado em outros arquivos
 module.exports = router;

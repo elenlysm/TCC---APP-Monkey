@@ -1,43 +1,48 @@
-import { useRouter } from 'expo-router';
-import { sendPasswordResetEmail } from 'firebase/auth';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Button from 'src/components/Button';
-import Container from 'src/components/Container';
-import AuthBackground from 'src/components/ui/AuthBackground';
-import { auth } from 'src/services/firebaseConfig';
-import { colors, fonts, fontSizes } from '../../src/constants/theme';
+import Button from '@components/Button';
+import Container from '@components/Container';
+import AuthBackground from '@components/ui/AuthBackground';
+import { colors, fonts, fontSizes } from '@constants/theme';
+import { useRouter } from 'expo-router';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '@services/firebaseConfig';
 
 export default function ResetPasswordScreen() {
-    const [email, setEmail] = useState(''); //Input de email
-    const [emailEnviado, setEmailEnviado] = useState(false); //Mensagem de sucesso após envio
-    const [error, setError] = useState(''); //Mensagens de erro
-    const router = useRouter(); //Instância do roteador (navegação)
-
+    const [email, setEmail] = useState('');
+    const [emailEnviado, setEmailEnviado] = useState(false); 
+    const [error, setError] = useState(''); 
+    const router = useRouter(); 
 
     const handleResetPassword = async() => {
-        if (!email) { //Validação simples: campo obrigatório
+        if (!email) { 
+            //Validação simples: campo obrigatório
             setError ('Por favor, digite seu e-mail.');
             return;
         } 
 
-        try{ //Envia e-mail usando Firebase Auth
+        try{ 
+            //Envia e-mail usando Firebase Auth
             await sendPasswordResetEmail(auth, email);
             setEmailEnviado(true);
             setError('');
-        } catch (error: any) { //Trata erro no envio do e-mail
+        } catch (error: any) { 
+            //Trata erro no envio do e-mail
             console.log('Erro ao enviar o e-mail reset', error);
             alert('Erro ao enviar o e-mail de recuperação, verifique o e-mail digitado.');
         }
-    }; //Função que envia o e-mail de redefinição de senha
+    }; 
+    //Função que envia o e-mail de redefinição de senha
 
     const handleGoBack = () => {
         router.replace('/auth/login');
-    }; //Navega de volta para a tela de login
+    }; 
+    //Navega de volta para a tela de login
 
     return (
         <AuthBackground>
-            <Container> {/*Campo de entrada de e-mail*/}
+            <Container> 
+                {/*Campo de entrada de e-mail*/}
                 <Text style={styles.label}>E-mail:</Text>
                 <TextInput
                 style={styles.input}
@@ -48,21 +53,26 @@ export default function ResetPasswordScreen() {
                 autoCapitalize='none'
                 />
 
-                {error ? <Text style={styles.error}>{error}</Text>: null} {/*Exibe erro, se houver*/}
+                {error ? <Text style={styles.error}>{error}</Text>: null} 
+                {/*Exibe erro, se houver*/}
                 {emailEnviado ? (
                     <View style={styles.infoBox}>
-                        <Text style={styles.successText}>E-mail de recuperação enviado!</Text> {/*Confirmação de sucesso*/}
+                        <Text style={styles.successText}>E-mail de recuperação enviado!</Text> 
+                        {/*Confirmação de sucesso*/}
                         <Text style={styles.infoText}>Verifique sua caixa de entrada. Caso não receba, clique em "Reenviar".</Text>
                         <View style={styles.buttonGroup}>
-                            <Button title='Reenviar' onPress = {handleResetPassword}/> {/*Botão para reenviar o e-mail */}
-                            <Button title='Voltar ao Login' variant='subtle' onPress={handleGoBack}/> {/*Botão para voltar ao login*/}
+                            <Button title='Reenviar' onPress = {handleResetPassword}/> 
+                            {/*Botão para reenviar o e-mail */}
+                            <Button title='Voltar ao Login' variant='subtle' onPress={handleGoBack}/> 
+                            {/*Botão para voltar ao login*/}
                         </View>
                     </View>
                 ):( 
                     <View style={styles.buttonGroup}> 
                     <Button title='Cancelar' variant='subtle' onPress={() => router.replace('/auth/login')}/>
                     <Button title='Resetar a Senha' onPress={handleResetPassword}/>
-                </View> //Caso o e-mail ainda não tenha sido enviado
+                </View> 
+                //Caso o e-mail ainda não tenha sido enviado
                 )}
             </Container>
         </AuthBackground>

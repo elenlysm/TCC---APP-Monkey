@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const validate = require('../middlewares/validate');
-const authMiddleware = rewuire('../middlewares/validate');
+const authMiddleware = require('../middlewares/validate');
 const { registerSchema, loginSchema, resetPasswordSchema, updatePasswordSchema } = require('../validators/authValidator');
 const { sendPasswordChangeEmail } = require('../services/emailService');
 //Importação de middleware para validação de dados + requisições do controller 

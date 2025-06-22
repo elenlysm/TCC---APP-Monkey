@@ -1,10 +1,6 @@
-//Esse arquivo define funções que lidam com requisições HTTP relacionadas à integração com Open Finance,
-//incluindo autorização do usuário (troca código por token), e coleta de dados financeiros como extratos,
-//transações e orçamentos. Essas funções são acionadas pelas rotas POST /openfinance/authorize, /statements,
-//transactions e /budgets, para que o frontend ou outro cliente possa interagir com os serviços Open Finance.
-
 const openFinanceService = require('../services/openFinanceService');
 const tokenService = require('../services/tokenService');
+const openFinanceData = require('../mockData/openFinance.json')
 
 /**
  * @desc    Autorização Open Finance (troca código por token e salva para o usuário)
@@ -63,9 +59,22 @@ const getBudgets = async (req, res, next) => {
     }
 };
 
+/**
+ * @desc    Retorna a disponibilidade do serviço Open Finance (mock)
+ * @route   GET /mockData/openFinance
+ */
+const getOpenFinance = (req, res) => {
+    try {
+        res.status(200).json(openFinanceData);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar disponibilidade' });
+    }
+};
+
 module.exports = {
     authorize,
     getStatements,
     getTransactions,
-    getBudgets
+    getBudgets,
+    getOpenFinance
 };
