@@ -70,9 +70,29 @@ const updateTransactions = async (userId, transactions) => {
     await batch.commit();
 };
 
+// Instância separada só para Admin API (usando a URL da Admin API do .env)
+const adminApi = axios.create({
+    baseURL: process.env.ADMIN_API_BASE_URL,
+    timeout: 5000,
+    headers: { 'Content-Type': 'application/json' }
+});
+
+// Função para pegar as métricas da Admin API
+const getAdminMetrics = async () => {
+    try {
+        const response = await adminApi.get('/metrics');
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao buscar métricas da Admin API:', error.response?.data || error.message);
+        throw new Error('Falha ao buscar métricas da Admin API');
+    }
+};
+
+
 module.exports = {
     exchangeCodeForToken,
     refreshAccessToken,
     fetchBankStatements,
-    updateTransactions
+    updateTransactions,
+    getAdminMetrics
 };

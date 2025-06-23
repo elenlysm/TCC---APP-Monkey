@@ -1,6 +1,6 @@
 const openFinanceService = require('../services/openFinanceService');
 const tokenService = require('../services/tokenService');
-const openFinanceData = require('../mockData/openFinance.json')
+const openFinanceData = require('../mockData/openFinance.json');
 
 /**
  * @desc    Autorização Open Finance (troca código por token e salva para o usuário)
@@ -17,10 +17,6 @@ const authorize = async (req, res, next) => {
     }
 };
 
-/**
- * @desc    Coleta extratos bancários do usuário
- * @route   POST /openfinance/statements
- */
 const getStatements = async (req, res, next) => {
     const { userId } = req.body;
     try {
@@ -31,10 +27,6 @@ const getStatements = async (req, res, next) => {
     }
 };
 
-/**
- * @desc    Coleta transações bancárias do usuário
- * @route   POST /openfinance/transactions
- */
 const getTransactions = async (req, res, next) => {
     const { userId } = req.body;
     try {
@@ -45,10 +37,6 @@ const getTransactions = async (req, res, next) => {
     }
 };
 
-/**
- * @desc    Coleta orçamentos do usuário
- * @route   POST /openfinance/budgets
- */
 const getBudgets = async (req, res, next) => {
     const { userId } = req.body;
     try {
@@ -59,12 +47,7 @@ const getBudgets = async (req, res, next) => {
     }
 };
 
-/**
- * @desc    Retorna a disponibilidade do serviço Open Finance (mock)
- * @route   GET /openfinance/availability
- */
-
-const getAvailability = (req, res) => {
+const getOpenFinance = (req, res) => {
     try {
         res.status(200).json(openFinanceData);
     } catch (error) {
@@ -85,12 +68,11 @@ const metrics = async (req, res, next) => {
     }
 };
 
-
 module.exports = {
     authorize,
     getStatements,
     getTransactions,
     getBudgets,
-    getAvailability,
+    getOpenFinance,
     metrics
 };
