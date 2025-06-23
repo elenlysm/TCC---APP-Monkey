@@ -20,6 +20,13 @@ router.post('/', authMiddleware, validate(userSchema, 'body'), controller.addUse
 router.get('/', authMiddleware, controller.getUsers);
 
 /**
+ * @route   GET /users/me
+ * @desc    Retorna os dados do usuário autenticado (pega o UID do token)
+ * @access  Privado
+ */
+router.get('/me', authMiddleware, controller.getCurrentUser);
+
+/**
  * @route   PUT /users/:id
  * @desc    Atualiza um usuário específico pelo ID (requer autenticação)
  * @access  Privado

@@ -2,9 +2,9 @@ const Joi = require('joi');
 //Importa a biblioteca Joi para validação de dados
 
 const userSchema = Joi.object({
+    uid: Joi.string().optional(),
     name: Joi.string().min(2).max(100).required(),
     email: Joi.string().email().required(),
-    // senha opcional no user (não obrigatória aqui pois é validada no authValidator)
     password: Joi.string().min(6).optional(),
     role: Joi.string().valid('user', 'admin').optional(), // exemplo de perfil
     createdAt: Joi.date().optional(),

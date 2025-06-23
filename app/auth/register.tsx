@@ -8,6 +8,7 @@ import { colors, fonts, fontSizes } from '@constants/theme';
 import { useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth } from '@services/firebaseConfig';
+import api from '../services/api';
 
 //Importação 
 
@@ -46,10 +47,25 @@ export default function RegisterScreen() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
+            // Gerar o token JWT do Firebase (para autenticar no backend)
+            const idToken = await user.getIdToken();
+
+            console.log('Token de autentificação', idToken);
+
             console.log('Usuário criado no Firebase:', user.uid);
-            
+
+            // Salvar o usuário no Firestore via backend Express
+            await api.post('/users', {
+                uid: user.uid,
+                email: user.email,
+                createdAt: new Date().toISOString(),
+                headers: {
+                    Authorization: `Bearer ${idToken}`,
+                },
+            });
+
             console.log('Usuario salvo no backend com sucesso');
-            
+
             // Enviar e-mail de verificação
             await sendEmailVerification(userCredential.user);
             Alert.alert(
@@ -60,14 +76,14 @@ export default function RegisterScreen() {
             // Redirecionar para login
             router.replace('/auth/login');
 
-              // Resetar os campos
+            // Resetar os campos
             setEmail('');
             setPassword('');
             setConfirmPassword('');
 
         } catch (error: any) {
             console.error('Erro ao cadastrar:', error);
-            
+
             if (error.code === 'auth/email-already-in-use') {
                 setError('Este e-mail já está sendo utilizado!');
             } else if (error.code === 'auth/invalid-email') {
@@ -91,7 +107,7 @@ export default function RegisterScreen() {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
-                /> 
+                />
                 {/*Campo de e-mail*/}
 
                 <Text style={styles.label}>Senha:</Text>
@@ -114,7 +130,7 @@ export default function RegisterScreen() {
                             color={colors.primary}
                         />
                     </TouchableOpacity>
-                </View> 
+                </View>
                 {/*Campo de senha com botão de mostrar/ocultar*/}
 
                 <Text style={styles.label}>Confirme a Senha:</Text>
@@ -137,7 +153,7 @@ export default function RegisterScreen() {
                             color={colors.primary}
                         />
                     </TouchableOpacity>
-                </View> 
+                </View>
                 {/*Campo de confirmação de senha com botão de mostrar/ocultar*/}
 
                 {error ? <Text style={{ color: 'red', marginBottom: 8 }}>{error}</Text> : null}
@@ -145,7 +161,7 @@ export default function RegisterScreen() {
 
                 <View style={styles.buttonGroup}>
                     <Button title="Cadastrar" onPress={handleSignUp} />
-                </View> 
+                </View>
                 {/*Botão de cadastro*/}
             </Container>
         </AuthBackground>

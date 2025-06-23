@@ -13,7 +13,8 @@ const COLLECTION = 'users';
 const addUser = async (req, res, next) => {
     try {
         const userData = {
-            ...req.body, 
+            uid: req.user.uid,
+            ...req.body,
             createdAt: new Date()
         };
         const id = await firestoreService.addDocument(COLLECTION, userData);
@@ -31,6 +32,26 @@ const getUsers = async (req, res, next) => {
     try {
         const users = await firestoreService.getDocuments(COLLECTION);
         res.status(200).json({ data: users, message: 'Usuários listados com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @desc    Retorna os dados do usuário autenticado (com base no UID do token)
+ * @route   GET /users/me
+ */
+const getCurrentUser = async (req, res, next) => {
+    try {
+        const uid = req.user.uid;
+
+        const users = await firestoreService.getDocumentsByField(COLLECTION, 'uid', uid);
+
+        if (!users || users.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado no Firestore.' });
+        }
+
+        res.status(200).json({ data: users[0] });
     } catch (error) {
         next(error);
     }
@@ -126,6 +147,7 @@ const getUsersByCreationDate = async (req, res, next) => {
 module.exports = {
     addUser,
     getUsers,
+    getCurrentUser,
     updateUser,
     deleteUser,
     getUserById,

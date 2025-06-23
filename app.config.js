@@ -4,7 +4,7 @@ export default {
         slug: "Monkey",          //Identificador único do projeto, usado no build e deploy do Expo
         version: "1.0.0",        //Versão do app (seguindo semântica: MAJOR.MINOR.PATCH)
         orientation: "portrait", //O app só funcionará no modo retrato (vertical)
-        icon: "./assets/images/icon.png", // Ícone do app (exibido no dispositivo)
+        icon: "@assets/images/icon.png", // Ícone do app (exibido no dispositivo)
         scheme: "monkey", //Esquema customizado para links do tipo deep linking (ex: monkey://rota)
         userInterfaceStyle: "automatic", //Adapta o tema (claro/escuro) com base nas configurações do dispositivo
         newArchEnabled: true, //Ativa a nova arquitetura do React Native (desempenho e modularização)
@@ -13,7 +13,7 @@ export default {
         }, 
         android: {
             adaptiveIcon: {
-                foregroundImage: "./assets/images/adaptive-icon.png",
+                foregroundImage: "@assets/images/adaptive-icon.png",
                 backgroundColor: "#ffffff"
             },
             edgeToEdgeEnabled: true
@@ -21,14 +21,14 @@ export default {
         web: {
             bundler: "metro",
             output: "static",
-            favicon: "./assets/images/favicon.png"
+            favicon: "@assets/images/favicon.png"
         },
         plugins: [
             "expo-router",
             [
                 "expo-splash-screen",
                 {
-                    image: "./assets/images/splash-icon.png",
+                    image: "@/images/splash-icon.png",
                     imageWidth: 200,
                     resizeMode: "contain",
                     backgroundColor: "#ffffff"
