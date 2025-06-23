@@ -53,8 +53,8 @@ app.use('/users', require('./routes/usersRoutes'));
 //Compartilhamento e convivência
 app.use('/cohabitation', require('./routes/cohabitationRoutes'));
 
-//Integração com Open Finance Brasil
-app.use('/openfinance', require('./routes/openFinanceRoutes'));
+//Integração com API mock Open Finance Brasil
+app.use('/openFinance', require('./routes/openFinanceRoutes'));
 
 //Notificações
 app.use('/notifications', require('./routes/notificationRoutes'));

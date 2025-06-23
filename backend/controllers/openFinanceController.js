@@ -61,9 +61,10 @@ const getBudgets = async (req, res, next) => {
 
 /**
  * @desc    Retorna a disponibilidade do serviço Open Finance (mock)
- * @route   GET /mockData/openFinance
+ * @route   GET /openfinance/availability
  */
-const getOpenFinance = (req, res) => {
+
+const getAvailability = (req, res) => {
     try {
         res.status(200).json(openFinanceData);
     } catch (error) {
@@ -71,10 +72,25 @@ const getOpenFinance = (req, res) => {
     }
 };
 
+/**
+ * @desc    Retorna métricas da API Admin do Open Finance
+ * @route   GET /openfinance/metrics
+ */
+const metrics = async (req, res, next) => {
+    try {
+        const data = await openFinanceService.getAdminMetrics();
+        res.status(200).json(data);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     authorize,
     getStatements,
     getTransactions,
     getBudgets,
-    getOpenFinance
+    getAvailability,
+    metrics
 };

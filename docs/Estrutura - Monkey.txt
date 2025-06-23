@@ -73,6 +73,9 @@ APP-GESTAO-FINANCEIRA/
 │  │  ├── authMiddleware.js
 │  │  ├── errorHandler.js
 │  │  └── validate.js
+│  ├──┬ mockData/
+│  │  └── openFinance.json
+│  ├── node_modules/ ...
 │  ├──┬ routes/
 │  │  ├── api.js
 │  │  ├── auditRoutes.js

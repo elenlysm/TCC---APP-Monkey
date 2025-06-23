@@ -2,12 +2,15 @@
 const express = require('express');
 const router = express.Router();
 
-//Importa o controller responsável pelas operações de Open Finance
+//Importa o controller responsável pelas operações
 const controller = require('../controllers/openFinanceController');
 
 //Importa o middleware de validação e o schema de validação
 const validate = require('../middlewares/validate');
 const { authorizeSchema, collectSchema } = require('../validators/openFinanceValidator');
+
+// Rota para métricas
+router.get('/metrics', controller.metrics);
 
 /**
  * @route   GET /openfinance/availability
