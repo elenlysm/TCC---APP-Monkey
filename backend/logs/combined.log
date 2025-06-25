@@ -1,3 +1,4 @@
 {"level":"info","message":{"method":"POST","status":200,"timestamp":"2025-06-17T18:35:24.373Z","url":"/"},"timestamp":"2025-06-17T18:35:24.407Z"}
 {"level":"info","message":{"method":"POST","status":200,"timestamp":"2025-06-17T18:35:24.473Z","url":"/"},"timestamp":"2025-06-17T18:35:24.473Z"}
 {"level":"info","message":{"method":"POST","status":200,"timestamp":"2025-06-17T18:35:32.077Z","url":"/"},"timestamp":"2025-06-17T18:35:32.077Z"}
+{"level":"info","message":{"method":"POST","timestamp":"2025-06-25T02:11:44.107Z","url":"/users"},"timestamp":"2025-06-25T02:11:44.119Z"}

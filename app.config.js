@@ -1,5 +1,6 @@
 export default {
     expo: {
+        APP_BACKEND_API_URL: process.env.APP_BACKEND_API_URL,
         name: "Monkey",          //Nome do aplicativo exibido no dispositivo do usuário
         slug: "Monkey",          //Identificador único do projeto, usado no build e deploy do Expo
         version: "1.0.0",        //Versão do app (seguindo semântica: MAJOR.MINOR.PATCH)
@@ -10,7 +11,7 @@ export default {
         newArchEnabled: true, //Ativa a nova arquitetura do React Native (desempenho e modularização)
         ios: {
             supportsTablet: true //Permite o uso do app em iPads
-        }, 
+        },
         android: {
             adaptiveIcon: {
                 foregroundImage: "@assets/images/adaptive-icon.png",
@@ -47,7 +48,7 @@ export default {
             FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET || '', //Bucket de armazenamento
             FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID || '', //ID do remetente para notificações
             FIREBASE_APP_ID: process.env.FIREBASE_APP_ID || '', //ID da aplicação Firebase
-            API_URL: process.env.API_URL, //URL da API externa usada no app
+            API_URL: process.env.ADMIN_API_BASE_URL, //URL da API externa usada no app
         },
     },
 };

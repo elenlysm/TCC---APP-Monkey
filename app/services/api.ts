@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { getToken } from '../../src/services/tokenService';
+import Constants from 'expo-constants';
+import { getToken } from '@services/tokenService';
 
 const api = axios.create({
-    baseURL: 'http://192.168.56.1:8081',
+    baseURL: Constants.expoConfig?.extra?.ADMIN_API_BASE_URL || 'http://192.168.0.114:8080',
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json',

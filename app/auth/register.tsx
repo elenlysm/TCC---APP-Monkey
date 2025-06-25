@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 import Button from '@components/Button';
 import Container from '@components/Container';
 import AuthBackground from '@components/ui/AuthBackground';
 import { colors, fonts, fontSizes } from '@constants/theme';
+import { auth } from '@services/firebaseConfig';
 import { useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { auth } from '@services/firebaseConfig';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import api from '../services/api';
 
 //Importação 
